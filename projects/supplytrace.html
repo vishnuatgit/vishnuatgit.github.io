@@ -48,13 +48,13 @@
   <a class="skip" href="#problem">Skip to the case study</a>
 
   <header class="nav">
-    <a class="logo" href="../index.html" aria-label="Home">VJ<span>.</span></a>
+    <a class="logo" href="../" aria-label="Home">VJ<span>.</span></a>
 
     <nav class="nav-pill" aria-label="Main">
       <span class="nav-glider" aria-hidden="true"></span>
-      <a href="../index.html#work">Work</a>
-      <a href="../index.html#about">About</a>
-      <a href="../index.html#experience">Experience</a>
+      <a href="../#work">Work</a>
+      <a href="../#about">About</a>
+      <a href="../#experience">Experience</a>
       <a href="#contact">Contact</a>
     </nav>
 
@@ -71,15 +71,15 @@
          Facts come from the project's README. EDIT: the test count must match the home page's proof line.
          The Live demo link reads its URL from LIVE_DEMOS at the top of script.js. -->
     <section class="case-hero" style="--p-accent:#3b5bff">
-      <p class="crumbs label"><a href="../index.html#work">← All work</a><span>Case study 03 / 03</span></p>
+      <p class="crumbs label"><a href="../#work"><span aria-hidden="true">←</span> All work</a><span>Case study 03 / 03</span></p>
       <h1 class="case-title">SupplyTrace</h1>
       <p class="case-summary">A modular pipeline that ingests raw XML invoices, validates them with deterministic rules and compiles standardized feature matrices, with an experimental ML risk score.</p>
 
       <dl class="case-facts">
         <div><dt class="label">Year</dt><dd>2026</dd></div>
         <div><dt class="label">Built with</dt><dd>FastAPI · scikit-learn · Pandas</dd></div>
-        <div><dt class="label">Proof</dt><dd><span class="p-proof">163 tests · CI passing</span></dd></div>
-        <div><dt class="label">Source</dt><dd>github.com/vishnuatgit/SupplyTrace</dd></div>
+        <div><dt class="label">Proof</dt><dd><span class="p-proof"><a href="https://github.com/vishnuatgit/SupplyTrace/actions/workflows/ci.yml" target="_blank" rel="noopener">163 tests · CI passing</a></span></dd></div>
+        <div><dt class="label">Source</dt><dd><a href="https://github.com/vishnuatgit/SupplyTrace" target="_blank" rel="noopener">github.com/vishnuatgit/SupplyTrace</a></dd></div>
       </dl>
 
       <div class="actions case-actions">
@@ -253,7 +253,7 @@
           <div><dt>CI on Python 3.11 and 3.12, with Ruff</dt><dd>Passing</dd></div>
           <div><dt>synthetic invoices the risk model trains on</dt><dd data-count>400</dd></div>
         </dl>
-        <p class="proof-note reveal">The suite covers XML parsing and safety (DTDs, entity expansion, depth and size limits, parse-error positions), every validation rule and every example on the rules page, the risk explanation (it must add up to the score), the single, batch and streamed endpoints (including that they agree), the audit log and the model card's holdout metrics. <a href="https://github.com/vishnuatgit/SupplyTrace/actions/workflows/ci.yml" target="_blank" rel="noopener">CI runs ↗</a></p>
+        <p class="proof-note reveal">The suite covers XML parsing and safety (DTDs, entity expansion, depth and size limits, parse-error positions), every validation rule and every example on the rules page, the risk explanation (it must add up to the score), the single, batch and streamed endpoints (including that they agree), the audit log and the model card's holdout metrics. <a href="https://github.com/vishnuatgit/SupplyTrace/actions/workflows/ci.yml" target="_blank" rel="noopener">CI runs <span aria-hidden="true">↗</span></a></p>
         <ul class="stack reveal" aria-label="Stack"><li>Python 3.11+</li><li>FastAPI</li><li>Uvicorn</li><li>defusedxml</li><li>pandas</li><li>NumPy</li><li>scikit-learn</li><li>pytest</li><li>pytest-cov</li><li>Ruff</li><li>GitHub Actions</li></ul>
       </div>
     </section>
@@ -303,19 +303,19 @@
 
   <!-- ===================== CONTACT ===================== -->
   <footer class="contact" id="contact">
-    <span class="label">(07) Contact</span>
+    <span class="label" role="heading" aria-level="2">(07) Contact</span>
     <p class="contact-kicker reveal">Have an internship, project or idea in mind?</p>
     <a class="contact-mail reveal" href="mailto:jayanthvishnu9@gmail.com"><span class="cm-mask"><span>Let's talk</span></span><span class="cm-arrow" aria-hidden="true">↗</span></a>
 
     <div class="contact-foot">
       <ul class="socials">
         <li><a href="https://github.com/vishnuatgit" target="_blank" rel="noopener">GitHub</a></li>
-        <li><a href="https://linkedin.com/in/vishnujayanth" target="_blank" rel="noopener">LinkedIn</a></li>
+        <li><a href="https://www.linkedin.com/in/vishnujayanth/" target="_blank" rel="noopener">LinkedIn</a></li>
         <li><a href="../resume.pdf" target="_blank" rel="noopener">Résumé</a></li>
         <li><a href="mailto:jayanthvishnu9@gmail.com">jayanthvishnu9@gmail.com</a></li>
       </ul>
       <p>© <span id="year">2026</span> Chandana Vishnu Jayanth</p>
-      <a href="#top">Back to top ↑</a>
+      <a href="#top">Back to top <span aria-hidden="true">↑</span></a>
     </div>
   </footer>
 

@@ -331,3 +331,6 @@
 @media (max-width: 760px) {
   .notfound { padding-bottom: 120px; }   /* room for the bottom nav pill */
 }
+
+.case-facts a { border-bottom: 1px solid var(--line); transition: border-color .3s; }
+.case-facts a:hover { border-color: currentColor; }

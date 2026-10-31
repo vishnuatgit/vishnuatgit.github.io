@@ -328,14 +328,13 @@ if (preview && projects.length) {
     img.alt = '';
     img.decoding = 'async';
     img.dataset.src = project.querySelector('.p-shot img').getAttribute('src');
-    reel.append(img);
     return img;
   });
   let reelLoaded = false;
   const loadReel = () => {
     if (reelLoaded || !desktopPreview.matches) return;
     reelLoaded = true;
-    reelImages.forEach(img => { img.src = img.dataset.src; });
+    reelImages.forEach(img => { img.src = img.dataset.src; reel.append(img); });
   };
   new IntersectionObserver((entries, observer) => {
     if (entries.some(entry => entry.isIntersecting)) { loadReel(); if (reelLoaded) observer.disconnect(); }

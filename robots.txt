@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://vishnuatgit.github.io/sitemap.xml
