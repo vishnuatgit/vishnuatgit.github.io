@@ -1,0 +1,272 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- EDIT: page title and the text shown in Google results and link previews -->
+  <title>Chandana Vishnu Jayanth — Backend &amp; Applied ML</title>
+  <meta name="description" content="Vishnu Jayanth is a third-year B.Tech CSE (AI & ML) student building backend systems, data pipelines and applied ML in Python.">
+  <meta property="og:title" content="Chandana Vishnu Jayanth — Backend & Applied ML">
+  <meta property="og:description" content="Backend systems, data pipelines and applied ML. Projects, experience and contact.">
+  <meta property="og:type" content="website">
+
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='16' fill='%23111110'/><text x='50%' y='55%' dominant-baseline='middle' text-anchor='middle' font-family='Arial,sans-serif' font-weight='700' font-size='28' fill='%23f4f3ef'>VJ</text></svg>">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&family=Instrument+Serif:ital@1&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+
+  <script>
+    // Runs before the page paints, so there is no flash of the wrong theme.
+    document.documentElement.classList.add('js');
+    var savedTheme = null;
+    try { savedTheme = localStorage.getItem('theme'); } catch (e) {}
+    var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    document.documentElement.dataset.theme = savedTheme || (prefersDark ? 'dark' : 'light');
+  </script>
+</head>
+<body>
+  <a class="skip" href="#work">Skip to work</a>
+
+  <header class="nav">
+    <a class="logo" href="#top" aria-label="Back to top">VJ<span>.</span></a>
+
+    <nav class="nav-pill" aria-label="Main">
+      <a href="#work">Work</a>
+      <a href="#about">About</a>
+      <a href="#experience">Experience</a>
+      <a href="#contact">Contact</a>
+    </nav>
+
+    <div class="nav-actions">
+      <button class="theme-toggle" type="button" aria-label="Switch between light and dark theme">
+        <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M12 3.5a8.5 8.5 0 0 1 0 17z" fill="currentColor"/></svg>
+      </button>
+      <a class="btn btn-solid nav-cta" href="mailto:jayanthvishnu9@gmail.com">Get in touch</a>
+    </div>
+  </header>
+
+  <main id="top">
+    <!-- ===================== HERO ===================== -->
+    <section class="hero">
+      <!-- EDIT: the three small facts at the top -->
+      <div class="hero-meta">
+        <p><span class="label">Currently</span>3rd-year B.Tech CSE (AI &amp; ML)</p>
+        <p><span class="label">Based in</span><span>Hyderabad, India · <span id="local-time">IST</span></span></p>
+        <p><span class="label">Status</span><span class="status">Open to internships</span></p>
+      </div>
+
+      <!-- EDIT: your headline. Keep each line short so it fits on one line on a laptop. -->
+      <h1 class="hero-title">
+        <span class="line"><span>Backend systems,</span></span>
+        <span class="line"><span>data pipelines</span></span>
+        <span class="line soft"><span>&amp; <em>applied ML.</em></span></span>
+      </h1>
+
+      <div class="hero-foot">
+        <p class="hero-intro">Hi, I'm Vishnu, a third-year B.Tech CSE (AI&nbsp;&amp;&nbsp;ML) student. I build tested, containerised Python services, from REST APIs to anomaly detection.</p>
+        <div class="actions">
+          <a class="btn btn-solid" href="#work">See my work <span aria-hidden="true">↘</span></a>
+          <a class="btn btn-ghost" href="#resume">Résumé <span aria-hidden="true">↓</span></a>
+          <a class="btn btn-ghost" href="https://github.com/vishnuatgit" target="_blank" rel="noopener">GitHub <span aria-hidden="true">↗</span></a>
+        </div>
+      </div>
+    </section>
+
+    <!-- EDIT: words in the scrolling strip -->
+    <div class="marquee" aria-hidden="true">
+      <div class="marquee-track">
+        <div class="marquee-group">
+          <span>Python</span><span>FastAPI</span><span>scikit-learn</span><span>LangChain</span><span>PostgreSQL</span><span>Docker</span><span>Pandas</span><span>GitHub Actions</span><span>Next.js</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===================== WORK ===================== -->
+    <section class="section" id="work">
+      <div class="section-head reveal">
+        <h2><span class="label">(01)</span>Selected work</h2>
+        <span class="label">03 projects · 2026</span>
+      </div>
+
+      <!-- EDIT: one <li> per project.
+           data-image  = screenshot path (optional; 16:10, e.g. 1440×900). Without it you get a gradient in --accent.
+           --accent    = the project's colour. -->
+      <ul class="projects">
+        <li class="project reveal" data-image="" style="--accent:#ff5a1f">
+          <a href="https://github.com/vishnuatgit/ArchLens" target="_blank" rel="noopener">
+            <span class="p-thumb" aria-hidden="true"></span>
+            <span class="p-index">01</span>
+            <span class="p-title">ArchLens</span>
+            <span class="p-desc">Scores any public GitHub repo's engineering health from 0 to 100 across seven dimensions, as a web app, REST API and CLI.</span>
+            <span class="p-tags">FastAPI · SQLAlchemy · Docker</span>
+            <span class="p-year">2026</span>
+            <span class="p-arrow" aria-hidden="true">↗</span>
+          </a>
+        </li>
+        <li class="project reveal" data-image="" style="--accent:#f43f5e">
+          <a href="https://github.com/vishnuatgit/DeepBell" target="_blank" rel="noopener">
+            <span class="p-thumb" aria-hidden="true"></span>
+            <span class="p-index">02</span>
+            <span class="p-title">DeepBell</span>
+            <span class="p-desc">An async SRE telemetry system: it flags CPU and memory anomalies with an Isolation Forest, writes root-cause incident reports with LangChain and Gemini, and rolls back SQLite snapshots.</span>
+            <span class="p-tags">FastAPI · LangChain · Docker</span>
+            <span class="p-year">2026</span>
+            <span class="p-arrow" aria-hidden="true">↗</span>
+          </a>
+        </li>
+        <li class="project reveal" data-image="" style="--accent:#3b5bff">
+          <a href="https://github.com/vishnuatgit/SupplyTrace" target="_blank" rel="noopener">
+            <span class="p-thumb" aria-hidden="true"></span>
+            <span class="p-index">03</span>
+            <span class="p-title">SupplyTrace</span>
+            <span class="p-desc">An ML data pipeline that ingests supplier XML invoices, validates them, builds feature matrices and scores processing risk with a Random Forest.</span>
+            <span class="p-tags">FastAPI · scikit-learn · Pandas</span>
+            <span class="p-year">2026</span>
+            <span class="p-arrow" aria-hidden="true">↗</span>
+          </a>
+        </li>
+      </ul>
+
+      <p class="more reveal">Every project ships with automated tests and CI on GitHub Actions. <a href="https://github.com/vishnuatgit" target="_blank" rel="noopener">More on GitHub ↗</a></p>
+    </section>
+
+    <!-- ===================== ABOUT ===================== -->
+    <section class="section" id="about">
+      <div class="section-head reveal">
+        <h2><span class="label">(02)</span>About</h2>
+        <span class="label">Who I am</span>
+      </div>
+
+      <!-- EDIT: rewrite these in your own voice -->
+      <div class="about">
+        <p class="lead reveal">I build Python services the way production needs them: <em>tested, containerised</em> and shipped with CI.</p>
+        <div class="about-body reveal">
+          <p>I study Computer Science (AI &amp; ML) at Sri Sri University and work where backend engineering meets machine learning: APIs in FastAPI and Flask, data pipelines in Pandas, and models in scikit-learn and LangChain.</p>
+          <p>As an ML development intern at VSC DigiTech I built a five-module platform on 36,893 e-commerce transactions, covering customer segmentation, revenue forecasting and product recommendations.</p>
+          <p>I'm looking for internships in backend and applied-ML engineering.</p>
+        </div>
+      </div>
+
+      <!-- EDIT: keep these numbers true -->
+      <dl class="stats reveal">
+        <div><dt>Transactions modelled as an ML intern</dt><dd>36,893</dd></div>
+        <div><dt>Of my projects with tests and CI</dt><dd>100%</dd></div>
+        <div><dt>Graduating</dt><dd>2028</dd></div>
+      </dl>
+
+      <!-- EDIT: skills -->
+      <div class="skills reveal">
+        <div>
+          <h3 class="label">Languages</h3>
+          <ul><li>Python</li><li>TypeScript, JavaScript</li><li>SQL</li><li>Go, C</li></ul>
+        </div>
+        <div>
+          <h3 class="label">Backend</h3>
+          <ul><li>FastAPI, Flask</li><li>Next.js, Prisma</li><li>SQLAlchemy</li><li>REST APIs</li></ul>
+        </div>
+        <div>
+          <h3 class="label">ML &amp; data</h3>
+          <ul><li>scikit-learn</li><li>Pandas, NumPy</li><li>LangChain</li><li>Feature engineering</li></ul>
+        </div>
+        <div>
+          <h3 class="label">Infra &amp; testing</h3>
+          <ul><li>PostgreSQL, SQLite</li><li>Docker</li><li>GitHub Actions</li><li>pytest, Playwright</li></ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== EXPERIENCE ===================== -->
+    <section class="section" id="experience">
+      <div class="section-head reveal">
+        <h2><span class="label">(03)</span>Experience</h2>
+        <span class="label">Timeline</span>
+      </div>
+
+      <!-- EDIT: newest first. Add hackathons, clubs or freelance work here when you have them. -->
+      <ol class="timeline">
+        <li class="reveal">
+          <span class="t-when">Feb – Mar 2026</span>
+          <div class="t-what">
+            <h3>Machine Learning Development Intern</h3>
+            <p>VSC DigiTech · Hyderabad</p>
+          </div>
+          <p class="t-desc">Built a five-module ML platform on 36,893 e-commerce transactions: RFM customer segmentation (KMeans), monthly revenue forecasting (Random Forest on lag features) and product recommendations. Delivered under NDA.</p>
+        </li>
+        <li class="reveal">
+          <span class="t-when">2026</span>
+          <div class="t-what">
+            <h3>Open-source projects</h3>
+            <p>github.com/vishnuatgit</p>
+          </div>
+          <p class="t-desc">Backend and ML projects with automated tests and CI on GitHub Actions, from a repository-health scorer to an async SRE telemetry system.</p>
+        </li>
+        <li class="reveal">
+          <span class="t-when">2024 – 2028</span>
+          <div class="t-what">
+            <h3>B.Tech, CSE (AI &amp; ML)</h3>
+            <p>Sri Sri University · Cuttack</p>
+          </div>
+          <p class="t-desc">Third year. Coursework in data structures and algorithms, databases, computer networks, operating systems and machine learning.</p>
+        </li>
+      </ol>
+
+      <figure class="quote reveal">
+        <blockquote>“During the internship, he demonstrated strong development skills with a self-motivated attitude toward learning new technologies. His performance exceeded expectations…”</blockquote>
+        <figcaption><span><strong>Venugopal C</strong>, Founder &amp; Director, VSC DigiTech</span><span class="label">Internship completion letter · April 2026</span></figcaption>
+      </figure>
+    </section>
+
+    <!-- ===================== RÉSUMÉ ===================== -->
+    <!-- EDIT: to update, replace resume.pdf (keep your phone number off it) and images/resume-preview.jpg -->
+    <section class="section" id="resume">
+      <div class="section-head reveal">
+        <h2><span class="label">(04)</span>Résumé</h2>
+        <span class="label">One page · PDF</span>
+      </div>
+
+      <div class="resume">
+        <div class="reveal">
+          <p class="lead">The one-page version: <em>education, internship, projects</em> and skills.</p>
+          <p class="resume-note">Updated July 2026. Anything else, email me at <a href="mailto:jayanthvishnu9@gmail.com">jayanthvishnu9@gmail.com</a>.</p>
+          <div class="actions">
+            <a class="btn btn-solid" href="resume.pdf" download="Chandana_Vishnu_Jayanth_Resume.pdf">Download PDF <span aria-hidden="true">↓</span></a>
+            <a class="btn btn-ghost" href="resume.pdf" target="_blank" rel="noopener">Open in new tab <span aria-hidden="true">↗</span></a>
+          </div>
+        </div>
+        <div class="resume-visual reveal">
+          <a class="resume-paper" href="resume.pdf" target="_blank" rel="noopener" aria-label="Open the résumé PDF">
+            <img src="images/resume-preview.jpg" width="1105" height="1430" loading="lazy" alt="Page one of the résumé: education, VSC DigiTech internship, DeepBell and SupplyTrace projects, and technical skills">
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ===================== CONTACT ===================== -->
+  <footer class="contact" id="contact">
+    <span class="label">(05) Contact</span>
+    <p class="contact-kicker reveal">Have an internship, project or idea in mind?</p>
+    <!-- EDIT: your email (also in the nav button at the top) -->
+    <a class="contact-mail reveal" href="mailto:jayanthvishnu9@gmail.com">Let's talk<span aria-hidden="true">↗</span></a>
+
+    <div class="contact-foot">
+      <ul class="socials">
+        <li><a href="https://github.com/vishnuatgit" target="_blank" rel="noopener">GitHub</a></li>
+        <li><a href="https://linkedin.com/in/vishnujayanth" target="_blank" rel="noopener">LinkedIn</a></li>
+        <li><a href="resume.pdf" target="_blank" rel="noopener">Résumé</a></li>
+        <li><a href="mailto:jayanthvishnu9@gmail.com">jayanthvishnu9@gmail.com</a></li>
+      </ul>
+      <p>© <span id="year">2026</span> Chandana Vishnu Jayanth</p>
+      <a href="#top">Back to top ↑</a>
+    </div>
+  </footer>
+
+  <!-- Floating project preview (desktop only, filled in by script.js) -->
+  <div class="preview" aria-hidden="true"><div class="preview-card"></div></div>
+
+  <script src="script.js" defer></script>
+</body>
+</html>
