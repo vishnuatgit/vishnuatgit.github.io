@@ -6,9 +6,9 @@ My one-page portfolio: plain HTML, CSS and JavaScript. There is no build step an
 portfolio/
 ├── index.html    all the content
 ├── style.css     colours, fonts, layout, animation
-├── script.js     theme toggle, clock, scroll reveal, cursor preview
+├── script.js     theme toggle, clock, scroll reveal, marquee, cursor preview, screenshot viewer
 ├── resume.pdf    résumé (no phone number)
-└── images/       résumé preview and project screenshots
+└── images/       résumé preview, and project screenshots in images/projects/
 ```
 
 ## 1. Preview it
@@ -33,15 +33,15 @@ Every place you might change is marked with an `EDIT` comment. Search for `EDIT`
 | Email and social links | the `mailto:` links and `.socials` |
 | Time zone for the clock | `TIME_ZONE` at the top of `script.js` |
 
-### Add project screenshots (the biggest upgrade)
+### Update project screenshots
 
-Each project shows a coloured gradient until you add a screenshot.
+Each project has one screenshot in `images/projects/` (`archlens.jpg`, `deepbell.jpg`, `supplytrace.jpg`).
 
 1. Run the project locally and take a browser screenshot at **1440×900** (16:10).
-2. Save it as `images/archlens.png` (or `.webp`). Keep each image under about 300 KB; <https://squoosh.app> compresses them in the browser.
-3. Set it on the project: `<li class="project reveal" data-image="images/archlens.png" ...>`.
+2. Resize it to **1200×750** and save it as a JPG over the old file, keeping the same name. Keep each image under about 250 KB; <https://squoosh.app> compresses them in the browser.
+3. For a new project, copy a `<li class="project">` and point its `.p-shot` `<img>` at the new file.
 
-The image appears in the floating preview on desktop and on the card on phones.
+The image appears on the card on phones and tablets (tap it to enlarge), and in the floating preview that follows the cursor on desktop.
 
 ### Update your résumé
 

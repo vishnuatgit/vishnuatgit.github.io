@@ -10,21 +10,33 @@
   <meta property="og:title" content="Chandana Vishnu Jayanth — Backend & Applied ML">
   <meta property="og:description" content="Backend systems, data pipelines and applied ML. Projects, experience and contact.">
   <meta property="og:type" content="website">
+  <meta name="theme-color" content="#f4f3ef" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0e0e0d" media="(prefers-color-scheme: dark)">
 
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='16' fill='%23111110'/><text x='50%' y='55%' dominant-baseline='middle' text-anchor='middle' font-family='Arial,sans-serif' font-weight='700' font-size='28' fill='%23f4f3ef'>VJ</text></svg>">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&family=Instrument+Serif:ital@1&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;700&family=Instrument+Serif:ital@1&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 
   <script>
     // Runs before the page paints, so there is no flash of the wrong theme.
-    document.documentElement.classList.add('js');
-    var savedTheme = null;
-    try { savedTheme = localStorage.getItem('theme'); } catch (e) {}
-    var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    document.documentElement.dataset.theme = savedTheme || (prefersDark ? 'dark' : 'light');
+    (function () {
+      var root = document.documentElement;
+      root.classList.add('js');
+      var savedTheme = null;
+      try { savedTheme = localStorage.getItem('theme'); } catch (e) {}
+      var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      root.dataset.theme = savedTheme || (prefersDark ? 'dark' : 'light');
+      // Start the entrance once the fonts are in, or after 250 ms at most (the metric-matched
+      // fallback fonts in style.css keep the text from jumping if the web fonts arrive later).
+      var go = function () { root.classList.add('ready'); };
+      if (document.fonts && document.fonts.ready) document.fonts.ready.then(go);
+      setTimeout(go, 250);
+      // Safety net: if script.js never runs, show everything without animation.
+      setTimeout(function () { if (!window.portfolioReady) root.classList.remove('js'); }, 4000);
+    })();
   </script>
 </head>
 <body>
@@ -34,6 +46,7 @@
     <a class="logo" href="#top" aria-label="Back to top">VJ<span>.</span></a>
 
     <nav class="nav-pill" aria-label="Main">
+      <span class="nav-glider" aria-hidden="true"></span>
       <a href="#work">Work</a>
       <a href="#about">About</a>
       <a href="#experience">Experience</a>
@@ -44,7 +57,7 @@
       <button class="theme-toggle" type="button" aria-label="Switch between light and dark theme">
         <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M12 3.5a8.5 8.5 0 0 1 0 17z" fill="currentColor"/></svg>
       </button>
-      <a class="btn btn-solid nav-cta" href="mailto:jayanthvishnu9@gmail.com">Get in touch</a>
+      <a class="btn btn-solid nav-cta" href="mailto:jayanthvishnu9@gmail.com" data-magnetic>Get in touch</a>
     </div>
   </header>
 
@@ -58,19 +71,20 @@
         <p><span class="label">Status</span><span class="status">Open to internships</span></p>
       </div>
 
-      <!-- EDIT: your headline. Keep each line short so it fits on one line on a laptop. -->
+      <!-- EDIT: your headline. Keep each line short so it fits on one line on a laptop.
+           Each word sits in its own <span class="w"> so the words can rise in one after another. -->
       <h1 class="hero-title">
-        <span class="line"><span>Backend systems,</span></span>
-        <span class="line"><span>data pipelines</span></span>
-        <span class="line soft"><span>&amp; <em>applied ML.</em></span></span>
+        <span class="line"><span class="w">Backend</span> <span class="w">systems,</span></span>
+        <span class="line"><span class="w">data</span> <span class="w">pipelines</span></span>
+        <span class="line soft"><span class="w">&amp;</span> <em><span class="w">applied</span> <span class="w">ML.</span></em></span>
       </h1>
 
       <div class="hero-foot">
         <p class="hero-intro">Hi, I'm Vishnu, a third-year B.Tech CSE (AI&nbsp;&amp;&nbsp;ML) student. I build tested, containerised Python services, from REST APIs to anomaly detection.</p>
         <div class="actions">
-          <a class="btn btn-solid" href="#work">See my work <span aria-hidden="true">↘</span></a>
-          <a class="btn btn-ghost" href="#resume">Résumé <span aria-hidden="true">↓</span></a>
-          <a class="btn btn-ghost" href="https://github.com/vishnuatgit" target="_blank" rel="noopener">GitHub <span aria-hidden="true">↗</span></a>
+          <a class="btn btn-solid" href="#work" data-magnetic>See my work <span class="arr arr-se" aria-hidden="true">↘</span></a>
+          <a class="btn btn-ghost" href="#resume">Résumé <span class="arr arr-s" aria-hidden="true">↓</span></a>
+          <a class="btn btn-ghost" href="https://github.com/vishnuatgit" target="_blank" rel="noopener">GitHub <span class="arr arr-ne" aria-hidden="true">↗</span></a>
         </div>
       </div>
     </section>
@@ -87,17 +101,22 @@
     <!-- ===================== WORK ===================== -->
     <section class="section" id="work">
       <div class="section-head reveal">
-        <h2><span class="label">(01)</span>Selected work</h2>
+        <h2><span class="label">(01)</span><span class="h-mask"><span>Selected work</span></span></h2>
         <span class="label">03 projects · 2026</span>
       </div>
 
       <!-- EDIT: one <li> per project.
-           data-image  = screenshot path (optional; 16:10, e.g. 1440×900). Without it you get a gradient in --accent.
-           --accent    = the project's colour. -->
+           Screenshot = the <img> in .p-shot: 16:10, saved as images/projects/<name>.jpg at 1200×750 (keep it under ~250 KB).
+           It shows on the card on phones and tablets, in the tap-to-enlarge view, and in the floating preview on desktop.
+           --accent = the project's colour. -->
       <ul class="projects">
-        <li class="project reveal" data-image="" style="--accent:#ff5a1f">
-          <a href="https://github.com/vishnuatgit/ArchLens" target="_blank" rel="noopener">
-            <span class="p-thumb" aria-hidden="true"></span>
+        <li class="project reveal" style="--accent:#ff5a1f">
+          <button class="p-shot" type="button" aria-haspopup="dialog">
+            <img src="images/projects/archlens.jpg" width="1200" height="750" loading="lazy" decoding="async" alt="Screenshot of ArchLens">
+            <span class="p-zoom" aria-hidden="true"><svg viewBox="0 0 24 24" width="16" height="16"><path d="M14 4h6v6M10 20H4v-6M20 4l-7 7M4 20l7-7" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            <span class="sr-only">, enlarge</span>
+          </button>
+          <a class="p-link" href="https://github.com/vishnuatgit/ArchLens" target="_blank" rel="noopener">
             <span class="p-index">01</span>
             <span class="p-title">ArchLens</span>
             <span class="p-desc">Scores any public GitHub repo's engineering health from 0 to 100 across seven dimensions, as a web app, REST API and CLI.</span>
@@ -106,9 +125,13 @@
             <span class="p-arrow" aria-hidden="true">↗</span>
           </a>
         </li>
-        <li class="project reveal" data-image="" style="--accent:#f43f5e">
-          <a href="https://github.com/vishnuatgit/DeepBell" target="_blank" rel="noopener">
-            <span class="p-thumb" aria-hidden="true"></span>
+        <li class="project reveal" style="--accent:#f43f5e">
+          <button class="p-shot" type="button" aria-haspopup="dialog">
+            <img src="images/projects/deepbell.jpg" width="1200" height="750" loading="lazy" decoding="async" alt="Screenshot of DeepBell">
+            <span class="p-zoom" aria-hidden="true"><svg viewBox="0 0 24 24" width="16" height="16"><path d="M14 4h6v6M10 20H4v-6M20 4l-7 7M4 20l7-7" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            <span class="sr-only">, enlarge</span>
+          </button>
+          <a class="p-link" href="https://github.com/vishnuatgit/DeepBell" target="_blank" rel="noopener">
             <span class="p-index">02</span>
             <span class="p-title">DeepBell</span>
             <span class="p-desc">An async SRE telemetry system: it flags CPU and memory anomalies with an Isolation Forest, writes root-cause incident reports with LangChain and Gemini, and rolls back SQLite snapshots.</span>
@@ -117,9 +140,13 @@
             <span class="p-arrow" aria-hidden="true">↗</span>
           </a>
         </li>
-        <li class="project reveal" data-image="" style="--accent:#3b5bff">
-          <a href="https://github.com/vishnuatgit/SupplyTrace" target="_blank" rel="noopener">
-            <span class="p-thumb" aria-hidden="true"></span>
+        <li class="project reveal" style="--accent:#3b5bff">
+          <button class="p-shot" type="button" aria-haspopup="dialog">
+            <img src="images/projects/supplytrace.jpg" width="1200" height="750" loading="lazy" decoding="async" alt="Screenshot of SupplyTrace">
+            <span class="p-zoom" aria-hidden="true"><svg viewBox="0 0 24 24" width="16" height="16"><path d="M14 4h6v6M10 20H4v-6M20 4l-7 7M4 20l7-7" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            <span class="sr-only">, enlarge</span>
+          </button>
+          <a class="p-link" href="https://github.com/vishnuatgit/SupplyTrace" target="_blank" rel="noopener">
             <span class="p-index">03</span>
             <span class="p-title">SupplyTrace</span>
             <span class="p-desc">An ML data pipeline that ingests supplier XML invoices, validates them, builds feature matrices and scores processing risk with a Random Forest.</span>
@@ -136,7 +163,7 @@
     <!-- ===================== ABOUT ===================== -->
     <section class="section" id="about">
       <div class="section-head reveal">
-        <h2><span class="label">(02)</span>About</h2>
+        <h2><span class="label">(02)</span><span class="h-mask"><span>About</span></span></h2>
         <span class="label">Who I am</span>
       </div>
 
@@ -145,15 +172,15 @@
         <p class="lead reveal">I build Python services the way production needs them: <em>tested, containerised</em> and shipped with CI.</p>
         <div class="about-body reveal">
           <p>I study Computer Science (AI &amp; ML) at Sri Sri University and work where backend engineering meets machine learning: APIs in FastAPI and Flask, data pipelines in Pandas, and models in scikit-learn and LangChain.</p>
-          <p>As an ML development intern at VSC DigiTech I built a five-module platform on 36,893 e-commerce transactions, covering customer segmentation, revenue forecasting and product recommendations.</p>
+          <p>As an ML development intern at VSC DigiTech I built a five-module platform on 36,893 <span class="nobr">e-commerce</span> transactions, covering customer segmentation, revenue forecasting and product recommendations.</p>
           <p>I'm looking for internships in backend and applied-ML engineering.</p>
         </div>
       </div>
 
-      <!-- EDIT: keep these numbers true -->
+      <!-- EDIT: keep these numbers true. data-count makes a number count up when it scrolls into view. -->
       <dl class="stats reveal">
-        <div><dt>Transactions modelled as an ML intern</dt><dd>36,893</dd></div>
-        <div><dt>Of my projects with tests and CI</dt><dd>100%</dd></div>
+        <div><dt>Transactions modelled as an ML intern</dt><dd data-count>36,893</dd></div>
+        <div><dt>Of my projects with tests and CI</dt><dd data-count>100%</dd></div>
         <div><dt>Graduating</dt><dd>2028</dd></div>
       </dl>
 
@@ -181,7 +208,7 @@
     <!-- ===================== EXPERIENCE ===================== -->
     <section class="section" id="experience">
       <div class="section-head reveal">
-        <h2><span class="label">(03)</span>Experience</h2>
+        <h2><span class="label">(03)</span><span class="h-mask"><span>Experience</span></span></h2>
         <span class="label">Timeline</span>
       </div>
 
@@ -193,7 +220,7 @@
             <h3>Machine Learning Development Intern</h3>
             <p>VSC DigiTech · Hyderabad</p>
           </div>
-          <p class="t-desc">Built a five-module ML platform on 36,893 e-commerce transactions: RFM customer segmentation (KMeans), monthly revenue forecasting (Random Forest on lag features) and product recommendations. Delivered under NDA.</p>
+          <p class="t-desc">Built a five-module ML platform on 36,893 <span class="nobr">e-commerce</span> transactions: RFM customer segmentation (KMeans), monthly revenue forecasting (Random Forest on lag features) and product recommendations. Delivered under NDA.</p>
         </li>
         <li class="reveal">
           <span class="t-when">2026</span>
@@ -219,7 +246,7 @@
     <!-- EDIT: to update, replace resume.pdf (keep your phone number off it) and images/resume-preview.jpg -->
     <section class="section" id="resume">
       <div class="section-head reveal">
-        <h2><span class="label">(04)</span>Résumé</h2>
+        <h2><span class="label">(04)</span><span class="h-mask"><span>Résumé</span></span></h2>
         <span class="label">One page · PDF</span>
       </div>
 
@@ -228,8 +255,8 @@
           <p class="lead">The one-page version: <em>education, internship, projects</em> and skills.</p>
           <p class="resume-note">Updated July 2026. Anything else, email me at <a href="mailto:jayanthvishnu9@gmail.com">jayanthvishnu9@gmail.com</a>.</p>
           <div class="actions">
-            <a class="btn btn-solid" href="resume.pdf" download="Chandana_Vishnu_Jayanth_Resume.pdf">Download PDF <span aria-hidden="true">↓</span></a>
-            <a class="btn btn-ghost" href="resume.pdf" target="_blank" rel="noopener">Open in new tab <span aria-hidden="true">↗</span></a>
+            <a class="btn btn-solid" href="resume.pdf" download="Chandana_Vishnu_Jayanth_Resume.pdf" data-magnetic>Download PDF <span class="arr arr-s" aria-hidden="true">↓</span></a>
+            <a class="btn btn-ghost" href="resume.pdf" target="_blank" rel="noopener">Open in new tab <span class="arr arr-ne" aria-hidden="true">↗</span></a>
           </div>
         </div>
         <div class="resume-visual reveal">
@@ -246,7 +273,7 @@
     <span class="label">(05) Contact</span>
     <p class="contact-kicker reveal">Have an internship, project or idea in mind?</p>
     <!-- EDIT: your email (also in the nav button at the top) -->
-    <a class="contact-mail reveal" href="mailto:jayanthvishnu9@gmail.com">Let's talk<span aria-hidden="true">↗</span></a>
+    <a class="contact-mail reveal" href="mailto:jayanthvishnu9@gmail.com"><span class="cm-mask"><span>Let's talk</span></span><span class="cm-arrow" aria-hidden="true">↗</span></a>
 
     <div class="contact-foot">
       <ul class="socials">
@@ -260,8 +287,34 @@
     </div>
   </footer>
 
-  <!-- Floating project preview (desktop only, filled in by script.js) -->
-  <div class="preview" aria-hidden="true"><div class="preview-card"></div></div>
+  <!-- Floating project preview (desktop with a mouse; script.js fills it from the .p-shot images) -->
+  <div class="preview" aria-hidden="true">
+    <div class="preview-tilt">
+      <div class="preview-card">
+        <div class="preview-bar"><i></i><i></i><i></i><span class="preview-name"></span></div>
+        <div class="preview-window"><div class="preview-reel"></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tap-to-enlarge view for project screenshots (phones and tablets) -->
+  <dialog class="lightbox" aria-labelledby="lightbox-title">
+    <div class="lightbox-inner">
+      <div class="lightbox-media">
+        <div class="lightbox-scroller">
+          <img class="lightbox-img" src="images/projects/archlens.jpg" width="1200" height="750" loading="lazy" decoding="async" alt="">
+        </div>
+        <span class="lightbox-hint" aria-hidden="true">Swipe to pan ⟷</span>
+      </div>
+      <div class="lightbox-bar">
+        <p class="lightbox-title" id="lightbox-title"></p>
+        <a class="lightbox-link" href="https://github.com/vishnuatgit" target="_blank" rel="noopener">GitHub <span aria-hidden="true">↗</span></a>
+        <button class="lightbox-close" type="button" aria-label="Close" autofocus>
+          <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        </button>
+      </div>
+    </div>
+  </dialog>
 
   <script src="script.js" defer></script>
 </body>
