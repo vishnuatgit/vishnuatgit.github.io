@@ -1,14 +1,21 @@
 # Portfolio
 
-My one-page portfolio: plain HTML, CSS and JavaScript. There is no build step and no framework; the only outside dependency is Google Fonts.
+My portfolio: a home page, one case study per project and a 404 page, in plain HTML, CSS and JavaScript. There is no build step and no framework; the only outside dependency is Google Fonts.
 
 ```
 portfolio/
-├── index.html    all the content
-├── style.css     colours, fonts, layout, animation
-├── script.js     theme toggle, clock, scroll reveal, marquee, cursor preview, screenshot viewer
-├── resume.pdf    résumé (no phone number)
-└── images/       résumé preview, and project screenshots in images/projects/
+├── index.html        the home page
+├── projects/         one case study per project: archlens.html, deepbell.html, supplytrace.html
+├── 404.html          shown by GitHub Pages for any address that does not exist
+├── style.css         colours, fonts, layout, animation (every page)
+├── projects.css      extra styles for the case studies and the 404 page
+├── script.js         theme toggle, clock, scroll reveal, marquee, cursor preview, screenshot viewer,
+│                     live-demo links (every page; each part runs only where its elements exist)
+├── resume.pdf        résumé (no phone number)
+└── images/
+    ├── og.png        the link preview (1200 × 630)
+    ├── resume-preview.jpg
+    └── projects/     one cover per project (<name>.jpg) and the case-study screenshots (<name>/*.jpg)
 ```
 
 ## 1. Preview it
@@ -27,11 +34,43 @@ Every place you might change is marked with an `EDIT` comment. Search for `EDIT`
 |---|---|
 | Page title and link-preview text | `<head>` in `index.html` |
 | Headline (three lines) and intro | `.hero` |
-| Projects | `.projects`, one `<li>` per project |
+| Projects on the home page | `.projects`, one `<li>` per project |
+| Test counts ("258 tests · CI passing") | `.p-proof` on the home page and the Proof section of each case study; keep them equal |
+| **Live-demo URLs** | `LIVE_DEMOS` at the top of `script.js`, the only place they are set (see below) |
+| Case studies | `projects/<name>.html` |
 | About text, numbers, skills | `#about` |
 | Internships and education | `#experience` |
 | Email and social links | the `mailto:` links and `.socials` |
 | Time zone for the clock | `TIME_ZONE` at the top of `script.js` |
+
+### Live demos
+
+The live-demo URLs are set in one place, `LIVE_DEMOS` at the top of `script.js`:
+
+```js
+const LIVE_DEMOS = {
+  archlens: 'https://archlens-xhxr.onrender.com',
+  deepbell: 'https://deepbell.onrender.com',
+  supplytrace: 'https://supplytrace-fkpq.onrender.com',
+};
+```
+
+Each project's "Live demo ↗" link on the home page and on its case study reads its URL from there and shows the note "may take a minute to wake (free hosting)", because the free Render services sleep after 15 quiet minutes. Set a URL to `''` to hide that project's links, for example while its service is down. For a new project, add a key with the same name as the `data-demo` attribute on its links.
+
+### Case studies
+
+Each page in `projects/` has the same sections: the one-line summary, The problem, How it works (an inline SVG diagram plus the steps), Key decisions, Proof (tests, CI, stack), Screenshots and Limitations, then a link to the next case study. Every fact comes from the project's own README; when a README changes (a new test count, a new limitation), change the page to match.
+
+- **The diagram** has two versions in the page: `.diagram-wide` (shown from 1240 px) and `.diagram-tall` (phones and tablets). Its colours come from the `.dg-*` classes in `projects.css`, which use the theme variables, so it follows light and dark mode. Edit the box text in both versions.
+- **Screenshots** live in `images/projects/<name>/`: 1200 × 750 JPGs under about 250 KB, with `width` and `height` set on the `<img>`.
+
+### Link preview
+
+`images/og.png` (1200 × 630) is the picture shown when the site is shared on LinkedIn, WhatsApp, Slack or X. It was rendered from a small HTML card with headless Chrome. The tags are `og:image` and `twitter:image` in the `<head>` of every page, with absolute URLs (`https://vishnuatgit.github.io/images/og.png`). After changing it, check it with LinkedIn's Post Inspector, which also clears LinkedIn's cache.
+
+### The 404 page
+
+GitHub Pages serves `404.html` for any address that does not exist, at any depth, so its links and files start with `/` (the site root). Open <http://localhost:8000/404.html> to preview it; a local server shows its own error page for missing addresses instead.
 
 ### Update project screenshots
 
@@ -81,7 +120,7 @@ Then put the link in your GitHub profile README, your LinkedIn and the top of yo
 
 1. **One clear sentence.** A visitor should know who you are and what you do within five seconds.
 2. **Show the work, not a list of skills.** For each project: the problem, what you built and the result, with a link.
-3. **Case studies beat thumbnails.** Backend work has no visuals, so the write-up is where it shines. Give your two best projects (ArchLens and DeepBell) their own pages, such as `archlens.html`, with an architecture diagram, a screenshot, the hardest problem you solved and what you would do next.
+3. **Case studies beat thumbnails.** Backend work has no visuals, so the write-up is where it shines. Each project now has its own page in `projects/` with a pipeline diagram, the key decisions, proof and honest limitations. Keep them current.
 4. **One signature detail, not ten.** Here it's the cursor preview, the live clock and the big type. Gallery sites win on restraint and polish.
 5. **Fast and works on phones.** Run Lighthouse (Chrome DevTools → Lighthouse) and aim for 90 or more. Check it on your own phone.
 6. **Keep it true and current.** Update the numbers and status whenever they change.
@@ -90,6 +129,6 @@ Then put the link in your GitHub profile README, your LinkedIn and the top of yo
 
 - Smooth scrolling with [Lenis](https://github.com/darkroomengineering/lenis), or scroll-driven animation with GSAP ScrollTrigger.
 - A custom cursor.
-- A blog or case-study pages written in Markdown, by moving to [Astro](https://astro.build), which still outputs static HTML.
+- A blog, or the case studies written in Markdown, by moving to [Astro](https://astro.build), which still outputs static HTML.
 - Privacy-friendly analytics, such as GoatCounter or Cloudflare Web Analytics.
 - Submitting to galleries such as Awwwards once it's polished. Check each site's rules first, because some charge a submission fee.

@@ -1,0 +1,324 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>SupplyTrace case study — Chandana Vishnu Jayanth</title>
+  <meta name="description" content="A modular pipeline that ingests raw XML invoices, validates them with deterministic rules and compiles standardized feature matrices, with an experimental ML risk score.">
+  <link rel="canonical" href="https://vishnuatgit.github.io/projects/supplytrace.html">
+  <meta property="og:title" content="SupplyTrace case study — Chandana Vishnu Jayanth">
+  <meta property="og:description" content="A modular pipeline that ingests raw XML invoices, validates them with deterministic rules and compiles standardized feature matrices, with an experimental ML risk score.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://vishnuatgit.github.io/projects/supplytrace.html">
+  <meta property="og:image" content="https://vishnuatgit.github.io/images/og.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Chandana Vishnu Jayanth: backend systems, data pipelines and applied ML, with screenshots of ArchLens, DeepBell and SupplyTrace">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://vishnuatgit.github.io/images/og.png">
+  <meta name="theme-color" content="#f4f3ef" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0e0e0d" media="(prefers-color-scheme: dark)">
+
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='16' fill='%23111110'/><text x='50%' y='55%' dominant-baseline='middle' text-anchor='middle' font-family='Arial,sans-serif' font-weight='700' font-size='28' fill='%23f4f3ef'>VJ</text></svg>">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;700&family=Instrument+Serif:ital@1&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="../projects.css">
+
+  <script>
+    // Runs before the page paints, so there is no flash of the wrong theme.
+    (function () {
+      var root = document.documentElement;
+      root.classList.add('js');
+      var savedTheme = null;
+      try { savedTheme = localStorage.getItem('theme'); } catch (e) {}
+      var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      root.dataset.theme = savedTheme || (prefersDark ? 'dark' : 'light');
+      // Safety net: if script.js did not run, show everything without animation.
+      document.addEventListener('DOMContentLoaded', function () {
+        if (!window.portfolioReady) root.classList.remove('js');
+      });
+    })();
+  </script>
+</head>
+<body>
+  <a class="skip" href="#problem">Skip to the case study</a>
+
+  <header class="nav">
+    <a class="logo" href="../index.html" aria-label="Home">VJ<span>.</span></a>
+
+    <nav class="nav-pill" aria-label="Main">
+      <span class="nav-glider" aria-hidden="true"></span>
+      <a href="../index.html#work">Work</a>
+      <a href="../index.html#about">About</a>
+      <a href="../index.html#experience">Experience</a>
+      <a href="#contact">Contact</a>
+    </nav>
+
+    <div class="nav-actions">
+      <button class="theme-toggle" type="button" aria-label="Switch between light and dark theme">
+        <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M12 3.5a8.5 8.5 0 0 1 0 17z" fill="currentColor"/></svg>
+      </button>
+      <a class="btn btn-solid nav-cta" href="mailto:jayanthvishnu9@gmail.com" data-magnetic>Get in touch</a>
+    </div>
+  </header>
+
+  <main id="top">
+    <!-- ===================== CASE STUDY: SUPPLYTRACE =====================
+         Facts come from the project's README. EDIT: the test count must match the home page's proof line.
+         The Live demo link reads its URL from LIVE_DEMOS at the top of script.js. -->
+    <section class="case-hero" style="--p-accent:#3b5bff">
+      <p class="crumbs label"><a href="../index.html#work">← All work</a><span>Case study 03 / 03</span></p>
+      <h1 class="case-title">SupplyTrace</h1>
+      <p class="case-summary">A modular pipeline that ingests raw XML invoices, validates them with deterministic rules and compiles standardized feature matrices, with an experimental ML risk score.</p>
+
+      <dl class="case-facts">
+        <div><dt class="label">Year</dt><dd>2026</dd></div>
+        <div><dt class="label">Built with</dt><dd>FastAPI · scikit-learn · Pandas</dd></div>
+        <div><dt class="label">Proof</dt><dd><span class="p-proof">163 tests · CI passing</span></dd></div>
+        <div><dt class="label">Source</dt><dd>github.com/vishnuatgit/SupplyTrace</dd></div>
+      </dl>
+
+      <div class="actions case-actions">
+        <a class="btn btn-solid" href="https://github.com/vishnuatgit/SupplyTrace" target="_blank" rel="noopener" data-magnetic>Code <span class="sr-only">on GitHub</span><span class="arr arr-ne" aria-hidden="true">↗</span></a>
+        <a class="btn btn-ghost" data-demo="supplytrace" hidden target="_blank" rel="noopener">Live demo <span class="arr arr-ne" aria-hidden="true">↗</span></a>
+        <span class="demo-note" data-demo-note="supplytrace" hidden>may take a minute to wake (free hosting)</span>
+      </div>
+
+      <figure class="case-cover">
+        <img src="../images/projects/supplytrace.jpg" width="1200" height="750" decoding="async" alt="SupplyTrace batch check of the seven sample invoices">
+      </figure>
+    </section>
+
+    <section class="section" id="problem">
+      <div class="section-head reveal">
+        <h2><span class="label">(01)</span><span class="h-mask"><span>The problem</span></span></h2>
+        <span class="label">Why it exists</span>
+      </div>
+      <div class="case-body prose reveal">
+          <p class="lead">Bad invoice data rarely fails where it arrives. <em>It fails later,</em> several systems downstream.</p>
+          <p>By then it is hard to trace back to the file that caused it. SupplyTrace checks each file at the door: it labels every invoice valid, invalid or needs review with deterministic rules, points each rule at the line of the file behind it, and logs the result.</p>
+          <p>An experimental Random Forest adds a risk score trained on 400 synthetic invoices, with an explanation of what drove each prediction.</p>
+      </div>
+    </section>
+    <section class="section" id="how">
+      <div class="section-head reveal">
+        <h2><span class="label">(02)</span><span class="h-mask"><span>How it works</span></span></h2>
+        <span class="label">From the README</span>
+      </div>
+      <div class="case-body">
+        <figure class="diagram-wrap reveal">
+          <!-- Pipeline diagram, drawn from the README's "How it works" (a wide and a tall version; colours from projects.css) -->
+          <svg class="diagram diagram-wide" viewBox="0 0 1198 168" role="img" aria-labelledby="supplytrace-dw-t supplytrace-dw-d">
+          <title id="supplytrace-dw-t">SupplyTrace invoice pipeline</title><desc id="supplytrace-dw-d">An XML invoice of up to 1 MB, or a batch of up to 20, is parsed safely with defusedxml and a nesting-depth limit, validated with five deterministic rules into VALID, INVALID or REQUIRES_REVIEW, turned into eight validation signals, scored by an experimental Random Forest with per-feature explanations, and written to a rotating JSON Lines audit log that feeds the dashboard.</desc>
+          <defs><marker id="supplytrace-ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path class="dg-head" d="M0 0L10 5L0 10z"/></marker></defs>
+          <rect class="dg-box dg-io" x="2" y="2" width="150" height="100" rx="12"/>
+          <text class="dg-title" x="18" y="34">Upload</text>
+          <text class="dg-sub" x="18" y="58">XML up to 1 MB,</text>
+          <text class="dg-sub" x="18" y="76">or a batch of 20</text>
+          <path class="dg-arrow" d="M155 52.0h17" marker-end="url(#supplytrace-ah)"/>
+          <rect class="dg-box dg-step" x="176" y="2" width="150" height="100" rx="12"/>
+          <circle class="dg-num" cx="304" cy="26" r="11"/>
+          <text class="dg-num-t" x="304" y="30.5" text-anchor="middle">1</text>
+          <text class="dg-title" x="192" y="34">Parse</text>
+          <text class="dg-sub" x="192" y="58">defusedxml, no DTDs,</text>
+          <text class="dg-sub" x="192" y="76">depth ≤ 100</text>
+          <path class="dg-arrow" d="M329 52.0h17" marker-end="url(#supplytrace-ah)"/>
+          <rect class="dg-box dg-step" x="350" y="2" width="150" height="100" rx="12"/>
+          <circle class="dg-num" cx="478" cy="26" r="11"/>
+          <text class="dg-num-t" x="478" y="30.5" text-anchor="middle">2</text>
+          <text class="dg-title" x="366" y="34">Validate</text>
+          <text class="dg-sub" x="366" y="58">5 rules: valid,</text>
+          <text class="dg-sub" x="366" y="76">invalid or review</text>
+          <path class="dg-arrow" d="M503 52.0h17" marker-end="url(#supplytrace-ah)"/>
+          <rect class="dg-box" x="524" y="2" width="150" height="100" rx="12"/>
+          <text class="dg-title" x="540" y="34">Features</text>
+          <text class="dg-sub" x="540" y="58">8 validation</text>
+          <text class="dg-sub" x="540" y="76">signals</text>
+          <path class="dg-arrow" d="M677 52.0h17" marker-end="url(#supplytrace-ah)"/>
+          <rect class="dg-box dg-step" x="698" y="2" width="150" height="100" rx="12"/>
+          <circle class="dg-num" cx="826" cy="26" r="11"/>
+          <text class="dg-num-t" x="826" y="30.5" text-anchor="middle">3</text>
+          <text class="dg-title" x="714" y="34">Score</text>
+          <text class="dg-sub" x="714" y="58">Random Forest,</text>
+          <text class="dg-sub" x="714" y="76">explained per tree</text>
+          <path class="dg-arrow" d="M851 52.0h17" marker-end="url(#supplytrace-ah)"/>
+          <rect class="dg-box dg-step" x="872" y="2" width="150" height="100" rx="12"/>
+          <circle class="dg-num" cx="1000" cy="26" r="11"/>
+          <text class="dg-num-t" x="1000" y="30.5" text-anchor="middle">4</text>
+          <text class="dg-title" x="888" y="34">Log</text>
+          <text class="dg-sub" x="888" y="58">JSON Lines audit</text>
+          <text class="dg-sub" x="888" y="76">log, rotating</text>
+          <path class="dg-arrow" d="M1025 52.0h17" marker-end="url(#supplytrace-ah)"/>
+          <rect class="dg-box dg-store" x="1046" y="2" width="150" height="100" rx="12"/>
+          <path class="dg-store-line" d="M1058 10h126"/>
+          <text class="dg-title" x="1062" y="34">Dashboard</text>
+          <text class="dg-sub" x="1062" y="58">KPIs, histogram,</text>
+          <text class="dg-sub" x="1062" y="76">recent analyses</text>
+          <path class="dg-side" d="M251.0 106V128M425.0 106V128M599.0 106V128M773.0 106V128M251.0 128H773.0"/>
+          <text class="dg-side-t" x="512.0" y="154" text-anchor="middle">the server times each stage and returns it with the rule lines and risk drivers</text>
+          </svg>
+          <svg class="diagram diagram-tall" viewBox="0 0 340 730" role="img" aria-labelledby="supplytrace-dt-t supplytrace-dt-d">
+          <title id="supplytrace-dt-t">SupplyTrace invoice pipeline</title><desc id="supplytrace-dt-d">An XML invoice of up to 1 MB, or a batch of up to 20, is parsed safely with defusedxml and a nesting-depth limit, validated with five deterministic rules into VALID, INVALID or REQUIRES_REVIEW, turned into eight validation signals, scored by an experimental Random Forest with per-feature explanations, and written to a rotating JSON Lines audit log that feeds the dashboard.</desc>
+          <defs><marker id="supplytrace-ahv" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path class="dg-head" d="M0 0L10 5L0 10z"/></marker></defs>
+          <rect class="dg-box dg-io" x="2" y="2" width="296" height="78" rx="12"/>
+          <text class="dg-title" x="18" y="34">Upload</text>
+          <text class="dg-sub" x="18" y="58">XML up to 1 MB, or a batch of 20</text>
+          <path class="dg-arrow" d="M150.0 83v23" marker-end="url(#supplytrace-ahv)"/>
+          <rect class="dg-box dg-step" x="2" y="110" width="296" height="78" rx="12"/>
+          <circle class="dg-num" cx="276" cy="134" r="11"/>
+          <text class="dg-num-t" x="276" y="138.5" text-anchor="middle">1</text>
+          <text class="dg-title" x="18" y="142">Parse</text>
+          <text class="dg-sub" x="18" y="166">defusedxml, no DTDs, depth ≤ 100</text>
+          <path class="dg-arrow" d="M150.0 191v23" marker-end="url(#supplytrace-ahv)"/>
+          <rect class="dg-box dg-step" x="2" y="218" width="296" height="78" rx="12"/>
+          <circle class="dg-num" cx="276" cy="242" r="11"/>
+          <text class="dg-num-t" x="276" y="246.5" text-anchor="middle">2</text>
+          <text class="dg-title" x="18" y="250">Validate</text>
+          <text class="dg-sub" x="18" y="274">5 rules: valid, invalid or review</text>
+          <path class="dg-arrow" d="M150.0 299v23" marker-end="url(#supplytrace-ahv)"/>
+          <rect class="dg-box" x="2" y="326" width="296" height="78" rx="12"/>
+          <text class="dg-title" x="18" y="358">Features</text>
+          <text class="dg-sub" x="18" y="382">8 validation signals</text>
+          <path class="dg-arrow" d="M150.0 407v23" marker-end="url(#supplytrace-ahv)"/>
+          <rect class="dg-box dg-step" x="2" y="434" width="296" height="78" rx="12"/>
+          <circle class="dg-num" cx="276" cy="458" r="11"/>
+          <text class="dg-num-t" x="276" y="462.5" text-anchor="middle">3</text>
+          <text class="dg-title" x="18" y="466">Score</text>
+          <text class="dg-sub" x="18" y="490">Random Forest, explained per tree</text>
+          <path class="dg-arrow" d="M150.0 515v23" marker-end="url(#supplytrace-ahv)"/>
+          <rect class="dg-box dg-step" x="2" y="542" width="296" height="78" rx="12"/>
+          <circle class="dg-num" cx="276" cy="566" r="11"/>
+          <text class="dg-num-t" x="276" y="570.5" text-anchor="middle">4</text>
+          <text class="dg-title" x="18" y="574">Log</text>
+          <text class="dg-sub" x="18" y="598">JSON Lines audit log, rotating</text>
+          <path class="dg-arrow" d="M150.0 623v23" marker-end="url(#supplytrace-ahv)"/>
+          <rect class="dg-box dg-store" x="2" y="650" width="296" height="78" rx="12"/>
+          <path class="dg-store-line" d="M14 658h272"/>
+          <text class="dg-title" x="18" y="682">Dashboard</text>
+          <text class="dg-sub" x="18" y="706">KPIs, histogram, recent analyses</text>
+          <path class="dg-side" d="M302 149.0H324M302 257.0H324M302 365.0H324M302 473.0H324M324 149.0V473.0"/>
+          </svg>
+          <p class="diagram-note">Dashed bracket: the server times each stage and returns it with the rule lines and risk drivers.</p>
+        </figure>
+        <ol class="steps reveal">
+          <li><p><strong>Parse safely.</strong> The upload is parsed in memory with <code>defusedxml</code> (no DTDs), files nested more than 100 levels deep are rejected, and uploads over 1 MB get a <code>413</code>. The XML is flattened into dot-notation keys, and a second <code>expat</code> pass records each element's line.</p></li>
+          <li><p><strong>Validate with rules.</strong> Five deterministic rules decide the status: <code>VALID</code>, <code>INVALID</code> or <code>REQUIRES_REVIEW</code>. Every rule comes back as a checklist row with the line that shows it.</p></li>
+          <li><p><strong>Score the risk (experimental).</strong> Eight validation signals go to a Random Forest trained on the synthetic batch; the score comes with the base rate plus one contribution per feature.</p></li>
+          <li><p><strong>Log it.</strong> One JSON line per file goes to a rotating audit log, which also feeds the dashboard.</p></li>
+        </ol>
+      </div>
+    </section>
+    <section class="section" id="decisions">
+      <div class="section-head reveal">
+        <h2><span class="label">(03)</span><span class="h-mask"><span>Key decisions</span></span></h2>
+        <span class="label">5 choices</span>
+      </div>
+      <div class="case-body">
+        <ol class="decisions">
+          <li class="reveal">
+            <h3>The rules decide; the model only advises</h3>
+            <p>The status always comes from five deterministic rules. The risk score is labelled experimental: it is trained on synthetic data and says nothing about real suppliers.</p>
+          </li>
+          <li class="reveal">
+            <h3>Treat every upload as hostile</h3>
+            <p><code>defusedxml</code> refuses DTDs, so there is no entity expansion or external entities; the 1 MB cap is enforced before the body is read; documents nested more than 100 levels deep are rejected.</p>
+          </li>
+          <li class="reveal">
+            <h3>Explanations that add up</h3>
+            <p>The explanation follows each tree from its root to the file's leaf and credits every split's change in failure rate to the feature it tested (tree-path attribution). The base rate plus the contributions equals the score, and the tests check it.</p>
+          </li>
+          <li class="reveal">
+            <h3>One code path, an audit trail</h3>
+            <p>A single check, a batch and a streamed batch all call the same <code>analyze_document()</code>, so a file gets the same answer every way (tests compare them). Every result is one line in a rotating JSON Lines audit log.</p>
+          </li>
+          <li class="reveal">
+            <h3>Evaluate against a rules-only baseline</h3>
+            <p>The server trains a fresh model on 300 invoices and tests it on the other 100 next to a baseline that fails a file exactly when the rules do. At the 50% threshold the model makes the same call as the rules on every held-out file.</p>
+          </li>
+        </ol>
+      </div>
+    </section>
+    <section class="section" id="proof">
+      <div class="section-head reveal">
+        <h2><span class="label">(04)</span><span class="h-mask"><span>Proof</span></span></h2>
+        <span class="label">Tests · CI · stack</span>
+      </div>
+      <div class="case-body">
+        <dl class="stats reveal">
+          <div><dt>pytest tests, no network</dt><dd data-count>163</dd></div>
+          <div><dt>CI on Python 3.11 and 3.12, with Ruff</dt><dd>Passing</dd></div>
+          <div><dt>synthetic invoices the risk model trains on</dt><dd data-count>400</dd></div>
+        </dl>
+        <p class="proof-note reveal">The suite covers XML parsing and safety (DTDs, entity expansion, depth and size limits, parse-error positions), every validation rule and every example on the rules page, the risk explanation (it must add up to the score), the single, batch and streamed endpoints (including that they agree), the audit log and the model card's holdout metrics. <a href="https://github.com/vishnuatgit/SupplyTrace/actions/workflows/ci.yml" target="_blank" rel="noopener">CI runs ↗</a></p>
+        <ul class="stack reveal" aria-label="Stack"><li>Python 3.11+</li><li>FastAPI</li><li>Uvicorn</li><li>defusedxml</li><li>pandas</li><li>NumPy</li><li>scikit-learn</li><li>pytest</li><li>pytest-cov</li><li>Ruff</li><li>GitHub Actions</li></ul>
+      </div>
+    </section>
+    <section class="section" id="screens">
+      <div class="section-head reveal">
+        <h2><span class="label">(05)</span><span class="h-mask"><span>Screenshots</span></span></h2>
+        <span class="label">From the repository</span>
+      </div>
+      <div class="case-body shots">
+          <figure class="reveal">
+            <a href="../images/projects/supplytrace/result.jpg" target="_blank" rel="noopener" aria-label="Open this screenshot full size">
+              <img src="../images/projects/supplytrace/result.jpg" width="1200" height="750" loading="lazy" decoding="async" alt="The SupplyTrace Payload Inspector checking an invoice whose amount is written as 12,50.00: the pipeline strip shows the time the server spent on each stage, the verdict is INVALID, and the rule checklist points at line 47">
+            </a>
+            <figcaption>A check: the verdict, the rule that failed and the line behind it.</figcaption>
+          </figure>
+          <figure class="reveal">
+            <a href="../images/projects/supplytrace/home.jpg" target="_blank" rel="noopener" aria-label="Open this screenshot full size">
+              <img src="../images/projects/supplytrace/home.jpg" width="1200" height="750" loading="lazy" decoding="async" alt="The SupplyTrace home page: the How it works steps, tiles with files analysed, invalid rate, average risk and high-risk flags, the Payload Inspector with one-click sample invoices, and the valid-share ring and risk histogram">
+            </a>
+            <figcaption>The home page: the dashboard numbers come from the audit log.</figcaption>
+          </figure>
+      </div>
+    </section>
+    <section class="section" id="limits">
+      <div class="section-head reveal">
+        <h2><span class="label">(06)</span><span class="h-mask"><span>Limitations</span></span></h2>
+        <span class="label">Honestly</span>
+      </div>
+      <div class="case-body reveal">
+        <ul class="limits">
+          <li><strong>Synthetic training data.</strong> The risk model is trained on synthetic invoices with simulated outcomes; real use would need outcome data, and the scores are not calibrated probabilities.</li>
+          <li><strong>Five rules only:</strong> no checks on line totals, tax, dates, currencies or duplicate invoices.</li>
+          <li><strong>Flattening loses detail.</strong> Repeated elements, such as several invoice lines, collapse to the last one, and XML attributes are ignored.</li>
+          <li><strong>One shared audit log</strong>, reset on every restart on the free host.</li>
+          <li><strong>No saved model.</strong> It is retrained at every startup, and there are no accounts or authentication.</li>
+        </ul>
+      </div>
+    </section>
+
+    <a class="case-next reveal" href="archlens.html">
+      <span class="label">Next case study</span>
+      <span class="case-next-title">ArchLens</span>
+      <span class="case-next-arrow" aria-hidden="true">↗</span>
+      <p>Scores any public GitHub repository from 0 to 100 across seven engineering dimensions, as a web app, a REST API and a CLI.</p>
+    </a>
+  </main>
+
+  <!-- ===================== CONTACT ===================== -->
+  <footer class="contact" id="contact">
+    <span class="label">(07) Contact</span>
+    <p class="contact-kicker reveal">Have an internship, project or idea in mind?</p>
+    <a class="contact-mail reveal" href="mailto:jayanthvishnu9@gmail.com"><span class="cm-mask"><span>Let's talk</span></span><span class="cm-arrow" aria-hidden="true">↗</span></a>
+
+    <div class="contact-foot">
+      <ul class="socials">
+        <li><a href="https://github.com/vishnuatgit" target="_blank" rel="noopener">GitHub</a></li>
+        <li><a href="https://linkedin.com/in/vishnujayanth" target="_blank" rel="noopener">LinkedIn</a></li>
+        <li><a href="../resume.pdf" target="_blank" rel="noopener">Résumé</a></li>
+        <li><a href="mailto:jayanthvishnu9@gmail.com">jayanthvishnu9@gmail.com</a></li>
+      </ul>
+      <p>© <span id="year">2026</span> Chandana Vishnu Jayanth</p>
+      <a href="#top">Back to top ↑</a>
+    </div>
+  </footer>
+
+  <script src="../script.js" defer></script>
+</body>
+</html>

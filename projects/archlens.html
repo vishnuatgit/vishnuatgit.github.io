@@ -1,0 +1,324 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>ArchLens case study — Chandana Vishnu Jayanth</title>
+  <meta name="description" content="Scores any public GitHub repository from 0 to 100 across seven engineering dimensions, as a web app, a REST API and a CLI.">
+  <link rel="canonical" href="https://vishnuatgit.github.io/projects/archlens.html">
+  <meta property="og:title" content="ArchLens case study — Chandana Vishnu Jayanth">
+  <meta property="og:description" content="Scores any public GitHub repository from 0 to 100 across seven engineering dimensions, as a web app, a REST API and a CLI.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://vishnuatgit.github.io/projects/archlens.html">
+  <meta property="og:image" content="https://vishnuatgit.github.io/images/og.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Chandana Vishnu Jayanth: backend systems, data pipelines and applied ML, with screenshots of ArchLens, DeepBell and SupplyTrace">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://vishnuatgit.github.io/images/og.png">
+  <meta name="theme-color" content="#f4f3ef" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0e0e0d" media="(prefers-color-scheme: dark)">
+
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='16' fill='%23111110'/><text x='50%' y='55%' dominant-baseline='middle' text-anchor='middle' font-family='Arial,sans-serif' font-weight='700' font-size='28' fill='%23f4f3ef'>VJ</text></svg>">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;700&family=Instrument+Serif:ital@1&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="../projects.css">
+
+  <script>
+    // Runs before the page paints, so there is no flash of the wrong theme.
+    (function () {
+      var root = document.documentElement;
+      root.classList.add('js');
+      var savedTheme = null;
+      try { savedTheme = localStorage.getItem('theme'); } catch (e) {}
+      var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      root.dataset.theme = savedTheme || (prefersDark ? 'dark' : 'light');
+      // Safety net: if script.js did not run, show everything without animation.
+      document.addEventListener('DOMContentLoaded', function () {
+        if (!window.portfolioReady) root.classList.remove('js');
+      });
+    })();
+  </script>
+</head>
+<body>
+  <a class="skip" href="#problem">Skip to the case study</a>
+
+  <header class="nav">
+    <a class="logo" href="../index.html" aria-label="Home">VJ<span>.</span></a>
+
+    <nav class="nav-pill" aria-label="Main">
+      <span class="nav-glider" aria-hidden="true"></span>
+      <a href="../index.html#work">Work</a>
+      <a href="../index.html#about">About</a>
+      <a href="../index.html#experience">Experience</a>
+      <a href="#contact">Contact</a>
+    </nav>
+
+    <div class="nav-actions">
+      <button class="theme-toggle" type="button" aria-label="Switch between light and dark theme">
+        <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M12 3.5a8.5 8.5 0 0 1 0 17z" fill="currentColor"/></svg>
+      </button>
+      <a class="btn btn-solid nav-cta" href="mailto:jayanthvishnu9@gmail.com" data-magnetic>Get in touch</a>
+    </div>
+  </header>
+
+  <main id="top">
+    <!-- ===================== CASE STUDY: ARCHLENS =====================
+         Facts come from the project's README. EDIT: the test count must match the home page's proof line.
+         The Live demo link reads its URL from LIVE_DEMOS at the top of script.js. -->
+    <section class="case-hero" style="--p-accent:#ff5a1f">
+      <p class="crumbs label"><a href="../index.html#work">← All work</a><span>Case study 01 / 03</span></p>
+      <h1 class="case-title">ArchLens</h1>
+      <p class="case-summary">Scores any public GitHub repository from 0 to 100 across seven engineering dimensions, as a web app, a REST API and a CLI.</p>
+
+      <dl class="case-facts">
+        <div><dt class="label">Year</dt><dd>2026</dd></div>
+        <div><dt class="label">Built with</dt><dd>FastAPI · SQLAlchemy · Docker</dd></div>
+        <div><dt class="label">Proof</dt><dd><span class="p-proof">258 tests · CI passing</span></dd></div>
+        <div><dt class="label">Source</dt><dd>github.com/vishnuatgit/ArchLens</dd></div>
+      </dl>
+
+      <div class="actions case-actions">
+        <a class="btn btn-solid" href="https://github.com/vishnuatgit/ArchLens" target="_blank" rel="noopener" data-magnetic>Code <span class="sr-only">on GitHub</span><span class="arr arr-ne" aria-hidden="true">↗</span></a>
+        <a class="btn btn-ghost" data-demo="archlens" hidden target="_blank" rel="noopener">Live demo <span class="arr arr-ne" aria-hidden="true">↗</span></a>
+        <span class="demo-note" data-demo-note="archlens" hidden>may take a minute to wake (free hosting)</span>
+      </div>
+
+      <figure class="case-cover">
+        <img src="../images/projects/archlens.jpg" width="1200" height="750" decoding="async" alt="ArchLens home page analysing pallets/werkzeug: the How it works steps show 6 of 6 GitHub calls done while seven dimensions are checked, beside an example report for psf/requests scoring 77 out of 100">
+      </figure>
+    </section>
+
+    <section class="section" id="problem">
+      <div class="section-head reveal">
+        <h2><span class="label">(01)</span><span class="h-mask"><span>The problem</span></span></h2>
+        <span class="label">Why it exists</span>
+      </div>
+      <div class="case-body prose reveal">
+          <p class="lead">Checking a repository by hand means <em>ten minutes of clicking around.</em></p>
+          <p>License? Tests? CI? Recent commits? Open issues? ArchLens runs that checklist in one request, shows the evidence behind every point, and turns what is missing into a prioritised list of fixes.</p>
+          <p>It reads repository metadata through the GitHub REST API and never clones the code, so an analysis takes six read-only API calls. Every new analysis is stored in SQLite, so reports can be revisited, compared and shared.</p>
+      </div>
+    </section>
+    <section class="section" id="how">
+      <div class="section-head reveal">
+        <h2><span class="label">(02)</span><span class="h-mask"><span>How it works</span></span></h2>
+        <span class="label">From the README</span>
+      </div>
+      <div class="case-body">
+        <figure class="diagram-wrap reveal">
+          <!-- Pipeline diagram, drawn from the README's "How it works" (a wide and a tall version; colours from projects.css) -->
+          <svg class="diagram diagram-wide" viewBox="0 0 1198 168" role="img" aria-labelledby="archlens-dw-t archlens-dw-d">
+          <title id="archlens-dw-t">ArchLens analysis pipeline</title><desc id="archlens-dw-d">A request from the web form, REST API or CLI is validated, reused if the same repository and profile were analysed in the last hour, and rate-limited per client. Then four steps run: fetch repository metadata with six concurrent GitHub calls through one shared async client, check seven dimensions, score and grade, and suggest fixes. The report is stored in SQLite. Progress streams to the browser as newline-delimited JSON, one event per GitHub call.</desc>
+          <defs><marker id="archlens-ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path class="dg-head" d="M0 0L10 5L0 10z"/></marker></defs>
+          <rect class="dg-box dg-io" x="2" y="2" width="150" height="100" rx="12"/>
+          <text class="dg-title" x="18" y="34">Request</text>
+          <text class="dg-sub" x="18" y="58">web form, REST API</text>
+          <text class="dg-sub" x="18" y="76">or CLI</text>
+          <path class="dg-arrow" d="M155 52.0h17" marker-end="url(#archlens-ah)"/>
+          <rect class="dg-box" x="176" y="2" width="150" height="100" rx="12"/>
+          <text class="dg-title" x="192" y="34">Validate &amp; reuse</text>
+          <text class="dg-sub" x="192" y="58">reuse if &lt; 1 h old,</text>
+          <text class="dg-sub" x="192" y="76">per-client limit</text>
+          <path class="dg-arrow" d="M329 52.0h17" marker-end="url(#archlens-ah)"/>
+          <rect class="dg-box dg-step" x="350" y="2" width="150" height="100" rx="12"/>
+          <circle class="dg-num" cx="478" cy="26" r="11"/>
+          <text class="dg-num-t" x="478" y="30.5" text-anchor="middle">1</text>
+          <text class="dg-title" x="366" y="34">Fetch</text>
+          <text class="dg-sub" x="366" y="58">6 GitHub calls at</text>
+          <text class="dg-sub" x="366" y="76">once, one client</text>
+          <path class="dg-arrow" d="M503 52.0h17" marker-end="url(#archlens-ah)"/>
+          <rect class="dg-box dg-step" x="524" y="2" width="150" height="100" rx="12"/>
+          <circle class="dg-num" cx="652" cy="26" r="11"/>
+          <text class="dg-num-t" x="652" y="30.5" text-anchor="middle">2</text>
+          <text class="dg-title" x="540" y="34">Check</text>
+          <text class="dg-sub" x="540" y="58">7 dimensions: docs,</text>
+          <text class="dg-sub" x="540" y="76">CI, security …</text>
+          <path class="dg-arrow" d="M677 52.0h17" marker-end="url(#archlens-ah)"/>
+          <rect class="dg-box dg-step" x="698" y="2" width="150" height="100" rx="12"/>
+          <circle class="dg-num" cx="826" cy="26" r="11"/>
+          <text class="dg-num-t" x="826" y="30.5" text-anchor="middle">3</text>
+          <text class="dg-title" x="714" y="34">Score</text>
+          <text class="dg-sub" x="714" y="58">0 to 100, A+ to F,</text>
+          <text class="dg-sub" x="714" y="76">evidence per point</text>
+          <path class="dg-arrow" d="M851 52.0h17" marker-end="url(#archlens-ah)"/>
+          <rect class="dg-box dg-step" x="872" y="2" width="150" height="100" rx="12"/>
+          <circle class="dg-num" cx="1000" cy="26" r="11"/>
+          <text class="dg-num-t" x="1000" y="30.5" text-anchor="middle">4</text>
+          <text class="dg-title" x="888" y="34">Suggest</text>
+          <text class="dg-sub" x="888" y="58">fixes ranked by</text>
+          <text class="dg-sub" x="888" y="76">points they add</text>
+          <path class="dg-arrow" d="M1025 52.0h17" marker-end="url(#archlens-ah)"/>
+          <rect class="dg-box dg-store" x="1046" y="2" width="150" height="100" rx="12"/>
+          <path class="dg-store-line" d="M1058 10h126"/>
+          <text class="dg-title" x="1062" y="34">SQLite</text>
+          <text class="dg-sub" x="1062" y="58">report, history,</text>
+          <text class="dg-sub" x="1062" y="76">compare, badge</text>
+          <path class="dg-side" d="M425.0 106V128M599.0 106V128M773.0 106V128M947.0 106V128M425.0 128H947.0"/>
+          <text class="dg-side-t" x="686.0" y="154" text-anchor="middle">each step streams progress events to the browser as NDJSON, one per GitHub call</text>
+          </svg>
+          <svg class="diagram diagram-tall" viewBox="0 0 340 730" role="img" aria-labelledby="archlens-dt-t archlens-dt-d">
+          <title id="archlens-dt-t">ArchLens analysis pipeline</title><desc id="archlens-dt-d">A request from the web form, REST API or CLI is validated, reused if the same repository and profile were analysed in the last hour, and rate-limited per client. Then four steps run: fetch repository metadata with six concurrent GitHub calls through one shared async client, check seven dimensions, score and grade, and suggest fixes. The report is stored in SQLite. Progress streams to the browser as newline-delimited JSON, one event per GitHub call.</desc>
+          <defs><marker id="archlens-ahv" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path class="dg-head" d="M0 0L10 5L0 10z"/></marker></defs>
+          <rect class="dg-box dg-io" x="2" y="2" width="296" height="78" rx="12"/>
+          <text class="dg-title" x="18" y="34">Request</text>
+          <text class="dg-sub" x="18" y="58">web form, REST API or CLI</text>
+          <path class="dg-arrow" d="M150.0 83v23" marker-end="url(#archlens-ahv)"/>
+          <rect class="dg-box" x="2" y="110" width="296" height="78" rx="12"/>
+          <text class="dg-title" x="18" y="142">Validate &amp; reuse</text>
+          <text class="dg-sub" x="18" y="166">reuse if &lt; 1 h old, per-client limit</text>
+          <path class="dg-arrow" d="M150.0 191v23" marker-end="url(#archlens-ahv)"/>
+          <rect class="dg-box dg-step" x="2" y="218" width="296" height="78" rx="12"/>
+          <circle class="dg-num" cx="276" cy="242" r="11"/>
+          <text class="dg-num-t" x="276" y="246.5" text-anchor="middle">1</text>
+          <text class="dg-title" x="18" y="250">Fetch</text>
+          <text class="dg-sub" x="18" y="274">6 GitHub calls at once, one client</text>
+          <path class="dg-arrow" d="M150.0 299v23" marker-end="url(#archlens-ahv)"/>
+          <rect class="dg-box dg-step" x="2" y="326" width="296" height="78" rx="12"/>
+          <circle class="dg-num" cx="276" cy="350" r="11"/>
+          <text class="dg-num-t" x="276" y="354.5" text-anchor="middle">2</text>
+          <text class="dg-title" x="18" y="358">Check</text>
+          <text class="dg-sub" x="18" y="382">7 dimensions: docs, CI, security …</text>
+          <path class="dg-arrow" d="M150.0 407v23" marker-end="url(#archlens-ahv)"/>
+          <rect class="dg-box dg-step" x="2" y="434" width="296" height="78" rx="12"/>
+          <circle class="dg-num" cx="276" cy="458" r="11"/>
+          <text class="dg-num-t" x="276" y="462.5" text-anchor="middle">3</text>
+          <text class="dg-title" x="18" y="466">Score</text>
+          <text class="dg-sub" x="18" y="490">0 to 100, A+ to F, evidence per point</text>
+          <path class="dg-arrow" d="M150.0 515v23" marker-end="url(#archlens-ahv)"/>
+          <rect class="dg-box dg-step" x="2" y="542" width="296" height="78" rx="12"/>
+          <circle class="dg-num" cx="276" cy="566" r="11"/>
+          <text class="dg-num-t" x="276" y="570.5" text-anchor="middle">4</text>
+          <text class="dg-title" x="18" y="574">Suggest</text>
+          <text class="dg-sub" x="18" y="598">fixes ranked by points they add</text>
+          <path class="dg-arrow" d="M150.0 623v23" marker-end="url(#archlens-ahv)"/>
+          <rect class="dg-box dg-store" x="2" y="650" width="296" height="78" rx="12"/>
+          <path class="dg-store-line" d="M14 658h272"/>
+          <text class="dg-title" x="18" y="682">SQLite</text>
+          <text class="dg-sub" x="18" y="706">report, history, compare, badge</text>
+          <path class="dg-side" d="M302 257.0H324M302 365.0H324M302 473.0H324M302 581.0H324M324 257.0V581.0"/>
+          </svg>
+          <p class="diagram-note">Dashed bracket: each step streams progress events to the browser as NDJSON, one per GitHub call.</p>
+        </figure>
+        <ol class="steps reveal">
+          <li><p><strong>Fetch repo metadata.</strong> Repository stats, the root file listing, languages, contributors, commits from the last 30 days and the workflow folder, read with one shared <code>httpx.AsyncClient</code> and <code>asyncio.gather</code>. If one call fails, the others are cancelled.</p></li>
+          <li><p><strong>Check 7 dimensions.</strong> Documentation, activity, organization, community, maintainability, security and code quality: a README, license, test folder, CI workflows, lockfile, <code>SECURITY.md</code>, linter and type-checker config, recent commits and open issues.</p></li>
+          <li><p><strong>Score and grade.</strong> Points add up to 100 and map to a grade from A+ (95 and above) to F (below 35) and a health tier, with the evidence behind every point.</p></li>
+          <li><p><strong>Suggest next steps.</strong> Each failed check becomes a fix with the points it would add, ranked, and exportable as a Markdown checklist.</p></li>
+        </ol>
+      </div>
+    </section>
+    <section class="section" id="decisions">
+      <div class="section-head reveal">
+        <h2><span class="label">(03)</span><span class="h-mask"><span>Key decisions</span></span></h2>
+        <span class="label">5 choices</span>
+      </div>
+      <div class="case-body">
+        <ol class="decisions">
+          <li class="reveal">
+            <h3>One shared async client, metadata only</h3>
+            <p>The six GitHub calls run concurrently through one <code>httpx.AsyncClient</code> shared for the app's lifetime. If one fails (a 404 on the metadata call, say), the calls still running are cancelled instead of spending more GitHub quota.</p>
+          </li>
+          <li class="reveal">
+            <h3>Upstream errors become clear responses</h3>
+            <p>One error shape across the web app, the API and the CLI: a missing repository is a <code>404 REPO_NOT_FOUND</code>, a used-up GitHub quota a <code>503 RATE_LIMIT_EXCEEDED</code>, an unreachable GitHub a <code>502 GITHUB_UNAVAILABLE</code>, and too many analyses a <code>429</code> with <code>Retry-After</code>.</p>
+          </li>
+          <li class="reveal">
+            <h3>Cache and rate-limit for a free host</h3>
+            <p>A report of the same repository and profile from the last hour is reused, and each client can start 5 new analyses per 10 minutes. An analysis that fails because GitHub is down or out of quota is given back.</p>
+          </li>
+          <li class="reveal">
+            <h3>Progress from real events</h3>
+            <p><code>POST /api/v1/analyze/stream</code> streams the pipeline's progress as newline-delimited JSON, one event per GitHub call, so the steps on the home page light up from what the server is actually doing, and a failed step says why.</p>
+          </li>
+          <li class="reveal">
+            <h3>Scoring you can check</h3>
+            <p>The <code>/scoring</code> page is generated from the scorer's own constants, and tests run the real scorer against it, so the explanation cannot drift from the code.</p>
+          </li>
+        </ol>
+      </div>
+    </section>
+    <section class="section" id="proof">
+      <div class="section-head reveal">
+        <h2><span class="label">(04)</span><span class="h-mask"><span>Proof</span></span></h2>
+        <span class="label">Tests · CI · stack</span>
+      </div>
+      <div class="case-body">
+        <dl class="stats reveal">
+          <div><dt>pytest tests, GitHub mocked, no network</dt><dd data-count>258</dd></div>
+          <div><dt>CI on GitHub Actions: pytest, Ruff, Black</dt><dd>Passing</dd></div>
+          <div><dt>GitHub API calls per analysis, run concurrently</dt><dd data-count>6</dd></div>
+        </dl>
+        <p class="proof-note reveal">Unit tests cover the scorer, the scoring page, the evidence (the real scorer over about 900 generated repositories), the fix plan, the progress events, the GitHub client and the rate limiter. Integration tests drive every page and API endpoint, including the progress stream, through FastAPI's <code>TestClient</code>. <a href="https://github.com/vishnuatgit/ArchLens/actions/workflows/ci.yml" target="_blank" rel="noopener">CI runs ↗</a></p>
+        <ul class="stack reveal" aria-label="Stack"><li>Python 3.11+</li><li>FastAPI</li><li>httpx</li><li>SQLAlchemy 2</li><li>Alembic</li><li>SQLite</li><li>Jinja2</li><li>Typer + Rich</li><li>pytest</li><li>Ruff</li><li>Black</li><li>Docker</li><li>GitHub Actions</li></ul>
+      </div>
+    </section>
+    <section class="section" id="screens">
+      <div class="section-head reveal">
+        <h2><span class="label">(05)</span><span class="h-mask"><span>Screenshots</span></span></h2>
+        <span class="label">From the repository</span>
+      </div>
+      <div class="case-body shots">
+          <figure class="reveal">
+            <a href="../images/projects/archlens/report.jpg" target="_blank" rel="noopener" aria-label="Open this screenshot full size">
+              <img src="../images/projects/archlens/report.jpg" width="1200" height="750" loading="lazy" decoding="async" alt="ArchLens report for pallets/werkzeug: a score gauge at 85 out of 100, grade A, an executive summary with 13 points within reach, and repository facts such as stars, last push and CI workflows">
+            </a>
+            <figcaption>A report: the score and grade, the summary, and the facts behind them.</figcaption>
+          </figure>
+          <figure class="reveal">
+            <a href="../images/projects/archlens/home.jpg" target="_blank" rel="noopener" aria-label="Open this screenshot full size">
+              <img src="../images/projects/archlens/home.jpg" width="1200" height="750" loading="lazy" decoding="async" alt="ArchLens home page: the analysis form, the How it works steps that light up during an analysis, and an example report">
+            </a>
+            <figcaption>The home page: the steps light up as the server streams its progress.</figcaption>
+          </figure>
+      </div>
+    </section>
+    <section class="section" id="limits">
+      <div class="section-head reveal">
+        <h2><span class="label">(06)</span><span class="h-mask"><span>Limitations</span></span></h2>
+        <span class="label">Honestly</span>
+      </div>
+      <div class="case-body reveal">
+        <ul class="limits">
+          <li><strong>Metadata only.</strong> It reads repository statistics and the root file listing. It does not read source files, run tests or measure coverage.</li>
+          <li><strong>Heuristics, not ground truth.</strong> A file earns points by existing, whatever its quality, and stars are a weak proxy for health. A low score is a list of things to look at, not a verdict.</li>
+          <li><strong>Capped counts.</strong> Contributors and recent commits come from one page of GitHub results, so they stop at 100.</li>
+          <li><strong>Single instance.</strong> The rate limiter lives in memory and resets on restart.</li>
+          <li><strong>Ephemeral demo storage.</strong> On the free host, reports other than the bundled examples disappear when the service restarts.</li>
+        </ul>
+      </div>
+    </section>
+
+    <a class="case-next reveal" href="deepbell.html">
+      <span class="label">Next case study</span>
+      <span class="case-next-title">DeepBell</span>
+      <span class="case-next-arrow" aria-hidden="true">↗</span>
+      <p>A mini SRE lab in FastAPI: it detects anomalies in its own CPU and memory, writes incident reports and restores from snapshots.</p>
+    </a>
+  </main>
+
+  <!-- ===================== CONTACT ===================== -->
+  <footer class="contact" id="contact">
+    <span class="label">(07) Contact</span>
+    <p class="contact-kicker reveal">Have an internship, project or idea in mind?</p>
+    <a class="contact-mail reveal" href="mailto:jayanthvishnu9@gmail.com"><span class="cm-mask"><span>Let's talk</span></span><span class="cm-arrow" aria-hidden="true">↗</span></a>
+
+    <div class="contact-foot">
+      <ul class="socials">
+        <li><a href="https://github.com/vishnuatgit" target="_blank" rel="noopener">GitHub</a></li>
+        <li><a href="https://linkedin.com/in/vishnujayanth" target="_blank" rel="noopener">LinkedIn</a></li>
+        <li><a href="../resume.pdf" target="_blank" rel="noopener">Résumé</a></li>
+        <li><a href="mailto:jayanthvishnu9@gmail.com">jayanthvishnu9@gmail.com</a></li>
+      </ul>
+      <p>© <span id="year">2026</span> Chandana Vishnu Jayanth</p>
+      <a href="#top">Back to top ↑</a>
+    </div>
+  </footer>
+
+  <script src="../script.js" defer></script>
+</body>
+</html>

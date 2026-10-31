@@ -640,6 +640,45 @@ html:not(.js) .nav-pill a:hover { background: var(--fg); color: var(--bg); }
 .p-link:hover .p-arrow,
 .p-link:focus-visible .p-arrow { transform: rotate(45deg); color: var(--accent); }
 
+/* Under each project: its proof line, then the code and live-demo links (outside the row's
+   main link, which opens the case study) */
+.p-body { display: grid; gap: 16px; min-width: 0; }
+.p-more {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 20px;
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  transition: opacity .4s var(--ease);
+}
+.p-proof { display: inline-flex; align-items: center; gap: 8px; color: var(--muted); }
+.p-proof::before {   /* green, like the status dot: the CI run is passing */
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #22c55e;
+}
+.p-ext {
+  display: inline-block;
+  padding-block: 4px;   /* at least a 24 px tap target */
+  border-bottom: 1px solid var(--line);
+  line-height: 1.3;
+  transition: border-color .3s;
+}
+.p-ext:hover { border-color: currentColor; }
+.p-wake {
+  font-family: var(--font-sans);
+  font-size: var(--text-sm);
+  letter-spacing: 0;
+  text-transform: none;
+  color: var(--muted);
+}
+.p-more [hidden] { display: none; }
+
 .more { margin-top: 32px; color: var(--muted); }
 .more a { color: var(--fg); border-bottom: 1px solid var(--line); transition: border-color .3s; }
 .more a:hover { border-color: currentColor; }
@@ -668,13 +707,15 @@ html:not(.js) .nav-pill a:hover { background: var(--fg); color: var(--bg); }
     align-items: center;
     column-gap: 24px;
     row-gap: 12px;
-    padding: 44px 0;
+    padding-top: 44px;
   }
+  .p-body { gap: 0; }
+  .p-more { padding: 14px 0 40px calc(4.5rem + 24px); }
   .p-desc, .p-tags, .p-year { margin-top: 0; }
   .p-arrow { justify-self: end; }
   .p-link:hover .p-title,
   .p-link:focus-visible .p-title { transform: translateX(16px); }
-  .projects:hover .project:not(:hover) .p-link { opacity: .3; }
+  .projects:hover .project:not(:hover) :is(.p-link, .p-more) { opacity: .3; }
 
   .preview {
     display: block;
@@ -724,6 +765,24 @@ html:not(.js) .nav-pill a:hover { background: var(--fg); color: var(--bg); }
     transition: transform .8s var(--ease-out);
   }
   .preview-reel img { width: 100%; height: auto; aspect-ratio: 16 / 10; object-fit: cover; object-position: top center; }
+}
+
+/* Narrow desktops (900 to 1100 px): the tags and year move under the description and the
+   text column is capped, so the (smaller) floating preview fits to the right of everything
+   in the row instead of covering the tags and year. script.js keeps it right of all of it. */
+@media (hover: hover) and (pointer: fine) and (min-width: 900px) and (max-width: 1100px) {
+  .p-link {
+    grid-template-columns: 4.5rem max-content minmax(0, 1fr) 2.5rem;
+    grid-template-areas:
+      "index title title arrow"
+      "index desc  desc  arrow"
+      "index tags  year  arrow";
+    column-gap: 24px;
+  }
+  .p-desc { max-width: 38ch; }
+  .p-year { justify-self: start; }
+  .p-more { max-width: calc(4.5rem + 24px + 400px); }
+  .preview { width: clamp(260px, calc(100vw - 620px), 420px); }
 }
 
 
@@ -1053,37 +1112,40 @@ html:has(.lightbox[open]) { overflow: hidden; scrollbar-gutter: stable; }
 @media (prefers-reduced-motion: no-preference) {
 
   /* Entrance: the headline words rise out of their masks one after another while the
-     facts and buttons settle in. It starts once the fonts are ready (250 ms at most) and has
-     landed about a second later. The nav and the intro are there from the first paint
-     (the intro only slides the last few pixels), so there is always something to read. */
-  html.js .hero-title .w { transform: translateY(112%); }
-  html.js.ready .hero-title .w { animation: rise 1.05s var(--ease-out) forwards; }
-  html.js.ready .hero-title .line:nth-child(1) .w:nth-child(2) { animation-delay: .06s; }
-  html.js.ready .hero-title .line:nth-child(2) .w:nth-child(1) { animation-delay: .12s; }
-  html.js.ready .hero-title .line:nth-child(2) .w:nth-child(2) { animation-delay: .18s; }
-  html.js.ready .hero-title .line:nth-child(3) .w { animation-delay: .26s; }
-  html.js.ready .hero-title .line:nth-child(3) em .w { animation-delay: .31s; }
-  html.js.ready .hero-title .line:nth-child(3) em .w + .w { animation-delay: .36s; }
+     facts and buttons settle in. It plays on the first page view of a visit only (the
+     script in <head> adds .intro; repeat views in the same tab session show everything at
+     once). It waits for the fonts for 250 ms at most and has landed under a second later.
+     The nav and the intro text are there from the first paint, so there is always
+     something to read. */
+  html.intro .hero-title .w { transform: translateY(112%); }
+  html.intro.ready .hero-title .w { animation: rise .85s var(--ease-out) forwards; }
+  html.intro.ready .hero-title .line:nth-child(1) .w:nth-child(2) { animation-delay: .05s; }
+  html.intro.ready .hero-title .line:nth-child(2) .w:nth-child(1) { animation-delay: .1s; }
+  html.intro.ready .hero-title .line:nth-child(2) .w:nth-child(2) { animation-delay: .15s; }
+  html.intro.ready .hero-title .line:nth-child(3) .w { animation-delay: .2s; }
+  html.intro.ready .hero-title .line:nth-child(3) em .w { animation-delay: .24s; }
+  html.intro.ready .hero-title .line:nth-child(3) em .w + .w { animation-delay: .28s; }
   @keyframes rise { to { transform: none; } }
 
-  html.js .hero-meta p,
-  html.js .hero-foot .btn { opacity: 0; }
-  html.js.ready .hero-meta p,
-  html.js.ready .hero-foot .btn { animation: fade-up .7s var(--ease-out) forwards; }
-  html.js.ready .hero-meta p:nth-child(1) { animation-delay: .25s; }
-  html.js.ready .hero-meta p:nth-child(2) { animation-delay: .3s; }
-  html.js.ready .hero-meta p:nth-child(3) { animation-delay: .35s; }
-  html.js.ready .hero-foot .btn:nth-child(1) { animation-delay: .4s; }
-  html.js.ready .hero-foot .btn:nth-child(2) { animation-delay: .45s; }
-  html.js.ready .hero-foot .btn:nth-child(3) { animation-delay: .5s; }
+  html.intro .hero-meta p,
+  html.intro .hero-foot .btn { opacity: 0; }
+  html.intro.ready .hero-meta p,
+  html.intro.ready .hero-foot .btn { animation: fade-up .6s var(--ease-out) forwards; }
+  html.intro.ready .hero-meta p:nth-child(1) { animation-delay: .15s; }
+  html.intro.ready .hero-meta p:nth-child(2) { animation-delay: .2s; }
+  html.intro.ready .hero-meta p:nth-child(3) { animation-delay: .25s; }
+  html.intro.ready .hero-foot .btn:nth-child(1) { animation-delay: .3s; }
+  html.intro.ready .hero-foot .btn:nth-child(2) { animation-delay: .34s; }
+  html.intro.ready .hero-foot .btn:nth-child(3) { animation-delay: .38s; }
   @keyframes fade-up { from { opacity: 0; translate: 0 18px; } to { opacity: 1; translate: 0 0; } }
 
-  html.js .hero-intro { translate: 0 14px; }
-  html.js.ready .hero-intro { animation: slide-up .9s var(--ease-out) .3s forwards; }
+  html.intro .hero-intro { translate: 0 14px; }
+  html.intro.ready .hero-intro { animation: slide-up .8s var(--ease-out) .2s forwards; }
   @keyframes slide-up { to { translate: 0 0; } }
 
-  html.js .hero::before { opacity: 0; }
-  html.js.ready .hero::before { animation: glow-in 2.4s var(--ease) forwards, drift 20s ease-in-out 2.4s infinite alternate; }
+  html.intro .hero::before { opacity: 0; }
+  html.intro.ready .hero::before { animation: glow-in 2.4s var(--ease) forwards, drift 20s ease-in-out 2.4s infinite alternate; }
+  html:not(.intro) .hero::before { animation: drift 20s ease-in-out infinite alternate; }
   @keyframes glow-in { from { opacity: 0; scale: .7; } to { opacity: 1; scale: 1; } }
   @keyframes drift { from { opacity: 1; } to { opacity: 1; transform: translate(-12vmax, 10vmax) scale(1.15); } }
 
@@ -1094,7 +1156,7 @@ html:has(.lightbox[open]) { overflow: hidden; scrollbar-gutter: stable; }
   }
 
   /* Nothing in the hero keeps animating once it is scrolled away (script.js sets .hero-off) */
-  html.js.ready.hero-off .hero::before,
+  html.hero-off .hero::before,
   html.hero-off .status::before { animation-play-state: paused; }
 
   /* CSS fallback for the strip; script.js takes over and ties its speed to scrolling */

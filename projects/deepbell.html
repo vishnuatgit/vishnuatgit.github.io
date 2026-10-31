@@ -1,0 +1,324 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>DeepBell case study — Chandana Vishnu Jayanth</title>
+  <meta name="description" content="A mini SRE lab in FastAPI: it detects anomalies in its own CPU and memory, writes incident reports and restores from snapshots.">
+  <link rel="canonical" href="https://vishnuatgit.github.io/projects/deepbell.html">
+  <meta property="og:title" content="DeepBell case study — Chandana Vishnu Jayanth">
+  <meta property="og:description" content="A mini SRE lab in FastAPI: it detects anomalies in its own CPU and memory, writes incident reports and restores from snapshots.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://vishnuatgit.github.io/projects/deepbell.html">
+  <meta property="og:image" content="https://vishnuatgit.github.io/images/og.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Chandana Vishnu Jayanth: backend systems, data pipelines and applied ML, with screenshots of ArchLens, DeepBell and SupplyTrace">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://vishnuatgit.github.io/images/og.png">
+  <meta name="theme-color" content="#f4f3ef" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0e0e0d" media="(prefers-color-scheme: dark)">
+
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='16' fill='%23111110'/><text x='50%' y='55%' dominant-baseline='middle' text-anchor='middle' font-family='Arial,sans-serif' font-weight='700' font-size='28' fill='%23f4f3ef'>VJ</text></svg>">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;700&family=Instrument+Serif:ital@1&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="../projects.css">
+
+  <script>
+    // Runs before the page paints, so there is no flash of the wrong theme.
+    (function () {
+      var root = document.documentElement;
+      root.classList.add('js');
+      var savedTheme = null;
+      try { savedTheme = localStorage.getItem('theme'); } catch (e) {}
+      var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      root.dataset.theme = savedTheme || (prefersDark ? 'dark' : 'light');
+      // Safety net: if script.js did not run, show everything without animation.
+      document.addEventListener('DOMContentLoaded', function () {
+        if (!window.portfolioReady) root.classList.remove('js');
+      });
+    })();
+  </script>
+</head>
+<body>
+  <a class="skip" href="#problem">Skip to the case study</a>
+
+  <header class="nav">
+    <a class="logo" href="../index.html" aria-label="Home">VJ<span>.</span></a>
+
+    <nav class="nav-pill" aria-label="Main">
+      <span class="nav-glider" aria-hidden="true"></span>
+      <a href="../index.html#work">Work</a>
+      <a href="../index.html#about">About</a>
+      <a href="../index.html#experience">Experience</a>
+      <a href="#contact">Contact</a>
+    </nav>
+
+    <div class="nav-actions">
+      <button class="theme-toggle" type="button" aria-label="Switch between light and dark theme">
+        <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M12 3.5a8.5 8.5 0 0 1 0 17z" fill="currentColor"/></svg>
+      </button>
+      <a class="btn btn-solid nav-cta" href="mailto:jayanthvishnu9@gmail.com" data-magnetic>Get in touch</a>
+    </div>
+  </header>
+
+  <main id="top">
+    <!-- ===================== CASE STUDY: DEEPBELL =====================
+         Facts come from the project's README. EDIT: the test count must match the home page's proof line.
+         The Live demo link reads its URL from LIVE_DEMOS at the top of script.js. -->
+    <section class="case-hero" style="--p-accent:#f43f5e">
+      <p class="crumbs label"><a href="../index.html#work">← All work</a><span>Case study 02 / 03</span></p>
+      <h1 class="case-title">DeepBell</h1>
+      <p class="case-summary">A mini SRE lab in FastAPI: it detects anomalies in its own CPU and memory, writes incident reports and restores from snapshots.</p>
+
+      <dl class="case-facts">
+        <div><dt class="label">Year</dt><dd>2026</dd></div>
+        <div><dt class="label">Built with</dt><dd>FastAPI · LangChain · Docker</dd></div>
+        <div><dt class="label">Proof</dt><dd><span class="p-proof">89 tests · CI passing</span></dd></div>
+        <div><dt class="label">Source</dt><dd>github.com/vishnuatgit/DeepBell</dd></div>
+      </dl>
+
+      <div class="actions case-actions">
+        <a class="btn btn-solid" href="https://github.com/vishnuatgit/DeepBell" target="_blank" rel="noopener" data-magnetic>Code <span class="sr-only">on GitHub</span><span class="arr arr-ne" aria-hidden="true">↗</span></a>
+        <a class="btn btn-ghost" data-demo="deepbell" hidden target="_blank" rel="noopener">Live demo <span class="arr arr-ne" aria-hidden="true">↗</span></a>
+        <span class="demo-note" data-demo-note="deepbell" hidden>may take a minute to wake (free hosting)</span>
+      </div>
+
+      <figure class="case-cover">
+        <img src="../images/projects/deepbell.jpg" width="1200" height="750" decoding="async" alt="DeepBell's live console during the guided demo: a memory-leak incident is open, the How it works pipeline has lit up Sample, Detect and Report, and the guided demo is on step 5 of 8">
+      </figure>
+    </section>
+
+    <section class="section" id="problem">
+      <div class="section-head reveal">
+        <h2><span class="label">(01)</span><span class="h-mask"><span>The problem</span></span></h2>
+        <span class="label">Why it exists</span>
+      </div>
+      <div class="case-body prose reveal">
+          <p class="lead">Monitoring usually stops at an alert. DeepBell practises <em>the steps after it.</em></p>
+          <p>Detect, report, recover. Background threads sample the service's own CPU and memory every 2 s, a baseline check plus an Isolation Forest flags anomalies and opens de-duplicated incidents, each incident gets a written report, and rolling SQLite snapshots give one-click rollback.</p>
+          <p>A capped fault-injection lab (the Chaos Lab) lets you break it on purpose, and every incident records when it started, was detected and resolved, so detection and recovery are timed.</p>
+      </div>
+    </section>
+    <section class="section" id="how">
+      <div class="section-head reveal">
+        <h2><span class="label">(02)</span><span class="h-mask"><span>How it works</span></span></h2>
+        <span class="label">From the README</span>
+      </div>
+      <div class="case-body">
+        <figure class="diagram-wrap reveal">
+          <!-- Pipeline diagram, drawn from the README's "How it works" (a wide and a tall version; colours from projects.css) -->
+          <svg class="diagram diagram-wide" viewBox="0 0 1198 168" role="img" aria-labelledby="deepbell-dw-t deepbell-dw-d">
+          <title id="deepbell-dw-t">DeepBell detect, report, recover loop</title><desc id="deepbell-dw-d">Capped faults from the Chaos Lab or the guided demo affect the service. A background thread samples its own CPU and memory every 2 seconds; a baseline check plus an Isolation Forest flags anomalies; two anomalous samples in a row open a de-duplicated incident; a report is written by Gemini through LangChain, or by a built-in template; recovery releases the memory or rolls back a SQLite snapshot. Each incident keeps a timeline with its time to detect and time to recover.</desc>
+          <defs><marker id="deepbell-ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path class="dg-head" d="M0 0L10 5L0 10z"/></marker></defs>
+          <rect class="dg-box dg-io" x="2" y="2" width="150" height="100" rx="12"/>
+          <text class="dg-title" x="18" y="34">Chaos Lab</text>
+          <text class="dg-sub" x="18" y="58">capped faults: CPU,</text>
+          <text class="dg-sub" x="18" y="76">leak, corrupt DB</text>
+          <path class="dg-arrow" d="M155 52.0h17" marker-end="url(#deepbell-ah)"/>
+          <rect class="dg-box dg-step" x="176" y="2" width="150" height="100" rx="12"/>
+          <circle class="dg-num" cx="304" cy="26" r="11"/>
+          <text class="dg-num-t" x="304" y="30.5" text-anchor="middle">1</text>
+          <text class="dg-title" x="192" y="34">Sample</text>
+          <text class="dg-sub" x="192" y="58">own CPU + memory</text>
+          <text class="dg-sub" x="192" y="76">every 2 s</text>
+          <path class="dg-arrow" d="M329 52.0h17" marker-end="url(#deepbell-ah)"/>
+          <rect class="dg-box dg-step" x="350" y="2" width="150" height="100" rx="12"/>
+          <circle class="dg-num" cx="478" cy="26" r="11"/>
+          <text class="dg-num-t" x="478" y="30.5" text-anchor="middle">2</text>
+          <text class="dg-title" x="366" y="34">Detect</text>
+          <text class="dg-sub" x="366" y="58">baseline check +</text>
+          <text class="dg-sub" x="366" y="76">Isolation Forest</text>
+          <path class="dg-arrow" d="M503 52.0h17" marker-end="url(#deepbell-ah)"/>
+          <rect class="dg-box" x="524" y="2" width="150" height="100" rx="12"/>
+          <text class="dg-title" x="540" y="34">Incident</text>
+          <text class="dg-sub" x="540" y="58">2 in a row opens,</text>
+          <text class="dg-sub" x="540" y="76">de-duplicated</text>
+          <path class="dg-arrow" d="M677 52.0h17" marker-end="url(#deepbell-ah)"/>
+          <rect class="dg-box dg-step" x="698" y="2" width="150" height="100" rx="12"/>
+          <circle class="dg-num" cx="826" cy="26" r="11"/>
+          <text class="dg-num-t" x="826" y="30.5" text-anchor="middle">3</text>
+          <text class="dg-title" x="714" y="34">Report</text>
+          <text class="dg-sub" x="714" y="58">Gemini via LangChain</text>
+          <text class="dg-sub" x="714" y="76">or a template</text>
+          <path class="dg-arrow" d="M851 52.0h17" marker-end="url(#deepbell-ah)"/>
+          <rect class="dg-box dg-step" x="872" y="2" width="150" height="100" rx="12"/>
+          <circle class="dg-num" cx="1000" cy="26" r="11"/>
+          <text class="dg-num-t" x="1000" y="30.5" text-anchor="middle">4</text>
+          <text class="dg-title" x="888" y="34">Recover</text>
+          <text class="dg-sub" x="888" y="58">release memory or</text>
+          <text class="dg-sub" x="888" y="76">roll back</text>
+          <path class="dg-arrow" d="M1026 52.0h17" marker-start="url(#deepbell-ah)"/>
+          <rect class="dg-box dg-store" x="1046" y="2" width="150" height="100" rx="12"/>
+          <path class="dg-store-line" d="M1058 10h126"/>
+          <text class="dg-title" x="1062" y="34">Snapshots</text>
+          <text class="dg-sub" x="1062" y="58">SQLite every 30 s</text>
+          <text class="dg-sub" x="1062" y="76">if changed, last 10</text>
+          <path class="dg-side" d="M251.0 106V128M425.0 106V128M599.0 106V128M773.0 106V128M947.0 106V128M251.0 128H947.0"/>
+          <text class="dg-side-t" x="599.0" y="154" text-anchor="middle">each step lands on the incident timeline, which times detection and recovery</text>
+          </svg>
+          <svg class="diagram diagram-tall" viewBox="0 0 340 730" role="img" aria-labelledby="deepbell-dt-t deepbell-dt-d">
+          <title id="deepbell-dt-t">DeepBell detect, report, recover loop</title><desc id="deepbell-dt-d">Capped faults from the Chaos Lab or the guided demo affect the service. A background thread samples its own CPU and memory every 2 seconds; a baseline check plus an Isolation Forest flags anomalies; two anomalous samples in a row open a de-duplicated incident; a report is written by Gemini through LangChain, or by a built-in template; recovery releases the memory or rolls back a SQLite snapshot. Each incident keeps a timeline with its time to detect and time to recover.</desc>
+          <defs><marker id="deepbell-ahv" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path class="dg-head" d="M0 0L10 5L0 10z"/></marker></defs>
+          <rect class="dg-box dg-io" x="2" y="2" width="296" height="78" rx="12"/>
+          <text class="dg-title" x="18" y="34">Chaos Lab</text>
+          <text class="dg-sub" x="18" y="58">capped faults: CPU, leak, corrupt DB</text>
+          <path class="dg-arrow" d="M150.0 83v23" marker-end="url(#deepbell-ahv)"/>
+          <rect class="dg-box dg-step" x="2" y="110" width="296" height="78" rx="12"/>
+          <circle class="dg-num" cx="276" cy="134" r="11"/>
+          <text class="dg-num-t" x="276" y="138.5" text-anchor="middle">1</text>
+          <text class="dg-title" x="18" y="142">Sample</text>
+          <text class="dg-sub" x="18" y="166">own CPU + memory every 2 s</text>
+          <path class="dg-arrow" d="M150.0 191v23" marker-end="url(#deepbell-ahv)"/>
+          <rect class="dg-box dg-step" x="2" y="218" width="296" height="78" rx="12"/>
+          <circle class="dg-num" cx="276" cy="242" r="11"/>
+          <text class="dg-num-t" x="276" y="246.5" text-anchor="middle">2</text>
+          <text class="dg-title" x="18" y="250">Detect</text>
+          <text class="dg-sub" x="18" y="274">baseline check + Isolation Forest</text>
+          <path class="dg-arrow" d="M150.0 299v23" marker-end="url(#deepbell-ahv)"/>
+          <rect class="dg-box" x="2" y="326" width="296" height="78" rx="12"/>
+          <text class="dg-title" x="18" y="358">Incident</text>
+          <text class="dg-sub" x="18" y="382">2 in a row opens, de-duplicated</text>
+          <path class="dg-arrow" d="M150.0 407v23" marker-end="url(#deepbell-ahv)"/>
+          <rect class="dg-box dg-step" x="2" y="434" width="296" height="78" rx="12"/>
+          <circle class="dg-num" cx="276" cy="458" r="11"/>
+          <text class="dg-num-t" x="276" y="462.5" text-anchor="middle">3</text>
+          <text class="dg-title" x="18" y="466">Report</text>
+          <text class="dg-sub" x="18" y="490">Gemini via LangChain or a template</text>
+          <path class="dg-arrow" d="M150.0 515v23" marker-end="url(#deepbell-ahv)"/>
+          <rect class="dg-box dg-step" x="2" y="542" width="296" height="78" rx="12"/>
+          <circle class="dg-num" cx="276" cy="566" r="11"/>
+          <text class="dg-num-t" x="276" y="570.5" text-anchor="middle">4</text>
+          <text class="dg-title" x="18" y="574">Recover</text>
+          <text class="dg-sub" x="18" y="598">release memory or roll back</text>
+          <path class="dg-arrow" d="M150.0 624v23" marker-start="url(#deepbell-ahv)"/>
+          <rect class="dg-box dg-store" x="2" y="650" width="296" height="78" rx="12"/>
+          <path class="dg-store-line" d="M14 658h272"/>
+          <text class="dg-title" x="18" y="682">Snapshots</text>
+          <text class="dg-sub" x="18" y="706">SQLite every 30 s if changed, last 10</text>
+          <path class="dg-side" d="M302 149.0H324M302 257.0H324M302 365.0H324M302 473.0H324M302 581.0H324M324 149.0V581.0"/>
+          </svg>
+          <p class="diagram-note">Dashed bracket: each step lands on the incident timeline, which times detection and recovery.</p>
+        </figure>
+        <ol class="steps reveal">
+          <li><p><strong>Sample.</strong> Every 2 s the watchdog reads the process's CPU % and resident memory with <code>psutil</code> and stores the sample.</p></li>
+          <li><p><strong>Detect.</strong> The detector scores the sample. Two anomalous samples in a row open an incident; three normal ones close it. A query every 2 s catches a corrupted database.</p></li>
+          <li><p><strong>Report.</strong> Opening an incident starts a report in a background thread: Google Gemini through LangChain when a key is configured, a built-in template otherwise.</p></li>
+          <li><p><strong>Recover.</strong> Releasing the leaked memory lets the samples return to the baseline, which closes the incident; restoring a snapshot makes the database readable again.</p></li>
+        </ol>
+      </div>
+    </section>
+    <section class="section" id="decisions">
+      <div class="section-head reveal">
+        <h2><span class="label">(03)</span><span class="h-mask"><span>Key decisions</span></span></h2>
+        <span class="label">5 choices</span>
+      </div>
+      <div class="case-body">
+        <ol class="decisions">
+          <li class="reveal">
+            <h3>A baseline check first, the forest second</h3>
+            <p>A sample is a candidate only when CPU is at least 15 points above the baseline or memory at least 30 MB above it; an Isolation Forest (100 trees) must then confirm it. On its own, the forest flagged ordinary jitter.</p>
+          </li>
+          <li class="reveal">
+            <h3>One incident per fault, never a new normal</h3>
+            <p>Two anomalous samples open an incident and three normal ones close it, with one incident and one report per fault kind at a time. While an incident is open its samples stay out of the baseline, so a held leak never becomes the new normal.</p>
+          </li>
+          <li class="reveal">
+            <h3>AI reports with a built-in fallback</h3>
+            <p>Reports come from Gemini through LangChain when a key is set, and from a deterministic template otherwise or when the call fails. Every report is labelled with what wrote it.</p>
+          </li>
+          <li class="reveal">
+            <h3>Snapshots kept apart from incident history</h3>
+            <p>The SQLite database is copied every 30 s when it changed (newest 10 kept, each integrity-checked). Incident history lives in a separate <code>metrics.db</code>, so corrupting or rolling back the app database never rewrites it.</p>
+          </li>
+          <li class="reveal">
+            <h3>Safe to break in public</h3>
+            <p>Every fault has caps and a cooldown: a CPU spike lasts 1 to 5 s, a leak holds at most 120 MB and is freed after 5 minutes, and a request during a cooldown gets a <code>429</code> with <code>Retry-After</code>. Public demo mode turns off the crash fault and the API-key endpoint.</p>
+          </li>
+        </ol>
+      </div>
+    </section>
+    <section class="section" id="proof">
+      <div class="section-head reveal">
+        <h2><span class="label">(04)</span><span class="h-mask"><span>Proof</span></span></h2>
+        <span class="label">Tests · CI · stack</span>
+      </div>
+      <div class="case-body">
+        <dl class="stats reveal">
+          <div><dt>pytest tests, no network, Gemini stubbed</dt><dd data-count>89</dd></div>
+          <div><dt>CI on Python 3.11 and 3.12, with a Docker build</dt><dd>Passing</dd></div>
+          <div><dt>between samples of its own CPU and memory</dt><dd data-count>2 s</dd></div>
+        </dl>
+        <p class="proof-note reveal">The tests use temporary directories, disable the background threads or drive them with a fake clock, and replace the Gemini call with stubs. In six local runs of the guided demo, the leak was detected 2 to 4 s after it was injected and resolved 10 to 13 s after detection (demo measurements on a laptop, not production numbers). <a href="https://github.com/vishnuatgit/DeepBell/actions/workflows/ci.yml" target="_blank" rel="noopener">CI runs ↗</a></p>
+        <ul class="stack reveal" aria-label="Stack"><li>Python 3.11, 3.12</li><li>FastAPI</li><li>Uvicorn</li><li>SQLite</li><li>psutil</li><li>scikit-learn</li><li>NumPy</li><li>LangChain</li><li>Google Gemini API</li><li>Jinja2</li><li>Chart.js</li><li>pytest</li><li>Ruff</li><li>Docker</li><li>GitHub Actions</li></ul>
+      </div>
+    </section>
+    <section class="section" id="screens">
+      <div class="section-head reveal">
+        <h2><span class="label">(05)</span><span class="h-mask"><span>Screenshots</span></span></h2>
+        <span class="label">From the repository</span>
+      </div>
+      <div class="case-body shots">
+          <figure class="reveal">
+            <a href="../images/projects/deepbell/overview.jpg" target="_blank" rel="noopener" aria-label="Open this screenshot full size">
+              <img src="../images/projects/deepbell/overview.jpg" width="1200" height="750" loading="lazy" decoding="async" alt="Key numbers and live charts after a guided demo run: median time to detect and to recover, CPU and memory with the learned baseline, the alert line, flagged samples and shaded incident spans, and the 30-minute status strip">
+            </a>
+            <figcaption>The overview: CPU and memory against the learned baseline, with incidents shaded.</figcaption>
+          </figure>
+          <figure class="reveal">
+            <a href="../images/projects/deepbell/incident.jpg" target="_blank" rel="noopener" aria-label="Open this screenshot full size">
+              <img src="../images/projects/deepbell/incident.jpg" width="1200" height="750" loading="lazy" decoding="async" alt="Incidents view: a memory-leak incident with its time to detect, time to recover, lifecycle bar and timeline">
+            </a>
+            <figcaption>An incident: time to detect, time to recover and its timeline.</figcaption>
+          </figure>
+      </div>
+    </section>
+    <section class="section" id="limits">
+      <div class="section-head reveal">
+        <h2><span class="label">(06)</span><span class="h-mask"><span>Limitations</span></span></h2>
+        <span class="label">Honestly</span>
+      </div>
+      <div class="case-body reveal">
+        <ul class="limits">
+          <li><strong>It monitors only itself</strong>, on two signals (CPU and resident memory). It is a lab for the detect, report, recover loop, not a general monitoring tool.</li>
+          <li><strong>Fixed minimum deviations</strong> (15 CPU points, 30 MB), so smaller spikes and slow leaks are deliberately ignored.</li>
+          <li><strong>Snapshots are not point-in-time recovery:</strong> you can restore one of the last 10, taken at most every 30 s, and a rollback loses whatever changed since.</li>
+          <li><strong>No authentication.</strong> Public demo mode disables the dangerous endpoints and caps the rest, but any visitor can inject the capped faults.</li>
+          <li><strong>Single worker.</strong> Open incidents, cooldowns and leaked memory live in one process, and the measured times say nothing about a production system.</li>
+        </ul>
+      </div>
+    </section>
+
+    <a class="case-next reveal" href="supplytrace.html">
+      <span class="label">Next case study</span>
+      <span class="case-next-title">SupplyTrace</span>
+      <span class="case-next-arrow" aria-hidden="true">↗</span>
+      <p>A modular pipeline that ingests raw XML invoices, validates them with deterministic rules and compiles standardized feature matrices, with an experimental ML risk score.</p>
+    </a>
+  </main>
+
+  <!-- ===================== CONTACT ===================== -->
+  <footer class="contact" id="contact">
+    <span class="label">(07) Contact</span>
+    <p class="contact-kicker reveal">Have an internship, project or idea in mind?</p>
+    <a class="contact-mail reveal" href="mailto:jayanthvishnu9@gmail.com"><span class="cm-mask"><span>Let's talk</span></span><span class="cm-arrow" aria-hidden="true">↗</span></a>
+
+    <div class="contact-foot">
+      <ul class="socials">
+        <li><a href="https://github.com/vishnuatgit" target="_blank" rel="noopener">GitHub</a></li>
+        <li><a href="https://linkedin.com/in/vishnujayanth" target="_blank" rel="noopener">LinkedIn</a></li>
+        <li><a href="../resume.pdf" target="_blank" rel="noopener">Résumé</a></li>
+        <li><a href="mailto:jayanthvishnu9@gmail.com">jayanthvishnu9@gmail.com</a></li>
+      </ul>
+      <p>© <span id="year">2026</span> Chandana Vishnu Jayanth</p>
+      <a href="#top">Back to top ↑</a>
+    </div>
+  </footer>
+
+  <script src="../script.js" defer></script>
+</body>
+</html>
