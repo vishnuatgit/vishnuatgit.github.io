@@ -62,7 +62,7 @@
       <button class="theme-toggle" type="button" aria-label="Switch between light and dark theme">
         <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M12 3.5a8.5 8.5 0 0 1 0 17z" fill="currentColor"/></svg>
       </button>
-      <a class="btn btn-solid nav-cta" href="mailto:jayanthvishnu9@gmail.com" data-magnetic>Get in touch</a>
+      <a class="btn btn-solid nav-cta" href="mailto:jayanthvishnu9@gmail.com" data-magnetic data-copy-email>Get in touch</a>
     </div>
   </header>
 
@@ -89,7 +89,7 @@
       </div>
 
       <figure class="case-cover">
-        <img src="../images/projects/archlens.jpg" width="1200" height="750" decoding="async" alt="ArchLens home page analysing pallets/werkzeug: the How it works steps show 6 of 6 GitHub calls done while seven dimensions are checked, beside an example report for psf/requests scoring 77 out of 100">
+        <img src="../images/projects/archlens.jpg" srcset="../images/projects/archlens-600.jpg 600w, ../images/projects/archlens-900.jpg 900w, ../images/projects/archlens.jpg 1200w" sizes="(min-width: 1400px) calc(100vw - 112px), (min-width: 400px) 92vw, calc(100vw - 32px)" width="1200" height="750" fetchpriority="high" decoding="async" alt="ArchLens home page analysing pallets/werkzeug: the How it works steps show 6 of 6 GitHub calls done while seven dimensions are checked, beside an example report for psf/requests scoring 77 out of 100">
       </figure>
     </section>
 
@@ -265,13 +265,13 @@
       <div class="case-body shots">
           <figure class="reveal">
             <a href="../images/projects/archlens/report.jpg" target="_blank" rel="noopener" aria-label="Open this screenshot full size">
-              <img src="../images/projects/archlens/report.jpg" width="1200" height="750" loading="lazy" decoding="async" alt="ArchLens report for pallets/werkzeug: a score gauge at 85 out of 100, grade A, an executive summary with 13 points within reach, and repository facts such as stars, last push and CI workflows">
+              <img src="../images/projects/archlens/report.jpg" srcset="../images/projects/archlens/report-600.jpg 600w, ../images/projects/archlens/report-900.jpg 900w, ../images/projects/archlens/report.jpg 1200w" sizes="(min-width: 761px) 44vw, calc(100vw - 32px)" width="1200" height="750" loading="lazy" decoding="async" alt="ArchLens report for pallets/werkzeug: a score gauge at 85 out of 100, grade A, an executive summary with 13 points within reach, and repository facts such as stars, last push and CI workflows">
             </a>
             <figcaption>A report: the score and grade, the summary, and the facts behind them.</figcaption>
           </figure>
           <figure class="reveal">
             <a href="../images/projects/archlens/home.jpg" target="_blank" rel="noopener" aria-label="Open this screenshot full size">
-              <img src="../images/projects/archlens/home.jpg" width="1200" height="750" loading="lazy" decoding="async" alt="ArchLens home page: the analysis form, the How it works steps that light up during an analysis, and an example report">
+              <img src="../images/projects/archlens/home.jpg" srcset="../images/projects/archlens/home-600.jpg 600w, ../images/projects/archlens/home-900.jpg 900w, ../images/projects/archlens/home.jpg 1200w" sizes="(min-width: 761px) 44vw, calc(100vw - 32px)" width="1200" height="750" loading="lazy" decoding="async" alt="ArchLens home page: the analysis form, the How it works steps that light up during an analysis, and an example report">
             </a>
             <figcaption>The home page: the steps light up as the server streams its progress.</figcaption>
           </figure>
@@ -305,7 +305,14 @@
   <footer class="contact" id="contact">
     <span class="label" role="heading" aria-level="2">(07) Contact</span>
     <p class="contact-kicker reveal">Have an internship, project or idea in mind?</p>
-    <a class="contact-mail reveal" href="mailto:jayanthvishnu9@gmail.com"><span class="cm-mask"><span>Let's talk</span></span><span class="cm-arrow" aria-hidden="true">↗</span></a>
+    <a class="contact-mail reveal" href="mailto:jayanthvishnu9@gmail.com" data-copy-email><span class="cm-mask"><span>Let's ship something.</span></span><span class="cm-arrow" aria-hidden="true">↗</span></a>
+    <!-- "Email" and the headline copy the address, show a toast and open the mail app (js/contact.js) -->
+    <ul class="cm-options" aria-label="Ways to contact me">
+      <li><a href="mailto:jayanthvishnu9@gmail.com" data-copy-email>Email</a></li>
+      <li><a href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to=jayanthvishnu9@gmail.com" target="_blank" rel="noopener">Gmail</a></li>
+      <li><a href="https://www.linkedin.com/in/vishnujayanth/" target="_blank" rel="noopener">LinkedIn</a></li>
+      <li hidden><button type="button" data-copy-only>Copy email</button></li>
+    </ul>
 
     <div class="contact-foot">
       <ul class="socials">
@@ -320,5 +327,6 @@
   </footer>
 
   <script src="../script.js" defer></script>
+  <script src="../js/contact.js" defer></script>
 </body>
 </html>

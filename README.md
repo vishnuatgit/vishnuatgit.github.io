@@ -1,6 +1,6 @@
 # Portfolio
 
-My portfolio: a home page, one case study per project and a 404 page, in plain HTML, CSS and JavaScript. There is no build step and no framework; the only outside dependency is Google Fonts.
+My portfolio: a home page, one case study per project and a 404 page, in plain HTML, CSS and JavaScript. There is no build step and no framework; the only outside dependencies are Google Fonts and, on computers with a mouse, three.js from jsDelivr for the 3D network in the hero.
 
 ```
 portfolio/
@@ -11,6 +11,7 @@ portfolio/
 ├── projects.css      extra styles for the case studies and the 404 page
 ├── script.js         theme toggle, clock, scroll reveal, marquee, cursor preview, screenshot viewer,
 │                     live-demo links (every page; each part runs only where its elements exist)
+├── js/hero3d.js      the 3D pipeline network behind the headline (home page, computers with a mouse)
 ├── resume.pdf        résumé (no phone number)
 └── images/
     ├── og.png        the link preview (1200 × 630)
@@ -94,6 +95,7 @@ To update it, export the new résumé without your phone number, save it over `r
 - **Colours:** the top of `style.css`. `:root` holds the light theme and `[data-theme="dark"]` the dark one. `--accent` is the orange highlight.
 - **Fonts:** change the Google Fonts `<link>` in `index.html` and the three `--font-*` variables. Inter Tight with Instrument Serif is the current pairing; Space Grotesk with Fraunces, or Manrope with Playfair Display, also work.
 - **Project colours:** the `--accent` on each project's `<li>`.
+- **The 3D network in the hero:** `js/hero3d.js` draws a slowly turning network of services with orange packets flowing through it, in the theme's colours. **To turn it off, set `HERO_3D = false` at the top of that file**; the hero then looks exactly as it did before, with nothing extra downloaded. Only computers with a mouse and a screen at least 900 px wide load it (after the page has loaded and the browser is idle); phones, data saver, slow connections and devices with under 4 GB of memory skip it, and with reduced motion it is a still picture. three.js is pinned to one version in `THREE_URL` in the same file. It needs a local server (section 1); opened by double-click, the page shows without it.
 
 ## 4. Put it online for free with GitHub Pages
 

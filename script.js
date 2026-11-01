@@ -162,6 +162,32 @@ if (resumeSection) sectionObserver.observe(resumeSection);
 const hero = document.querySelector('.hero');
 if (hero) new IntersectionObserver(([entry]) => root.classList.toggle('hero-off', !entry.isIntersecting)).observe(hero);
 
+// The 3D pipeline network behind the headline (js/hero3d.js, which also holds its off switch).
+// Only computers with a mouse and a screen at least 900 px wide download it, and not with data
+// saver, a slow connection or under 4 GB of memory. It loads after the page has loaded and the
+// browser is idle, once the hero is on screen. Phones get nothing extra.
+const hero3d = document.querySelector('.hero-3d');
+if (hero3d) {
+  const connection = navigator.connection || {};
+  const capable = matchMedia('(hover: hover) and (pointer: fine) and (min-width: 900px)').matches
+    && !connection.saveData
+    && !/2g|3g/.test(connection.effectiveType || '')
+    && !(navigator.deviceMemory < 4);
+  const whenIdle = fn => (window.requestIdleCallback ? requestIdleCallback(fn, { timeout: 2000 }) : setTimeout(fn, 300));
+  const load = () => whenIdle(() => {
+    const onScreen = new IntersectionObserver(([entry]) => {
+      if (!entry.isIntersecting) return;
+      onScreen.disconnect();
+      import('./js/hero3d.js').then(m => m.start(hero3d)).catch(() => {});
+    });
+    onScreen.observe(hero3d);
+  });
+  if (capable) {
+    if (document.readyState === 'complete') load();
+    else addEventListener('load', load, { once: true });
+  }
+}
+
 
 // ---- Reveal blocks as they scroll into view ----
 const countUp = dd => {
@@ -289,7 +315,7 @@ if (lightbox) {
     const button = project.querySelector('.p-shot');
     button.addEventListener('click', () => {
       const img = button.querySelector('img');
-      lightboxImg.src = img.currentSrc || img.src;
+      lightboxImg.src = img.src;   // the full-size original (the card may show a smaller srcset copy)
       lightboxImg.alt = img.alt;
       lightboxTitle.textContent = project.querySelector('.p-title').textContent;
       lightboxLink.href = project.querySelector('.p-link').href;   // the case study

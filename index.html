@@ -76,13 +76,17 @@
       <button class="theme-toggle" type="button" aria-label="Switch between light and dark theme">
         <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M12 3.5a8.5 8.5 0 0 1 0 17z" fill="currentColor"/></svg>
       </button>
-      <a class="btn btn-solid nav-cta" href="mailto:jayanthvishnu9@gmail.com" data-magnetic>Get in touch</a>
+      <a class="btn btn-solid nav-cta" href="mailto:jayanthvishnu9@gmail.com" data-magnetic data-copy-email>Get in touch</a>
     </div>
   </header>
 
   <main id="top">
     <!-- ===================== HERO ===================== -->
     <section class="hero">
+      <!-- The 3D pipeline network behind the headline: js/hero3d.js draws it on computers with a
+           mouse (off switch at the top of that file). Everywhere else this stays an empty box. -->
+      <div class="hero-3d" aria-hidden="true"></div>
+
       <!-- EDIT: the three small facts at the top -->
       <div class="hero-meta">
         <p><span class="label">Currently</span>3rd-year B.Tech CSE (AI&nbsp;&amp;&nbsp;ML)</p>
@@ -133,7 +137,7 @@
       <ul class="projects">
         <li class="project reveal" style="--accent:#ff5a1f">
           <button class="p-shot" type="button" aria-haspopup="dialog">
-            <img src="images/projects/archlens.jpg" width="1200" height="750" loading="lazy" decoding="async" alt="Screenshot of ArchLens">
+            <img src="images/projects/archlens.jpg" srcset="images/projects/archlens-600.jpg 600w, images/projects/archlens-900.jpg 900w, images/projects/archlens.jpg 1200w" sizes="(min-width: 700px) 46vw, calc(100vw - 32px)" width="1200" height="750" loading="lazy" decoding="async" alt="Screenshot of ArchLens">
             <span class="p-zoom" aria-hidden="true"><svg viewBox="0 0 24 24" width="16" height="16"><path d="M14 4h6v6M10 20H4v-6M20 4l-7 7M4 20l7-7" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
             <span class="sr-only">, enlarge</span>
           </button>
@@ -157,7 +161,7 @@
         </li>
         <li class="project reveal" style="--accent:#f43f5e">
           <button class="p-shot" type="button" aria-haspopup="dialog">
-            <img src="images/projects/deepbell.jpg" width="1200" height="750" loading="lazy" decoding="async" alt="Screenshot of DeepBell">
+            <img src="images/projects/deepbell.jpg" srcset="images/projects/deepbell-600.jpg 600w, images/projects/deepbell-900.jpg 900w, images/projects/deepbell.jpg 1200w" sizes="(min-width: 700px) 46vw, calc(100vw - 32px)" width="1200" height="750" loading="lazy" decoding="async" alt="Screenshot of DeepBell">
             <span class="p-zoom" aria-hidden="true"><svg viewBox="0 0 24 24" width="16" height="16"><path d="M14 4h6v6M10 20H4v-6M20 4l-7 7M4 20l7-7" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
             <span class="sr-only">, enlarge</span>
           </button>
@@ -181,7 +185,7 @@
         </li>
         <li class="project reveal" style="--accent:#3b5bff">
           <button class="p-shot" type="button" aria-haspopup="dialog">
-            <img src="images/projects/supplytrace.jpg" width="1200" height="750" loading="lazy" decoding="async" alt="Screenshot of SupplyTrace">
+            <img src="images/projects/supplytrace.jpg" srcset="images/projects/supplytrace-600.jpg 600w, images/projects/supplytrace-900.jpg 900w, images/projects/supplytrace.jpg 1200w" sizes="(min-width: 700px) 46vw, calc(100vw - 32px)" width="1200" height="750" loading="lazy" decoding="async" alt="Screenshot of SupplyTrace">
             <span class="p-zoom" aria-hidden="true"><svg viewBox="0 0 24 24" width="16" height="16"><path d="M14 4h6v6M10 20H4v-6M20 4l-7 7M4 20l7-7" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
             <span class="sr-only">, enlarge</span>
           </button>
@@ -321,7 +325,14 @@
     <span class="label" role="heading" aria-level="2">(05) Contact</span>
     <p class="contact-kicker reveal">Have an internship, project or idea in mind?</p>
     <!-- EDIT: your email (also in the nav button at the top) -->
-    <a class="contact-mail reveal" href="mailto:jayanthvishnu9@gmail.com"><span class="cm-mask"><span>Let's talk</span></span><span class="cm-arrow" aria-hidden="true">↗</span></a>
+    <a class="contact-mail reveal" href="mailto:jayanthvishnu9@gmail.com" data-copy-email><span class="cm-mask"><span>Let's ship something.</span></span><span class="cm-arrow" aria-hidden="true">↗</span></a>
+    <!-- "Email" and the headline copy the address, show a toast and open the mail app (js/contact.js) -->
+    <ul class="cm-options" aria-label="Ways to contact me">
+      <li><a href="mailto:jayanthvishnu9@gmail.com" data-copy-email>Email</a></li>
+      <li><a href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to=jayanthvishnu9@gmail.com" target="_blank" rel="noopener">Gmail</a></li>
+      <li><a href="https://www.linkedin.com/in/vishnujayanth/" target="_blank" rel="noopener">LinkedIn</a></li>
+      <li hidden><button type="button" data-copy-only>Copy email</button></li>
+    </ul>
 
     <div class="contact-foot">
       <ul class="socials">
@@ -365,5 +376,6 @@
   </dialog>
 
   <script src="script.js" defer></script>
+  <script src="js/contact.js" defer></script>
 </body>
 </html>

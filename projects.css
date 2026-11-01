@@ -70,7 +70,7 @@
   font-size: var(--text-sm);
 }
 .case-facts div { display: grid; gap: 6px; align-content: start; }
-.case-facts dd { margin: 0; }
+.case-facts dd { margin: 0; overflow-wrap: anywhere; }   /* long repo links wrap on 320 px phones instead of being cut off */
 .case-facts .p-proof { color: var(--fg); }
 
 .case-actions { margin-top: 28px; align-items: center; }

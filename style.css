@@ -383,6 +383,19 @@ html:not(.js) .nav-pill a:hover { background: var(--fg); color: var(--bg); }
   pointer-events: none;
 }
 
+/* The 3D pipeline network (js/hero3d.js) sits between the glow and the grain, on the right.
+   It is out of the layout, so nothing moves when it appears; it fades in once drawn. */
+.hero-3d {
+  position: absolute;
+  inset: 0 0 0 38%;
+  z-index: -1;
+  opacity: 0;
+  pointer-events: none;
+}
+.hero-3d.is-on { opacity: 1; }
+.hero-3d canvas { display: block; width: 100%; height: 100%; }
+@media (max-width: 899px) { .hero-3d { display: none; } }
+
 .hero-meta {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -1162,6 +1175,8 @@ html:has(.lightbox[open]) { overflow: hidden; scrollbar-gutter: stable; }
     80%, 100% { box-shadow: 0 0 0 9px rgb(34 197 94 / 0); }
   }
 
+  .hero-3d { transition: opacity 2s var(--ease); }
+
   /* Nothing in the hero keeps animating once it is scrolled away (script.js sets .hero-off) */
   html.hero-off .hero::before,
   html.hero-off .status::before { animation-play-state: paused; }
@@ -1264,4 +1279,72 @@ html.theme-switching * { transition: none !important; }
 @media (min-width: 1200px) {
   .contact-foot { display: grid; grid-template-columns: 1fr auto 1fr; }
   .contact-foot > a { justify-self: end; }
+}
+
+
+/* ===== Contact reel ==========================================
+   "Let's ship something." headline, the row of contact options under it and the
+   "Email copied" toast (js/contact.js). Static headline for now; no reel animation. */
+.contact-mail {
+  margin-bottom: 0;
+  /* Same giant size; only screens under ~390 px shrink it so "something." still fits */
+  font-size: min(var(--text-giant), calc((100vw - 2 * var(--pad)) / 4.35));
+}
+.contact-mail .cm-mask { max-width: 3.95em; }   /* "Let's ship" / "something." on two lines */
+.contact-mail .cm-arrow { color: var(--accent); }
+[data-theme="dark"] .contact-mail .cm-arrow { color: #e4500f; }   /* 3.4:1 on the light panel */
+
+.cm-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 28px;
+  margin: 20px 0 clamp(72px, 11vw, 150px);
+  font-size: var(--text-base);
+}
+.cm-options a,
+.cm-options button {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  text-decoration: underline;
+  text-decoration-color: color-mix(in srgb, currentColor 35%, transparent);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 4px;
+  transition: text-decoration-color .3s;
+}
+.cm-options a:hover,
+.cm-options button:hover { text-decoration-color: currentColor; }
+
+.cm-toast {
+  position: fixed;
+  left: 50%;
+  bottom: max(24px, calc(env(safe-area-inset-bottom) + 16px));
+  z-index: 120;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: max-content;
+  max-width: calc(100vw - 32px);
+  padding: 12px 18px 12px 14px;
+  border-radius: var(--radius);
+  background: var(--bg);
+  color: var(--fg);
+  box-shadow: 0 0 0 1px var(--line), 0 18px 40px -14px rgb(0 0 0 / .45);
+  font-size: var(--text-sm);
+  line-height: 1.35;
+  overflow-wrap: anywhere;
+  opacity: 0;
+  translate: -50% 12px;
+  pointer-events: none;
+  transition: opacity .3s var(--ease), translate .45s var(--ease-out);
+}
+.cm-toast:empty { padding: 0; box-shadow: none; }
+.cm-toast.show { opacity: 1; translate: -50% 0; }
+.cm-toast svg { flex: none; color: var(--accent); }
+@media (max-width: 760px) {
+  .cm-toast { bottom: max(84px, calc(env(safe-area-inset-bottom) + 76px)); }   /* above the bottom nav pill */
 }
