@@ -15,8 +15,11 @@ portfolio/
 ├── resume.pdf        résumé (no phone number)
 ├── favicon.ico, apple-touch-icon.png, site.webmanifest
 │                     browser-tab and home-screen icons (the manifest's icons are in images/icons/)
+├── pdf/              each case study as an A4 PDF, for its Download PDF button
 ├── tools/make_images.py
 │                     makes the smaller JPG and WebP copies of a screenshot (see "Update project screenshots")
+├── tools/make_case_study_pdfs.mjs
+│                     makes the case-study PDFs in pdf/ (see "Update the case-study PDFs")
 └── images/
     ├── og.png        the link preview (1200 × 630)
     ├── resume-preview.jpg (+ .webp copies)
@@ -88,6 +91,17 @@ Each project has one screenshot in `images/projects/` (`archlens.jpg`, `deepbell
 4. For a new project, copy a `<li class="project">` and change the file names in its `.p-shot` `<picture>` (the `<source>` and the `<img>`).
 
 The image appears on the card on phones and tablets (tap it to enlarge), and in the floating preview that follows the cursor on desktop.
+
+### Update the case-study PDFs
+
+Each case study has a Download PDF button that serves `pdf/<name>-case-study.pdf`. The PDFs come from the page itself through the print styles ("Print and PDF" in `projects.css`), so printing a case study from the browser gives the same layout. After changing a case study, rebuild them from the repository root:
+
+```bash
+npm install --no-save playwright   # once; it drives your installed Google Chrome
+node tools/make_case_study_pdfs.mjs
+```
+
+Links inside the PDFs point to the live site.
 
 ### Update your résumé
 
