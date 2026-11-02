@@ -10,10 +10,11 @@
 /* 1. Tokens: change colours, fonts and sizes here --------- */
 
 /* Metric-matched stand-ins: while the web fonts load, Arial and Times are resized to the
-   same widths and heights, so the big type does not jump when the real fonts arrive. */
+   same widths and heights, so the big type does not jump when the real fonts arrive.
+   Arimo/Liberation Sans and Tinos/Liberation Serif share those metrics (Linux, ChromeOS). */
 @font-face {
   font-family: "Inter Tight Fallback";
-  src: local("Arial"), local("ArialMT");
+  src: local("Arial"), local("ArialMT"), local("Arimo"), local("Liberation Sans");
   font-weight: 400;
   size-adjust: 95.3%;
   ascent-override: 101.7%;
@@ -22,7 +23,7 @@
 }
 @font-face {
   font-family: "Inter Tight Fallback";
-  src: local("Arial"), local("ArialMT");
+  src: local("Arial"), local("ArialMT"), local("Arimo"), local("Liberation Sans");
   font-weight: 500 700;
   size-adjust: 97.6%;
   ascent-override: 99.3%;
@@ -31,7 +32,7 @@
 }
 @font-face {
   font-family: "Instrument Serif Fallback";
-  src: local("Times New Roman Italic"), local("TimesNewRomanPS-ItalicMT");
+  src: local("Times New Roman Italic"), local("TimesNewRomanPS-ItalicMT"), local("Tinos Italic"), local("Liberation Serif Italic");
   font-style: italic;
   size-adjust: 86.5%;
   ascent-override: 114.5%;
@@ -118,7 +119,6 @@ html {
   -webkit-text-size-adjust: 100%;
   /* Font rendering: same everywhere, and never fake a bold or italic the fonts don't have */
   font-synthesis: none;
-  text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -140,8 +140,15 @@ h1, h2, h3 { font-weight: 500; }
 ul, ol { padding: 0; list-style: none; }
 a { color: inherit; text-decoration: none; }
 img { display: block; max-width: 100%; }
+picture { display: contents; }   /* the <img> inside lays out as if the <picture> were not there */
 button { font: inherit; color: inherit; }
 strong { font-weight: 700; }   /* only 400, 500 and 700 are loaded */
+
+/* Kerning and ligatures at their best for the big type only: on the whole page this setting
+   makes the first layout noticeably slower on phones. */
+.hero-title, .section-head h2, .p-title, .lead, .stats dd, .contact-mail, .case-title, .case-next-title {
+  text-rendering: optimizeLegibility;
+}
 
 em {
   font-family: var(--font-serif);
@@ -351,8 +358,11 @@ html:not(.js) .nav-pill a:hover { background: var(--fg); color: var(--bg); }
   transition: background-color .4s var(--ease);
   display: grid;
   grid-template-rows: auto 1fr auto;
+  gap: clamp(24px, 4.5vh, 44px);
   gap: clamp(24px, 4.5svh, 44px);
-  min-height: 100svh;
+  min-height: 100vh;     /* browsers without svh */
+  min-height: 100svh;    /* the screen height with the phone's address bar showing, so nothing hides under it */
+  padding: 100px var(--pad) clamp(32px, 5vh, 48px);
   padding: 100px var(--pad) clamp(32px, 5svh, 48px);
 }
 
@@ -699,6 +709,7 @@ html:not(.js) .nav-pill a:hover { background: var(--fg); color: var(--bg); }
 .p-more [hidden] { display: none; }
 
 .more { margin-top: 32px; color: var(--muted); }
+.more-tail { margin-top: 12px; }
 .more a { color: var(--fg); border-bottom: 1px solid var(--line); transition: border-color .3s; }
 .more a:hover { border-color: currentColor; }
 
@@ -996,6 +1007,7 @@ html:has(.lightbox[open]) { overflow: hidden; scrollbar-gutter: stable; }
 .lightbox {
   width: min(100% - 24px, 1200px);
   max-width: none;
+  max-height: calc(100vh - 24px);
   max-height: calc(100dvh - 24px);
   padding: 0;
   overflow: hidden;
@@ -1124,6 +1136,43 @@ html:has(.lightbox[open]) { overflow: hidden; scrollbar-gutter: stable; }
 
 @media (max-width: 380px) {
   .nav-pill a { padding: 9px 10px; }
+}
+
+/* Touch screens: everything you can tap is at least 44 × 44 px. Buttons and nav links grow a
+   little; text links keep their look and get a larger, invisible tap area (::after), and rows
+   of them get a little more room so those areas do not overlap. */
+@media (pointer: coarse) {
+  .logo { display: inline-flex; align-items: center; min-width: 44px; min-height: 44px; }
+  .nav-pill a { display: inline-flex; align-items: center; min-height: 44px; }
+  .theme-toggle { width: 44px; height: 44px; }
+  .btn { min-height: 44px; }
+  .btn, .theme-toggle, .p-shot, .nav-pill a, .logo { -webkit-tap-highlight-color: transparent; }
+
+  .p-more { row-gap: 20px; }
+  .p-ext::after { inset: -10px -6px; }
+  .p-proof a { position: relative; }
+  .p-proof a::after { content: ""; position: absolute; inset: -13px -4px; }
+
+  .socials { row-gap: 20px; }
+  .contact-foot a::after { inset: -13px -6px; }
+  .cm-options a, .cm-options button, .lightbox-link { position: relative; }
+  .cm-options a::after, .cm-options button::after { content: ""; position: absolute; inset: 0 -6px; }
+  .lightbox-link::after { content: ""; position: absolute; inset: -13px -6px; }
+}
+
+/* Touch screens have no hover: a tapped button would otherwise stay filled (and the theme
+   icon stay turned) after the tap. The fill shows while the finger is down instead. */
+@media (hover: none) {
+  .btn:hover { --lift: 0px; }
+  .btn:hover::before { transform: translateY(102%); }
+  .btn-solid:hover { color: var(--bg); border-color: var(--fg); }
+  .btn-ghost:hover { color: inherit; }
+  .btn:hover .arr { transform: none; }
+  .btn:active::before { transform: none; }
+  .btn-solid:active { color: #111110; border-color: var(--accent); }
+  .btn-ghost:active { color: var(--bg); }
+  .theme-toggle:hover svg { transform: rotate(var(--turn)); }
+  .p-shot:hover img, .p-shot:hover .p-zoom { transform: none; }
 }
 
 

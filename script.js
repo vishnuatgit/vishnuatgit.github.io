@@ -315,7 +315,8 @@ if (lightbox) {
     const button = project.querySelector('.p-shot');
     button.addEventListener('click', () => {
       const img = button.querySelector('img');
-      lightboxImg.src = img.src;   // the full-size original (the card may show a smaller srcset copy)
+      // The full-size original (the card may show a smaller copy), as WebP if the card got WebP
+      lightboxImg.src = /\.webp$/.test(img.currentSrc) ? img.src.replace(/\.jpg$/, '.webp') : img.src;
       lightboxImg.alt = img.alt;
       lightboxTitle.textContent = project.querySelector('.p-title').textContent;
       lightboxLink.href = project.querySelector('.p-link').href;   // the case study
@@ -349,18 +350,20 @@ if (preview && projects.length) {
   const previewName = preview.querySelector('.preview-name');
   reel.style.setProperty('--n', projects.length);
 
+  // Copies of the cards' <picture>s (WebP with a JPEG fallback), sized for the card. They stay
+  // lazy, so nothing downloads until loadReel() switches them to eager and adds them.
+  const PREVIEW_SIZES = '(max-width: 1100px) 420px, 560px';   // the .preview widths in style.css
   const reelImages = projects.map(project => {
-    const img = new Image(1200, 750);
-    img.alt = '';
-    img.decoding = 'async';
-    img.dataset.src = project.querySelector('.p-shot img').getAttribute('src');
-    return img;
+    const picture = project.querySelector('.p-shot picture').cloneNode(true);
+    picture.querySelectorAll('source, img').forEach(el => { el.sizes = PREVIEW_SIZES; });
+    picture.querySelector('img').alt = '';
+    return picture;
   });
   let reelLoaded = false;
   const loadReel = () => {
     if (reelLoaded || !desktopPreview.matches) return;
     reelLoaded = true;
-    reelImages.forEach(img => { img.src = img.dataset.src; reel.append(img); });
+    reelImages.forEach(picture => { picture.querySelector('img').loading = 'eager'; reel.append(picture); });
   };
   new IntersectionObserver((entries, observer) => {
     if (entries.some(entry => entry.isIntersecting)) { loadReel(); if (reelLoaded) observer.disconnect(); }

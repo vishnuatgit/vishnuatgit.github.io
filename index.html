@@ -22,11 +22,17 @@
   <meta name="theme-color" content="#f4f3ef" media="(prefers-color-scheme: light)">
   <meta name="theme-color" content="#0e0e0d" media="(prefers-color-scheme: dark)">
 
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='16' fill='%23111110'/><text x='50%' y='55%' dominant-baseline='middle' text-anchor='middle' font-family='Arial,sans-serif' font-weight='700' font-size='28' fill='%23f4f3ef'>VJ</text></svg>">
+  <link rel="icon" href="favicon.ico" sizes="48x48">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='16' fill='%23111110'/><text x='50%' y='55%' dominant-baseline='middle' text-anchor='middle' font-family='Arial,sans-serif' font-weight='700' font-size='28' fill='%23f4f3ef'>VJ</text></svg>">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <link rel="manifest" href="site.webmanifest">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;700&family=Instrument+Serif:ital@1&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+  <!-- The web fonts load without holding up the first paint: the metric-matched fallbacks in style.css
+       show the text straight away and the fonts swap in when they arrive. -->
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;700&family=Instrument+Serif:ital@1&family=JetBrains+Mono:wght@400&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;700&family=Instrument+Serif:ital@1&family=JetBrains+Mono:wght@400&display=swap"></noscript>
   <link rel="stylesheet" href="style.css">
 
   <script>
@@ -62,7 +68,7 @@
   <a class="skip" href="#work">Skip to work</a>
 
   <header class="nav">
-    <a class="logo" href="#top" aria-label="Back to top">VJ<span>.</span></a>
+    <a class="logo" href="#top">VJ<span>.</span><span class="sr-only"> back to top</span></a>
 
     <nav class="nav-pill" aria-label="Main">
       <span class="nav-glider" aria-hidden="true"></span>
@@ -129,7 +135,8 @@
       </div>
 
       <!-- EDIT: one <li> per project.
-           Screenshot = the <img> in .p-shot: 16:10, saved as images/projects/<name>.jpg at 1200×750 (keep it under ~250 KB).
+           Screenshot = the <picture> in .p-shot: 16:10, saved as images/projects/<name>.jpg at 1200×750 (keep it under ~250 KB);
+           then run python tools/make_images.py images/projects/<name>.jpg for the smaller JPG and WebP copies it lists.
            It shows on the card on phones and tablets, in the tap-to-enlarge view, and in the floating preview on desktop.
            --accent = the project's colour. The row links to projects/<name>.html (the case study).
            .p-proof = the test count; keep it equal to the number on the case study.
@@ -137,7 +144,7 @@
       <ul class="projects">
         <li class="project reveal" style="--accent:#ff5a1f">
           <button class="p-shot" type="button" aria-haspopup="dialog">
-            <img src="images/projects/archlens.jpg" srcset="images/projects/archlens-600.jpg 600w, images/projects/archlens-900.jpg 900w, images/projects/archlens.jpg 1200w" sizes="(min-width: 700px) 46vw, calc(100vw - 32px)" width="1200" height="750" loading="lazy" decoding="async" alt="Screenshot of ArchLens">
+            <picture><source type="image/webp" srcset="images/projects/archlens-600.webp 600w, images/projects/archlens-750.webp 750w, images/projects/archlens-900.webp 900w, images/projects/archlens.webp 1200w" sizes="(min-width: 700px) 46vw, calc(100vw - 32px)"><img src="images/projects/archlens.jpg" srcset="images/projects/archlens-600.jpg 600w, images/projects/archlens-900.jpg 900w, images/projects/archlens.jpg 1200w" sizes="(min-width: 700px) 46vw, calc(100vw - 32px)" width="1200" height="750" loading="lazy" decoding="async" alt="Screenshot of ArchLens"></picture>
             <span class="p-zoom" aria-hidden="true"><svg viewBox="0 0 24 24" width="16" height="16"><path d="M14 4h6v6M10 20H4v-6M20 4l-7 7M4 20l7-7" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
             <span class="sr-only">, enlarge</span>
           </button>
@@ -161,7 +168,7 @@
         </li>
         <li class="project reveal" style="--accent:#f43f5e">
           <button class="p-shot" type="button" aria-haspopup="dialog">
-            <img src="images/projects/deepbell.jpg" srcset="images/projects/deepbell-600.jpg 600w, images/projects/deepbell-900.jpg 900w, images/projects/deepbell.jpg 1200w" sizes="(min-width: 700px) 46vw, calc(100vw - 32px)" width="1200" height="750" loading="lazy" decoding="async" alt="Screenshot of DeepBell">
+            <picture><source type="image/webp" srcset="images/projects/deepbell-600.webp 600w, images/projects/deepbell-750.webp 750w, images/projects/deepbell-900.webp 900w, images/projects/deepbell.webp 1200w" sizes="(min-width: 700px) 46vw, calc(100vw - 32px)"><img src="images/projects/deepbell.jpg" srcset="images/projects/deepbell-600.jpg 600w, images/projects/deepbell-900.jpg 900w, images/projects/deepbell.jpg 1200w" sizes="(min-width: 700px) 46vw, calc(100vw - 32px)" width="1200" height="750" loading="lazy" decoding="async" alt="Screenshot of DeepBell"></picture>
             <span class="p-zoom" aria-hidden="true"><svg viewBox="0 0 24 24" width="16" height="16"><path d="M14 4h6v6M10 20H4v-6M20 4l-7 7M4 20l7-7" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
             <span class="sr-only">, enlarge</span>
           </button>
@@ -185,7 +192,7 @@
         </li>
         <li class="project reveal" style="--accent:#3b5bff">
           <button class="p-shot" type="button" aria-haspopup="dialog">
-            <img src="images/projects/supplytrace.jpg" srcset="images/projects/supplytrace-600.jpg 600w, images/projects/supplytrace-900.jpg 900w, images/projects/supplytrace.jpg 1200w" sizes="(min-width: 700px) 46vw, calc(100vw - 32px)" width="1200" height="750" loading="lazy" decoding="async" alt="Screenshot of SupplyTrace">
+            <picture><source type="image/webp" srcset="images/projects/supplytrace-600.webp 600w, images/projects/supplytrace-750.webp 750w, images/projects/supplytrace-900.webp 900w, images/projects/supplytrace.webp 1200w" sizes="(min-width: 700px) 46vw, calc(100vw - 32px)"><img src="images/projects/supplytrace.jpg" srcset="images/projects/supplytrace-600.jpg 600w, images/projects/supplytrace-900.jpg 900w, images/projects/supplytrace.jpg 1200w" sizes="(min-width: 700px) 46vw, calc(100vw - 32px)" width="1200" height="750" loading="lazy" decoding="async" alt="Screenshot of SupplyTrace"></picture>
             <span class="p-zoom" aria-hidden="true"><svg viewBox="0 0 24 24" width="16" height="16"><path d="M14 4h6v6M10 20H4v-6M20 4l-7 7M4 20l7-7" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
             <span class="sr-only">, enlarge</span>
           </button>
@@ -209,7 +216,9 @@
         </li>
       </ul>
 
-      <p class="more reveal">Every project ships with automated tests and CI on GitHub Actions. <a href="https://github.com/vishnuatgit" target="_blank" rel="noopener">More on GitHub <span aria-hidden="true">↗</span></a></p>
+      <!-- EDIT: smaller projects, one line each (same wording as the GitHub profile README) -->
+      <p class="more reveal">Smaller projects: <a href="https://github.com/vishnuatgit/LibMS" target="_blank" rel="noopener">LibMS</a>, a Flask library management system with a hand-written LRU cache, trie and graph; <a href="https://github.com/vishnuatgit/carbon-footprint-tracker" target="_blank" rel="noopener">EcoMetrics</a>, a carbon footprint tracker in plain JavaScript (<a href="https://vishnuatgit.github.io/carbon-footprint-tracker/" target="_blank" rel="noopener">live demo</a>); and <a href="https://github.com/vishnuatgit/CLI_Task_Tracker" target="_blank" rel="noopener">CLI Task Tracker</a>, an installable to-do list for the terminal in plain Python.</p>
+      <p class="more more-tail reveal">Every project ships with automated tests and CI on GitHub Actions. <a href="https://github.com/vishnuatgit" target="_blank" rel="noopener">More on GitHub <span aria-hidden="true">↗</span></a></p>
     </section>
 
     <!-- ===================== ABOUT ===================== -->
@@ -313,7 +322,7 @@
         </div>
         <div class="resume-visual reveal">
           <a class="resume-paper" href="resume.pdf" target="_blank" rel="noopener" aria-label="Open the résumé PDF">
-            <img src="images/resume-preview.jpg" width="1105" height="1430" loading="lazy" alt="Page one of the résumé: education, VSC DigiTech internship, DeepBell and SupplyTrace projects, and technical skills">
+            <picture><source type="image/webp" srcset="images/resume-preview-600.webp 600w, images/resume-preview-900.webp 900w, images/resume-preview.webp 1105w" sizes="(min-width: 761px) 500px, calc(100vw - 32px)"><img src="images/resume-preview.jpg" width="1105" height="1430" loading="lazy" decoding="async" alt="Page one of the résumé: education, VSC DigiTech internship, DeepBell and SupplyTrace projects, and technical skills"></picture>
           </a>
         </div>
       </div>

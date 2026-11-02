@@ -20,11 +20,17 @@
   <meta name="theme-color" content="#f4f3ef" media="(prefers-color-scheme: light)">
   <meta name="theme-color" content="#0e0e0d" media="(prefers-color-scheme: dark)">
 
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='16' fill='%23111110'/><text x='50%' y='55%' dominant-baseline='middle' text-anchor='middle' font-family='Arial,sans-serif' font-weight='700' font-size='28' fill='%23f4f3ef'>VJ</text></svg>">
+  <link rel="icon" href="../favicon.ico" sizes="48x48">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='16' fill='%23111110'/><text x='50%' y='55%' dominant-baseline='middle' text-anchor='middle' font-family='Arial,sans-serif' font-weight='700' font-size='28' fill='%23f4f3ef'>VJ</text></svg>">
+  <link rel="apple-touch-icon" href="../apple-touch-icon.png">
+  <link rel="manifest" href="../site.webmanifest">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;700&family=Instrument+Serif:ital@1&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+  <!-- The web fonts load without holding up the first paint: the metric-matched fallbacks in style.css
+       show the text straight away and the fonts swap in when they arrive. -->
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;700&family=Instrument+Serif:ital@1&family=JetBrains+Mono:wght@400&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;700&family=Instrument+Serif:ital@1&family=JetBrains+Mono:wght@400&display=swap"></noscript>
   <link rel="stylesheet" href="../style.css">
   <link rel="stylesheet" href="../projects.css">
 
@@ -48,7 +54,7 @@
   <a class="skip" href="#problem">Skip to the case study</a>
 
   <header class="nav">
-    <a class="logo" href="../" aria-label="Home">VJ<span>.</span></a>
+    <a class="logo" href="../">VJ<span>.</span><span class="sr-only"> home</span></a>
 
     <nav class="nav-pill" aria-label="Main">
       <span class="nav-glider" aria-hidden="true"></span>
@@ -89,7 +95,7 @@
       </div>
 
       <figure class="case-cover">
-        <img src="../images/projects/archlens.jpg" srcset="../images/projects/archlens-600.jpg 600w, ../images/projects/archlens-900.jpg 900w, ../images/projects/archlens.jpg 1200w" sizes="(min-width: 1400px) calc(100vw - 112px), (min-width: 400px) 92vw, calc(100vw - 32px)" width="1200" height="750" fetchpriority="high" decoding="async" alt="ArchLens home page analysing pallets/werkzeug: the How it works steps show 6 of 6 GitHub calls done while seven dimensions are checked, beside an example report for psf/requests scoring 77 out of 100">
+        <picture><source type="image/webp" srcset="../images/projects/archlens-600.webp 600w, ../images/projects/archlens-750.webp 750w, ../images/projects/archlens-900.webp 900w, ../images/projects/archlens.webp 1200w" sizes="(min-width: 1400px) calc(100vw - 112px), (min-width: 400px) 92vw, calc(100vw - 32px)"><img src="../images/projects/archlens.jpg" srcset="../images/projects/archlens-600.jpg 600w, ../images/projects/archlens-900.jpg 900w, ../images/projects/archlens.jpg 1200w" sizes="(min-width: 1400px) calc(100vw - 112px), (min-width: 400px) 92vw, calc(100vw - 32px)" width="1200" height="750" fetchpriority="high" decoding="async" alt="ArchLens home page analysing pallets/werkzeug: the How it works steps show 6 of 6 GitHub calls done while seven dimensions are checked, beside an example report for psf/requests scoring 77 out of 100"></picture>
       </figure>
     </section>
 
@@ -265,13 +271,13 @@
       <div class="case-body shots">
           <figure class="reveal">
             <a href="../images/projects/archlens/report.jpg" target="_blank" rel="noopener" aria-label="Open this screenshot full size">
-              <img src="../images/projects/archlens/report.jpg" srcset="../images/projects/archlens/report-600.jpg 600w, ../images/projects/archlens/report-900.jpg 900w, ../images/projects/archlens/report.jpg 1200w" sizes="(min-width: 761px) 44vw, calc(100vw - 32px)" width="1200" height="750" loading="lazy" decoding="async" alt="ArchLens report for pallets/werkzeug: a score gauge at 85 out of 100, grade A, an executive summary with 13 points within reach, and repository facts such as stars, last push and CI workflows">
+              <picture><source type="image/webp" srcset="../images/projects/archlens/report-600.webp 600w, ../images/projects/archlens/report-750.webp 750w, ../images/projects/archlens/report-900.webp 900w, ../images/projects/archlens/report.webp 1200w" sizes="(min-width: 761px) 44vw, calc(100vw - 32px)"><img src="../images/projects/archlens/report.jpg" srcset="../images/projects/archlens/report-600.jpg 600w, ../images/projects/archlens/report-900.jpg 900w, ../images/projects/archlens/report.jpg 1200w" sizes="(min-width: 761px) 44vw, calc(100vw - 32px)" width="1200" height="750" loading="lazy" decoding="async" alt="ArchLens report for pallets/werkzeug: a score gauge at 85 out of 100, grade A, an executive summary with 13 points within reach, and repository facts such as stars, last push and CI workflows"></picture>
             </a>
             <figcaption>A report: the score and grade, the summary, and the facts behind them.</figcaption>
           </figure>
           <figure class="reveal">
             <a href="../images/projects/archlens/home.jpg" target="_blank" rel="noopener" aria-label="Open this screenshot full size">
-              <img src="../images/projects/archlens/home.jpg" srcset="../images/projects/archlens/home-600.jpg 600w, ../images/projects/archlens/home-900.jpg 900w, ../images/projects/archlens/home.jpg 1200w" sizes="(min-width: 761px) 44vw, calc(100vw - 32px)" width="1200" height="750" loading="lazy" decoding="async" alt="ArchLens home page: the analysis form, the How it works steps that light up during an analysis, and an example report">
+              <picture><source type="image/webp" srcset="../images/projects/archlens/home-600.webp 600w, ../images/projects/archlens/home-750.webp 750w, ../images/projects/archlens/home-900.webp 900w, ../images/projects/archlens/home.webp 1200w" sizes="(min-width: 761px) 44vw, calc(100vw - 32px)"><img src="../images/projects/archlens/home.jpg" srcset="../images/projects/archlens/home-600.jpg 600w, ../images/projects/archlens/home-900.jpg 900w, ../images/projects/archlens/home.jpg 1200w" sizes="(min-width: 761px) 44vw, calc(100vw - 32px)" width="1200" height="750" loading="lazy" decoding="async" alt="ArchLens home page: the analysis form, the How it works steps that light up during an analysis, and an example report"></picture>
             </a>
             <figcaption>The home page: the steps light up as the server streams its progress.</figcaption>
           </figure>
