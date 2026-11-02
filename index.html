@@ -335,12 +335,11 @@
     <p class="contact-kicker reveal">Have an internship, project or idea in mind?</p>
     <!-- EDIT: your email (also in the nav button at the top) -->
     <a class="contact-mail reveal" href="mailto:jayanthvishnu9@gmail.com" data-copy-email><span class="cm-mask"><span>Let's ship something.</span></span><span class="cm-arrow" aria-hidden="true">↗</span></a>
-    <!-- "Email" and the headline copy the address, show a toast and open Gmail on a computer or the mail app on a phone (js/contact.js) -->
+    <!-- The headline opens Gmail on a computer and the mail app on a phone; "Email" always opens the mail app. Both copy the address and show a toast (js/contact.js) -->
     <ul class="cm-options" aria-label="Ways to contact me">
-      <li><a href="mailto:jayanthvishnu9@gmail.com" data-copy-email>Email</a></li>
+      <li><a href="mailto:jayanthvishnu9@gmail.com?subject=Hello%20from%20your%20portfolio" data-copy-email data-mail-app>Email</a></li>
       <li><a href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to=jayanthvishnu9@gmail.com&amp;su=Hello%20from%20your%20portfolio" target="_blank" rel="noopener">Gmail</a></li>
       <li><a href="https://www.linkedin.com/in/vishnujayanth/" target="_blank" rel="noopener">LinkedIn</a></li>
-      <li><a href="contact.vcf" download="Chandana_Vishnu_Jayanth.vcf">Save contact</a></li>
       <li hidden><button type="button" data-copy-only>Copy email</button></li>
       <li hidden><button type="button" data-share>Share</button></li>
     </ul>
