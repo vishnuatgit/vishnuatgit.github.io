@@ -1,6 +1,8 @@
-// Contact helpers: email links also copy the address and show a short toast, because a
-// mailto: link does nothing for people without a mail app. The mailto still opens.
-// Elements: [data-copy-email] (copy + toast, link still opens), [data-copy-only] (copy + toast).
+// Contact helpers. On a computer every email link opens Gmail's compose window in a new tab,
+// because most people have no desktop mail app set up; on a phone the mailto: link opens the mail
+// app as usual. Email links also copy the address and show a short toast, as a fallback.
+// Elements: [data-copy-email] (copy + toast, link still opens), [data-copy-only] (copy + toast),
+// [data-share] (the device's share sheet, shown only where the browser has one).
 (function () {
   var EMAIL = 'jayanthvishnu9@gmail.com';
 
@@ -55,5 +57,28 @@
     var item = el.closest('[hidden]');
     if (item) item.hidden = false;   // without JavaScript this button could not copy, so it stays hidden
     el.addEventListener('click', copyEmail);
+  });
+
+  var GMAIL = 'https://mail.google.com/mail/?view=cm&fs=1&to=' + EMAIL + '&su=' + encodeURIComponent('Hello from your portfolio');
+  var computer = matchMedia('(hover: hover) and (pointer: fine)').matches;
+  document.querySelectorAll('a[href^="mailto:"]').forEach(function (el) {
+    el.addEventListener('click', function (e) {
+      if (!computer || e.metaKey || e.ctrlKey || e.shiftKey) return;   // phones and modified clicks keep mailto:
+      e.preventDefault();
+      window.open(GMAIL, '_blank', 'noopener');
+    });
+  });
+
+  document.querySelectorAll('[data-share]').forEach(function (el) {
+    if (!navigator.share) return;
+    var item = el.closest('[hidden]');
+    if (item) item.hidden = false;
+    el.addEventListener('click', function () {
+      navigator.share({
+        title: 'Chandana Vishnu Jayanth',
+        text: 'Backend systems, data pipelines and applied ML',
+        url: 'https://vishnuatgit.github.io/',
+      }).catch(function () {});   // closing the share sheet is not an error
+    });
   });
 })();
