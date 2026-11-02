@@ -1348,3 +1348,22 @@ html.theme-switching * { transition: none !important; }
 @media (max-width: 760px) {
   .cm-toast { bottom: max(84px, calc(env(safe-area-inset-bottom) + 76px)); }   /* above the bottom nav pill */
 }
+
+/* Contact reel (js/reel.js): each reel is a window the size of its final word, and the strip of
+   words scrolls inside it. The window is taller than the .95 line height so descenders show,
+   and gets a little side room for the italic lean. */
+.reel {
+  position: relative;
+  display: inline-block;
+  vertical-align: top;
+  height: 1.12em;
+  margin: 0 -.08em -.17em;
+  padding: 0 .08em;
+  overflow: hidden;
+}
+.reel-sizer { display: block; visibility: hidden; white-space: nowrap; }
+.reel-strip { position: absolute; top: 0; left: .08em; display: flex; flex-direction: column; white-space: nowrap; will-change: transform; }
+.reel-strip > span, .reel-sizer { height: 1.12em; }
+@keyframes cm-jackpot { 0% { transform: scale(1); } 35% { transform: scale(1.45) rotate(45deg); } 100% { transform: scale(1); } }
+.contact-mail.jackpot { background-size: 100% 2px; }
+.contact-mail.jackpot .cm-arrow { animation: cm-jackpot .7s cubic-bezier(.3, 1.5, .5, 1); }
