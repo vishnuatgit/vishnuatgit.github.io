@@ -345,3 +345,39 @@
 
 .case-facts a { border-bottom: 1px solid var(--line); transition: border-color .3s; }
 .case-facts a:hover { border-color: currentColor; }
+
+/* ===== Print and PDF ==========================================
+   Used when someone prints a case study, and by tools/make_case_study_pdfs.mjs for the
+   Download PDF files: light theme on white, no navigation, buttons, footer or motion, every
+   section shown, the wide diagram, and figures kept whole on one page. */
+.print-only { display: none; }
+@media print {
+  @page { size: A4; margin: 14mm 14mm 16mm; }
+  :root, :root[data-theme="dark"] {
+    --bg: #fff;
+    --fg: #111110;
+    --muted: #55544f;
+    --soft: #6b6a65;
+    --line: #d6d4cc;
+    --surface: #f4f3ef;
+    --grain-opacity: 0;
+    color-scheme: light;
+  }
+  html, body { background: #fff !important; }
+  .nav, .skip, .crumbs, .case-actions, .contact, .cm-toast, .lightbox { display: none !important; }
+  .print-only { display: block; }
+  .print-meta { margin: 0 0 18px; font-size: 12px; line-height: 1.6; color: var(--muted); }
+  html.js .reveal { opacity: 1 !important; transform: none !important; }
+  html.js .section-head .h-mask > span, html.js .section-head::after { transform: none !important; }
+  html.js .section-head > .label, html.js .section-head h2 > .label { opacity: 1 !important; }
+  html.js .stats.reveal div { opacity: 1 !important; translate: none !important; }
+  html.js .stats.reveal::before { transform: none !important; }
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+  .case-hero { padding-top: 0 !important; break-after: page; }   /* page 1 is a cover: title, facts, screenshot */
+  .section { padding-top: 40px; }
+  .diagram-wrap { margin-left: 0; }
+  .diagram-wide { display: block; }
+  .diagram-tall, .diagram-note { display: none; }
+  figure, .diagram-wrap, li, .case-facts > div { break-inside: avoid; }
+  h1, h2, h3, .section-head { break-after: avoid; }
+}
