@@ -1,6 +1,7 @@
-// Contact helpers. On a computer every email link opens Gmail's compose window in a new tab,
-// because most people have no desktop mail app set up; on a phone the mailto: link opens the mail
-// app as usual. Email links also copy the address and show a short toast, as a fallback.
+// Contact helpers. On a computer, email links open Gmail's compose window in a new tab, because
+// most people have no desktop mail app set up; on a phone the mailto: link opens the mail app as
+// usual. A link marked [data-mail-app] (the "Email" option, next to a separate "Gmail" one) always
+// keeps mailto:. Email links also copy the address and show a short toast, as a fallback.
 // Elements: [data-copy-email] (copy + toast, link still opens), [data-copy-only] (copy + toast),
 // [data-share] (the device's share sheet, shown only where the browser has one).
 (function () {
@@ -61,7 +62,7 @@
 
   var GMAIL = 'https://mail.google.com/mail/?view=cm&fs=1&to=' + EMAIL + '&su=' + encodeURIComponent('Hello from your portfolio');
   var computer = matchMedia('(hover: hover) and (pointer: fine)').matches;
-  document.querySelectorAll('a[href^="mailto:"]').forEach(function (el) {
+  document.querySelectorAll('a[href^="mailto:"]:not([data-mail-app])').forEach(function (el) {
     el.addEventListener('click', function (e) {
       if (!computer || e.metaKey || e.ctrlKey || e.shiftKey) return;   // phones and modified clicks keep mailto:
       e.preventDefault();
