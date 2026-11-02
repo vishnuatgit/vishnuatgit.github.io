@@ -1284,7 +1284,7 @@ html.theme-switching * { transition: none !important; }
 
 /* ===== Contact reel ==========================================
    "Let's ship something." headline, the row of contact options under it and the
-   "Email copied" toast (js/contact.js). Static headline for now; no reel animation. */
+   "Email copied" toast (js/contact.js). The slot-machine spin is in js/reel.js. */
 .contact-mail {
   margin-bottom: 0;
   /* Same giant size; only screens under ~390 px shrink it so "something." still fits */
@@ -1364,6 +1364,6 @@ html.theme-switching * { transition: none !important; }
 .reel-sizer { display: block; visibility: hidden; white-space: nowrap; }
 .reel-strip { position: absolute; top: 0; left: .08em; display: flex; flex-direction: column; white-space: nowrap; will-change: transform; }
 .reel-strip > span, .reel-sizer { height: 1.12em; }
-@keyframes cm-jackpot { 0% { transform: scale(1); } 35% { transform: scale(1.45) rotate(45deg); } 100% { transform: scale(1); } }
+@keyframes cm-jackpot { 0% { transform: scale(1); } 40% { transform: scale(1.2) rotate(20deg); } 100% { transform: scale(1); } }
 .contact-mail.jackpot { background-size: 100% 2px; }
-.contact-mail.jackpot .cm-arrow { animation: cm-jackpot .7s cubic-bezier(.3, 1.5, .5, 1); }
+.contact-mail.jackpot .cm-arrow { animation: cm-jackpot 1.1s cubic-bezier(.45, 0, .55, 1); }
