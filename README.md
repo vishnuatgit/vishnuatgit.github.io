@@ -13,10 +13,15 @@ portfolio/
 │                     live-demo links (every page; each part runs only where its elements exist)
 ├── js/hero3d.js      the 3D pipeline network behind the headline (home page, computers with a mouse)
 ├── resume.pdf        résumé (no phone number)
+├── favicon.ico, apple-touch-icon.png, site.webmanifest
+│                     browser-tab and home-screen icons (the manifest's icons are in images/icons/)
+├── tools/make_images.py
+│                     makes the smaller JPG and WebP copies of a screenshot (see "Update project screenshots")
 └── images/
     ├── og.png        the link preview (1200 × 630)
-    ├── resume-preview.jpg
-    └── projects/     one cover per project (<name>.jpg) and the case-study screenshots (<name>/*.jpg)
+    ├── resume-preview.jpg (+ .webp copies)
+    └── projects/     one cover per project (<name>.jpg) and the case-study screenshots (<name>/*.jpg),
+                      each with -600/-900 JPG and -600/-750/-900/full WebP copies
 ```
 
 ## 1. Preview it
@@ -63,7 +68,7 @@ Each project's "Live demo ↗" link on the home page and on its case study reads
 Each page in `projects/` has the same sections: the one-line summary, The problem, How it works (an inline SVG diagram plus the steps), Key decisions, Proof (tests, CI, stack), Screenshots and Limitations, then a link to the next case study. Every fact comes from the project's own README; when a README changes (a new test count, a new limitation), change the page to match.
 
 - **The diagram** has two versions in the page: `.diagram-wide` (shown from 1240 px) and `.diagram-tall` (phones and tablets). Its colours come from the `.dg-*` classes in `projects.css`, which use the theme variables, so it follows light and dark mode. Edit the box text in both versions.
-- **Screenshots** live in `images/projects/<name>/`: 1200 × 750 JPGs under about 250 KB, with `width` and `height` set on the `<img>`.
+- **Screenshots** live in `images/projects/<name>/`: 1200 × 750 JPGs under about 250 KB, with `width` and `height` set on the `<img>`. Each sits in a `<picture>` whose WebP `<source>` lists the WebP copies; run `python tools/make_images.py` after adding or replacing one.
 
 ### Link preview
 
@@ -79,7 +84,8 @@ Each project has one screenshot in `images/projects/` (`archlens.jpg`, `deepbell
 
 1. Run the project locally and take a browser screenshot at **1440×900** (16:10).
 2. Resize it to **1200×750** and save it as a JPG over the old file, keeping the same name. Keep each image under about 250 KB; <https://squoosh.app> compresses them in the browser.
-3. For a new project, copy a `<li class="project">` and point its `.p-shot` `<img>` at the new file.
+3. Run `python tools/make_images.py images/projects/<name>.jpg` (needs `pip install pillow`). It writes the smaller JPG and WebP copies next to it; phones download a WebP copy about half the size of the JPG.
+4. For a new project, copy a `<li class="project">` and change the file names in its `.p-shot` `<picture>` (the `<source>` and the `<img>`).
 
 The image appears on the card on phones and tablets (tap it to enlarge), and in the floating preview that follows the cursor on desktop.
 
@@ -87,13 +93,13 @@ The image appears on the card on phones and tablets (tap it to enlarge), and in 
 
 `resume.pdf` is your July 2026 résumé with the phone number removed, because the site is public and people can email you instead. `images/resume-preview.jpg` is a picture of its first page, shown in the Résumé section.
 
-To update it, export the new résumé without your phone number, save it over `resume.pdf`, and replace `images/resume-preview.jpg` with an image of the first page at about 1100 × 1430.
+To update it, export the new résumé without your phone number, save it over `resume.pdf`, replace `images/resume-preview.jpg` with an image of the first page at about 1100 × 1430, and run `python tools/make_images.py images/resume-preview.jpg` for its WebP copies. Change "Updated July 2026" in the Résumé section to match.
 
 ## 3. Change the look
 
 - **Text sizes:** every size comes from the type scale at the top of `style.css` (`--text-xs` to `--text-giant`). Change a step there and it changes everywhere it's used.
 - **Colours:** the top of `style.css`. `:root` holds the light theme and `[data-theme="dark"]` the dark one. `--accent` is the orange highlight.
-- **Fonts:** change the Google Fonts `<link>` in `index.html` and the three `--font-*` variables. Inter Tight with Instrument Serif is the current pairing; Space Grotesk with Fraunces, or Manrope with Playfair Display, also work.
+- **Fonts:** change the Google Fonts URL in the `<head>` of every page (it appears twice in each: the `preload` link, which loads the fonts without holding up the first paint, and the `<noscript>` link) and the three `--font-*` variables. For a new pairing, also retune the metric-matched fallback `@font-face` rules at the top of `style.css`, which keep the text from jumping when the fonts arrive. Inter Tight with Instrument Serif is the current pairing; Space Grotesk with Fraunces, or Manrope with Playfair Display, also work.
 - **Project colours:** the `--accent` on each project's `<li>`.
 - **The 3D network in the hero:** `js/hero3d.js` draws a slowly turning network of services with orange packets flowing through it, in the theme's colours. **To turn it off, set `HERO_3D = false` at the top of that file**; the hero then looks exactly as it did before, with nothing extra downloaded. Only computers with a mouse and a screen at least 900 px wide load it (after the page has loaded and the browser is idle); phones, data saver, slow connections and devices with under 4 GB of memory skip it, and with reduced motion it is a still picture. three.js is pinned to one version in `THREE_URL` in the same file. It needs a local server (section 1); opened by double-click, the page shows without it.
 

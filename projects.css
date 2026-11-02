@@ -290,6 +290,7 @@
 .notfound {
   display: grid;
   align-content: center;
+  min-height: 100vh;
   min-height: 100svh;
   padding: 120px var(--pad) 64px;
 }
@@ -330,6 +331,16 @@
 }
 @media (max-width: 760px) {
   .notfound { padding-bottom: 120px; }   /* room for the bottom nav pill */
+}
+
+/* Touch screens: 44 px tap areas around the small text links (see the same block in style.css) */
+@media (pointer: coarse) {
+  .crumbs a, .case-facts a { position: relative; }
+  .crumbs a::after { content: ""; position: absolute; inset: -8px -6px; }
+  .case-facts a::after { content: ""; position: absolute; inset: -13px -4px; }
+}
+@media (pointer: coarse) and (max-width: 560px) {
+  .case-facts { row-gap: 22px; }
 }
 
 .case-facts a { border-bottom: 1px solid var(--line); transition: border-color .3s; }
