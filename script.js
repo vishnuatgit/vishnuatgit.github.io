@@ -40,6 +40,26 @@ document.querySelectorAll('[data-demo]').forEach(link => {
   document.querySelectorAll(`[data-demo-note="${link.dataset.demo}"]`).forEach(note => { note.hidden = false; });
 });
 
+// ---- Live-demo status ----
+// The demos sleep on free hosting. When a demo's note scrolls into view, the demo gets one ping,
+// which starts waking it up before anyone taps it; the note says "live now" once the server answers.
+const pinged = new Set();
+const pingDemo = name => {
+  if (pinged.has(name) || !LIVE_DEMOS[name]) return;
+  pinged.add(name);
+  const notes = document.querySelectorAll(`[data-demo-note="${name}"]`);
+  notes.forEach(note => { note.textContent = 'waking the demo up…'; });
+  const stop = new AbortController();
+  setTimeout(() => stop.abort(), 90000);
+  fetch(LIVE_DEMOS[name], { mode: 'no-cors', cache: 'no-store', signal: stop.signal })
+    .then(() => notes.forEach(note => { note.textContent = 'live now'; note.classList.add('is-live'); }))
+    .catch(() => notes.forEach(note => { note.textContent = 'may take a minute to wake (free hosting)'; }));
+};
+const demoWatch = new IntersectionObserver(entries => {
+  entries.forEach(entry => { if (entry.isIntersecting) pingDemo(entry.target.dataset.demoNote); });
+}, { rootMargin: '300px 0px' });
+document.querySelectorAll('[data-demo-note]:not([hidden])').forEach(note => demoWatch.observe(note));
+
 
 // ---- Light / dark toggle (remembers your choice) ----
 // Where the browser supports View Transitions, the new theme grows as a circle from the button.

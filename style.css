@@ -706,6 +706,18 @@ html:not(.js) .nav-pill a:hover { background: var(--fg); color: var(--bg); }
   text-transform: none;
   color: var(--muted);
 }
+/* "live now": the demo answered the wake-up ping (script.js) */
+[data-demo-note].is-live { display: inline-flex; align-items: center; gap: 6px; }
+[data-demo-note].is-live::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #22c55e;
+  animation: live-pulse 2s ease-out infinite;
+}
+@keyframes live-pulse { 0% { box-shadow: 0 0 0 0 rgba(34, 197, 94, .55); } 70%, 100% { box-shadow: 0 0 0 6px rgba(34, 197, 94, 0); } }
+@media (prefers-reduced-motion: reduce) { [data-demo-note].is-live::before { animation: none; } }
 .p-more [hidden] { display: none; }
 
 .more { margin-top: 32px; color: var(--muted); }
