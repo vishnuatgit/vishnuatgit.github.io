@@ -134,3 +134,7 @@ Then put the link in your GitHub profile README, your LinkedIn and the top of yo
 - A blog, or the case studies written in Markdown, by moving to [Astro](https://astro.build), which still outputs static HTML.
 - Privacy-friendly analytics, such as GoatCounter or Cloudflare Web Analytics.
 - Submitting to galleries such as Awwwards once it's polished. Check each site's rules first, because some charge a submission fee.
+
+## 7. License
+
+The code is under the [MIT License](LICENSE). The written content, images and résumé are mine and are not covered by it.
