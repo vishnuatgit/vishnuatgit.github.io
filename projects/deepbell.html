@@ -59,8 +59,8 @@
     <nav class="nav-pill" aria-label="Main">
       <span class="nav-glider" aria-hidden="true"></span>
       <a href="../#work">Work</a>
-      <a href="../#about">About</a>
       <a href="../#experience">Experience</a>
+      <a href="../#about">About</a>
       <a href="#contact">Contact</a>
     </nav>
 
@@ -107,8 +107,8 @@
         <span class="label">Why it exists</span>
       </div>
       <div class="case-body prose reveal">
-          <p class="lead">Monitoring usually stops at an alert. DeepBell practises <em>the steps after it.</em></p>
-          <p>Detect, report, recover. Background threads sample the service's own CPU and memory every 2 s, a baseline check plus an Isolation Forest flags anomalies and opens de-duplicated incidents, each incident gets a written report, and rolling SQLite snapshots give one-click rollback.</p>
+          <p class="lead">DeepBell runs the whole incident loop <em>on one small service.</em></p>
+          <p>Background threads sample the service's own CPU and memory every 2 s. A baseline check plus an Isolation Forest flags anomalies and opens de-duplicated incidents, each incident gets a written report, and rolling SQLite snapshots give one-click rollback.</p>
           <p>A capped fault-injection lab (the Chaos Lab) lets you break it on purpose, and every incident records when it started, was detected and resolved, so detection and recovery are timed.</p>
       </div>
     </section>
@@ -228,11 +228,11 @@
       <div class="case-body">
         <ol class="decisions">
           <li class="reveal">
-            <h3>A baseline check first, the forest second</h3>
+            <h3>A baseline check before the Isolation Forest</h3>
             <p>A sample is a candidate only when CPU is at least 15 points above the baseline or memory at least 30 MB above it; an Isolation Forest (100 trees) must then confirm it. On its own, the forest flagged ordinary jitter.</p>
           </li>
           <li class="reveal">
-            <h3>One incident per fault, never a new normal</h3>
+            <h3>One incident per fault</h3>
             <p>Two anomalous samples open an incident and three normal ones close it, with one incident and one report per fault kind at a time. While an incident is open its samples stay out of the baseline, so a held leak never becomes the new normal.</p>
           </li>
           <li class="reveal">
@@ -244,7 +244,7 @@
             <p>The SQLite database is copied every 30 s when it changed (newest 10 kept, each integrity-checked). Incident history lives in a separate <code>metrics.db</code>, so corrupting or rolling back the app database never rewrites it.</p>
           </li>
           <li class="reveal">
-            <h3>Safe to break in public</h3>
+            <h3>Safe to run as a public demo</h3>
             <p>Every fault has caps and a cooldown: a CPU spike lasts 1 to 5 s, a leak holds at most 120 MB and is freed after 5 minutes, and a request during a cooldown gets a <code>429</code> with <code>Retry-After</code>. Public demo mode turns off the crash fault and the API-key endpoint.</p>
           </li>
         </ol>
@@ -292,7 +292,7 @@
       </div>
       <div class="case-body reveal">
         <ul class="limits">
-          <li><strong>It monitors only itself</strong>, on two signals (CPU and resident memory). It is a lab for the detect, report, recover loop, not a general monitoring tool.</li>
+          <li><strong>It monitors only itself</strong>, on two signals (CPU and resident memory). It is a practice lab for incident response; it does not replace a monitoring tool.</li>
           <li><strong>Fixed minimum deviations</strong> (15 CPU points, 30 MB), so smaller spikes and slow leaks are deliberately ignored.</li>
           <li><strong>Snapshots are not point-in-time recovery:</strong> you can restore one of the last 10, taken at most every 30 s, and a rollback loses whatever changed since.</li>
           <li><strong>No authentication.</strong> Public demo mode disables the dangerous endpoints and caps the rest, but any visitor can inject the capped faults.</li>

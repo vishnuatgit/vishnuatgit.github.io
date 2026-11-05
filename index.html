@@ -73,8 +73,8 @@
     <nav class="nav-pill" aria-label="Main">
       <span class="nav-glider" aria-hidden="true"></span>
       <a href="#work">Work</a>
-      <a href="#about">About</a>
       <a href="#experience">Experience</a>
+      <a href="#about">About</a>
       <a href="#contact">Contact</a>
     </nav>
 
@@ -109,11 +109,12 @@
       </h1>
 
       <div class="hero-foot">
-        <p class="hero-intro">Hi, I'm Vishnu, a third-year B.Tech CSE (AI&nbsp;&amp;&nbsp;ML) student. I build tested, containerised Python services, from REST APIs to anomaly detection.</p>
+        <p class="hero-intro">Hi, I'm Vishnu Jayanth. I build backend services and ML tools in Python, and three of them are live for you to try.</p>
         <div class="actions">
           <a class="btn btn-solid" href="#work" data-magnetic>See my work <span class="arr arr-se" aria-hidden="true">↘</span></a>
-          <a class="btn btn-ghost" href="#resume">Résumé <span class="arr arr-s" aria-hidden="true">↓</span></a>
+          <a class="btn btn-ghost" href="resume.pdf" target="_blank" rel="noopener">Résumé <span class="arr arr-ne" aria-hidden="true">↗</span></a>
           <a class="btn btn-ghost" href="https://github.com/vishnuatgit" target="_blank" rel="noopener">GitHub <span class="arr arr-ne" aria-hidden="true">↗</span></a>
+          <a class="btn btn-ghost" href="https://www.linkedin.com/in/vishnujayanth/" target="_blank" rel="noopener">LinkedIn <span class="arr arr-ne" aria-hidden="true">↗</span></a>
         </div>
       </div>
     </section>
@@ -122,7 +123,7 @@
     <div class="marquee" aria-hidden="true">
       <div class="marquee-track">
         <div class="marquee-group">
-          <span>Python</span><span>FastAPI</span><span>scikit-learn</span><span>LangChain</span><span>PostgreSQL</span><span>Docker</span><span>Pandas</span><span>GitHub Actions</span><span>Next.js</span>
+          <span>Repo health scoring</span><span>Incident response</span><span>Invoice validation</span><span>Anomaly detection</span><span>Revenue forecasting</span><span>Customer segmentation</span><span>Data pipelines</span><span>REST APIs</span>
         </div>
       </div>
     </div>
@@ -176,7 +177,7 @@
             <a class="p-link" href="projects/deepbell.html">
               <span class="p-index">02</span>
               <span class="p-title">DeepBell</span>
-              <span class="p-desc">An async SRE telemetry system: it flags CPU and memory anomalies with an Isolation Forest, writes root-cause incident reports with LangChain and Gemini, and rolls back SQLite snapshots.</span>
+              <span class="p-desc">A small SRE lab in FastAPI that watches its own CPU and memory, flags anomalies with an Isolation Forest, writes incident reports with LangChain and Gemini, and rolls back from SQLite snapshots.</span>
               <span class="p-tags">FastAPI · LangChain · Docker</span>
               <span class="p-year">2026</span>
               <span class="p-arrow" aria-hidden="true">↗</span>
@@ -220,18 +221,55 @@
       <p class="more reveal">Every project ships with automated tests and CI on GitHub Actions. <a href="https://github.com/vishnuatgit" target="_blank" rel="noopener">More on GitHub <span aria-hidden="true">↗</span></a></p>
     </section>
 
+    <!-- ===================== EXPERIENCE ===================== -->
+    <section class="section" id="experience">
+      <div class="section-head reveal">
+        <h2><span class="label">(02)</span><span class="h-mask"><span>Experience</span></span></h2>
+        <span class="label">Timeline</span>
+      </div>
+
+      <!-- EDIT: newest first. Add hackathons, clubs or freelance work here when you have them. -->
+      <ol class="timeline">
+        <li class="reveal">
+          <span class="t-when">Feb – Mar 2026</span>
+          <div class="t-what">
+            <h3>Machine Learning Development Intern</h3>
+            <p>VSC DigiTech · Hyderabad</p>
+          </div>
+          <p class="t-desc">Built a five-module ML platform on 36,893 <span class="nobr">e-commerce</span> transactions: RFM customer segmentation (KMeans), monthly revenue forecasting (Random Forest on lag features) and product recommendations. Delivered under NDA.</p>
+        </li>
+        <li class="reveal">
+          <span class="t-when">2026</span>
+          <div class="t-what">
+            <h3>Open-source projects</h3>
+            <p>github.com/vishnuatgit</p>
+          </div>
+          <p class="t-desc">Three projects: a GitHub repository scorer, an incident-response lab and an invoice validator. All three are live, with tests and CI.</p>
+        </li>
+        <li class="reveal">
+          <span class="t-when">2024 – 2028</span>
+          <div class="t-what">
+            <h3>B.Tech, CSE (AI &amp; ML)</h3>
+            <p>Sri Sri University · Cuttack</p>
+          </div>
+          <p class="t-desc">Third year. Coursework in data structures and algorithms, databases, computer networks, operating systems and machine learning.</p>
+        </li>
+      </ol>
+
+    </section>
+
     <!-- ===================== ABOUT ===================== -->
     <section class="section" id="about">
       <div class="section-head reveal">
-        <h2><span class="label">(02)</span><span class="h-mask"><span>About</span></span></h2>
+        <h2><span class="label">(03)</span><span class="h-mask"><span>About</span></span></h2>
         <span class="label">Who I am</span>
       </div>
 
       <!-- EDIT: rewrite these in your own voice -->
       <div class="about">
-        <p class="lead reveal">I build Python services the way production needs them: <em>tested, containerised</em> and shipped with CI.</p>
+        <p class="lead reveal">Most of what I build is <em>backend code</em> with some machine learning in it.</p>
         <div class="about-body reveal">
-          <p>I study Computer Science (AI &amp; ML) at Sri Sri University and work where backend engineering meets machine learning: APIs in FastAPI and Flask, data pipelines in Pandas, and models in scikit-learn and LangChain.</p>
+          <p>I study Computer Science (AI &amp; ML) at Sri Sri University. I write APIs in FastAPI and Flask, data pipelines in Pandas, and models in scikit-learn and LangChain.</p>
           <p>As an ML development intern at VSC DigiTech I built a five-module platform on 36,893 <span class="nobr">e-commerce</span> transactions, covering customer segmentation, revenue forecasting and product recommendations.</p>
           <p>I'm looking for internships in backend and applied-ML engineering.</p>
         </div>
@@ -263,43 +301,6 @@
           <ul><li>PostgreSQL, SQLite</li><li>Docker</li><li>GitHub Actions</li><li>pytest, Playwright</li></ul>
         </div>
       </div>
-    </section>
-
-    <!-- ===================== EXPERIENCE ===================== -->
-    <section class="section" id="experience">
-      <div class="section-head reveal">
-        <h2><span class="label">(03)</span><span class="h-mask"><span>Experience</span></span></h2>
-        <span class="label">Timeline</span>
-      </div>
-
-      <!-- EDIT: newest first. Add hackathons, clubs or freelance work here when you have them. -->
-      <ol class="timeline">
-        <li class="reveal">
-          <span class="t-when">Feb – Mar 2026</span>
-          <div class="t-what">
-            <h3>Machine Learning Development Intern</h3>
-            <p>VSC DigiTech · Hyderabad</p>
-          </div>
-          <p class="t-desc">Built a five-module ML platform on 36,893 <span class="nobr">e-commerce</span> transactions: RFM customer segmentation (KMeans), monthly revenue forecasting (Random Forest on lag features) and product recommendations. Delivered under NDA.</p>
-        </li>
-        <li class="reveal">
-          <span class="t-when">2026</span>
-          <div class="t-what">
-            <h3>Open-source projects</h3>
-            <p>github.com/vishnuatgit</p>
-          </div>
-          <p class="t-desc">Backend and ML projects with automated tests and CI on GitHub Actions, from a repository-health scorer to an async SRE telemetry system.</p>
-        </li>
-        <li class="reveal">
-          <span class="t-when">2024 – 2028</span>
-          <div class="t-what">
-            <h3>B.Tech, CSE (AI &amp; ML)</h3>
-            <p>Sri Sri University · Cuttack</p>
-          </div>
-          <p class="t-desc">Third year. Coursework in data structures and algorithms, databases, computer networks, operating systems and machine learning.</p>
-        </li>
-      </ol>
-
     </section>
 
     <!-- ===================== RÉSUMÉ ===================== -->
