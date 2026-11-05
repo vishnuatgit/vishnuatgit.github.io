@@ -381,3 +381,6 @@
   figure, .diagram-wrap, li, .case-facts > div { break-inside: avoid; }
   h1, h2, h3, .section-head { break-after: avoid; }
 }
+
+/* Code and Live demo again at the end of a case study, above "Next case study" */
+.case-actions-end { margin-top: clamp(28px, 4vw, 44px); }
