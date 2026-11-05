@@ -59,8 +59,8 @@
     <nav class="nav-pill" aria-label="Main">
       <span class="nav-glider" aria-hidden="true"></span>
       <a href="../#work">Work</a>
-      <a href="../#about">About</a>
       <a href="../#experience">Experience</a>
+      <a href="../#about">About</a>
       <a href="#contact">Contact</a>
     </nav>
 
@@ -107,8 +107,8 @@
         <span class="label">Why it exists</span>
       </div>
       <div class="case-body prose reveal">
-          <p class="lead">Bad invoice data rarely fails where it arrives. <em>It fails later,</em> several systems downstream.</p>
-          <p>By then it is hard to trace back to the file that caused it. SupplyTrace checks each file at the door: it labels every invoice valid, invalid or needs review with deterministic rules, points each rule at the line of the file behind it, and logs the result.</p>
+          <p class="lead">A bad invoice usually causes trouble <em>later,</em> in a system downstream.</p>
+          <p>By then it is hard to trace back to the file. SupplyTrace checks each file when it arrives: it labels every invoice valid, invalid or needs review with deterministic rules, points each rule at the line of the file behind it, and logs the result.</p>
           <p>An experimental Random Forest adds a risk score trained on 400 synthetic invoices, with an explanation of what drove each prediction.</p>
       </div>
     </section>
@@ -228,23 +228,23 @@
       <div class="case-body">
         <ol class="decisions">
           <li class="reveal">
-            <h3>The rules decide; the model only advises</h3>
+            <h3>Rules set the status; the model adds a risk score</h3>
             <p>The status always comes from five deterministic rules. The risk score is labelled experimental: it is trained on synthetic data and says nothing about real suppliers.</p>
           </li>
           <li class="reveal">
-            <h3>Treat every upload as hostile</h3>
+            <h3>Safe parsing of untrusted uploads</h3>
             <p><code>defusedxml</code> refuses DTDs, so there is no entity expansion or external entities; the 1 MB cap is enforced before the body is read; documents nested more than 100 levels deep are rejected.</p>
           </li>
           <li class="reveal">
-            <h3>Explanations that add up</h3>
+            <h3>Explaining each risk score</h3>
             <p>The explanation follows each tree from its root to the file's leaf and credits every split's change in failure rate to the feature it tested (tree-path attribution). The base rate plus the contributions equals the score, and the tests check it.</p>
           </li>
           <li class="reveal">
-            <h3>One code path, an audit trail</h3>
+            <h3>One code path and an audit log</h3>
             <p>A single check, a batch and a streamed batch all call the same <code>analyze_document()</code>, so a file gets the same answer every way (tests compare them). Every result is one line in a rotating JSON Lines audit log.</p>
           </li>
           <li class="reveal">
-            <h3>Evaluate against a rules-only baseline</h3>
+            <h3>Compared with a rules-only baseline</h3>
             <p>The server trains a fresh model on 300 invoices and tests it on the other 100 next to a baseline that fails a file exactly when the rules do. At the 50% threshold the model makes the same call as the rules on every held-out file.</p>
           </li>
         </ol>

@@ -59,8 +59,8 @@
     <nav class="nav-pill" aria-label="Main">
       <span class="nav-glider" aria-hidden="true"></span>
       <a href="../#work">Work</a>
-      <a href="../#about">About</a>
       <a href="../#experience">Experience</a>
+      <a href="../#about">About</a>
       <a href="#contact">Contact</a>
     </nav>
 
@@ -107,8 +107,8 @@
         <span class="label">Why it exists</span>
       </div>
       <div class="case-body prose reveal">
-          <p class="lead">Checking a repository by hand means <em>ten minutes of clicking around.</em></p>
-          <p>License? Tests? CI? Recent commits? Open issues? ArchLens runs that checklist in one request, shows the evidence behind every point, and turns what is missing into a prioritised list of fixes.</p>
+          <p class="lead">ArchLens checks a repository's <em>engineering health</em> in one request.</p>
+          <p>By hand, you would open the README, look for a license, tests and CI, and scan recent commits and issues. ArchLens does those checks at once, shows what it found for each, and lists what is missing as fixes, most valuable first.</p>
           <p>It reads repository metadata through the GitHub REST API and never clones the code, so an analysis takes six read-only API calls. Every new analysis is stored in SQLite, so reports can be revisited, compared and shared.</p>
       </div>
     </section>
@@ -293,7 +293,7 @@
       <div class="case-body reveal">
         <ul class="limits">
           <li><strong>Metadata only.</strong> It reads repository statistics and the root file listing. It does not read source files, run tests or measure coverage.</li>
-          <li><strong>Heuristics, not ground truth.</strong> A file earns points by existing, whatever its quality, and stars are a weak proxy for health. A low score is a list of things to look at, not a verdict.</li>
+          <li><strong>Simple rules.</strong> A file earns points just by existing, whatever its quality, and stars say little about code health. Treat a low score as a list of things to check.</li>
           <li><strong>Capped counts.</strong> Contributors and recent commits come from one page of GitHub results, so they stop at 100.</li>
           <li><strong>Single instance.</strong> The rate limiter lives in memory and resets on restart.</li>
           <li><strong>Ephemeral demo storage.</strong> On the free host, reports other than the bundled examples disappear when the service restarts.</li>
