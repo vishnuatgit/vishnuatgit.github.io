@@ -1,6 +1,6 @@
 # Portfolio
 
-My portfolio: a home page, one case study per project and a 404 page, in plain HTML, CSS and JavaScript. There is no build step and no framework; the only outside dependencies are Google Fonts and, on computers with a mouse, three.js from jsDelivr for the 3D network in the hero.
+My portfolio: a home page, one case study per project and a 404 page, in plain HTML, CSS and JavaScript. There is no build step and no framework; the fonts are self-hosted in `fonts/`, so the only outside dependency is three.js from jsDelivr, loaded on computers with a mouse for the 3D network in the hero.
 
 ```
 portfolio/
@@ -113,7 +113,7 @@ To update it, export the new résumé without your phone number, save it over `r
 
 - **Text sizes:** every size comes from the type scale at the top of `style.css` (`--text-xs` to `--text-giant`). Change a step there and it changes everywhere it's used.
 - **Colours:** the top of `style.css`. `:root` holds the light theme and `[data-theme="dark"]` the dark one. `--accent` is the orange highlight.
-- **Fonts:** change the Google Fonts URL in the `<head>` of every page (it appears twice in each: the `preload` link, which loads the fonts without holding up the first paint, and the `<noscript>` link) and the three `--font-*` variables. For a new pairing, also retune the metric-matched fallback `@font-face` rules at the top of `style.css`, which keep the text from jumping when the fonts arrive. Inter Tight with Instrument Serif is the current pairing; Space Grotesk with Fraunces, or Manrope with Playfair Display, also work.
+- **Fonts:** the fonts are self-hosted in `fonts/` (WOFF2, Latin and Latin Extended subsets, with their SIL Open Font License files). Their `@font-face` rules are at the top of `style.css`, and each page preloads the two the first screen needs (Inter Tight and Instrument Serif italic). To change fonts, add the new WOFF2 files there, update those rules, the preload links and the three `--font-*` variables, and retune the metric-matched fallback `@font-face` rules that keep the text from jumping while the fonts load. Inter Tight with Instrument Serif is the current pairing.
 - **Project colours:** the `--accent` on each project's `<li>`.
 - **The 3D network in the hero:** `js/hero3d.js` draws a slowly turning network of services with orange packets flowing through it, in the theme's colours. **To turn it off, set `HERO_3D = false` at the top of that file**; the hero then looks exactly as it did before, with nothing extra downloaded. Only computers with a mouse and a screen at least 900 px wide load it (after the page has loaded and the browser is idle); phones, data saver, slow connections and devices with under 4 GB of memory skip it, and with reduced motion it is a still picture. three.js is pinned to one version in `THREE_URL` in the same file. It needs a local server (section 1); opened by double-click, the page shows without it.
 
