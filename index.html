@@ -331,12 +331,10 @@
     <p class="contact-kicker reveal">Have an internship, project or idea in mind?</p>
     <!-- EDIT: your email (also in the nav button at the top) -->
     <a class="contact-mail reveal" href="mailto:jayanthvishnu9@gmail.com" data-copy-email><span class="cm-mask"><span>Let's ship something.</span></span><span class="cm-arrow" aria-hidden="true">↗</span></a>
-    <!-- The headline opens Gmail on a computer and the mail app on a phone; "Email" always opens the mail app. Both copy the address and show a toast (js/contact.js) -->
+    <!-- "Email" and the headline open Gmail on a computer and the mail app on a phone, and copy the address with a toast; "Share" shows only where there is a share sheet (phones and tablets). See js/contact.js -->
     <ul class="cm-options" aria-label="Ways to contact me">
-      <li><a href="mailto:jayanthvishnu9@gmail.com?subject=Hello%20from%20your%20portfolio" data-copy-email data-mail-app>Email</a></li>
-      <li><a href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to=jayanthvishnu9@gmail.com&amp;su=Hello%20from%20your%20portfolio" target="_blank" rel="noopener">Gmail</a></li>
+      <li><a href="mailto:jayanthvishnu9@gmail.com?subject=Hello%20from%20your%20portfolio" data-copy-email>Email</a></li>
       <li><a href="https://www.linkedin.com/in/vishnujayanth/" target="_blank" rel="noopener">LinkedIn</a></li>
-      <li hidden><button type="button" data-copy-only>Copy email</button></li>
       <li hidden><button type="button" data-share>Share</button></li>
     </ul>
 
@@ -367,7 +365,7 @@
     <div class="lightbox-inner">
       <div class="lightbox-media">
         <div class="lightbox-scroller">
-          <img class="lightbox-img" src="images/projects/archlens.jpg" width="1200" height="750" loading="lazy" decoding="async" alt="">
+          <img class="lightbox-img" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" width="1200" height="750" decoding="async" alt="">   <!-- the real image is set when it opens (script.js) -->
         </div>
         <span class="lightbox-hint" aria-hidden="true">Swipe to pan ⟷</span>
       </div>

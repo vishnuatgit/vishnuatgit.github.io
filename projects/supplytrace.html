@@ -316,12 +316,11 @@
     <span class="label" role="heading" aria-level="2">(07) Contact</span>
     <p class="contact-kicker reveal">Have an internship, project or idea in mind?</p>
     <a class="contact-mail reveal" href="mailto:jayanthvishnu9@gmail.com" data-copy-email><span class="cm-mask"><span>Let's ship something.</span></span><span class="cm-arrow" aria-hidden="true">↗</span></a>
-    <!-- "Email" and the headline copy the address, show a toast and open the mail app (js/contact.js) -->
+    <!-- "Email" and the headline open Gmail on a computer and the mail app on a phone, and copy the address with a toast; "Share" shows only where there is a share sheet (phones and tablets). See js/contact.js -->
     <ul class="cm-options" aria-label="Ways to contact me">
-      <li><a href="mailto:jayanthvishnu9@gmail.com" data-copy-email>Email</a></li>
-      <li><a href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to=jayanthvishnu9@gmail.com" target="_blank" rel="noopener">Gmail</a></li>
+      <li><a href="mailto:jayanthvishnu9@gmail.com?subject=Hello%20from%20your%20portfolio" data-copy-email>Email</a></li>
       <li><a href="https://www.linkedin.com/in/vishnujayanth/" target="_blank" rel="noopener">LinkedIn</a></li>
-      <li hidden><button type="button" data-copy-only>Copy email</button></li>
+      <li hidden><button type="button" data-share>Share</button></li>
     </ul>
 
     <div class="contact-foot">
