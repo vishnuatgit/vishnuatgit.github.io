@@ -36,6 +36,8 @@ document.querySelectorAll('[data-demo]').forEach(link => {
   const url = LIVE_DEMOS[link.dataset.demo];
   if (!url) return;
   link.href = url;
+  link.target = '_blank';   // set here, not in the HTML: a link without an href can't carry target or rel
+  link.rel = 'noopener';
   link.hidden = false;
   document.querySelectorAll(`[data-demo-note="${link.dataset.demo}"]`).forEach(note => { note.hidden = false; });
 });
@@ -147,13 +149,15 @@ if (document.fonts) document.fonts.ready.then(placeGlider);
 // On phones the bottom pill tucks away while you scroll down and comes back when you scroll up.
 let lastY = scrollY;
 const onScroll = () => {
-  const y = scrollY;
-  nav.classList.toggle('scrolled', y > 24);
-  if (y < innerHeight * 0.5) setActive(null);
+  // Read everything first, then change classes: reading scrollHeight after a class change would make the
+  // browser redo layout on every scroll event.
+  const y = scrollY, viewH = innerHeight, pageH = root.scrollHeight;
   const dy = y - lastY;
+  nav.classList.toggle('scrolled', y > 24);
+  if (y < viewH * 0.5) setActive(null);
   if (Math.abs(dy) > 8) {
-    const atBottom = innerHeight + y >= root.scrollHeight - 40;
-    nav.classList.toggle('tucked', dy > 0 && y > innerHeight * 0.6 && !atBottom);
+    const atBottom = viewH + y >= pageH - 40;
+    nav.classList.toggle('tucked', dy > 0 && y > viewH * 0.6 && !atBottom);
     lastY = y;
   }
 };
