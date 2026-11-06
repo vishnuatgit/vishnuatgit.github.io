@@ -1,9 +1,9 @@
 // Contact helpers. On a computer, email links open Gmail's compose window in a new tab, because
 // most people have no desktop mail app set up; on a phone the mailto: link opens the mail app as
-// usual. A link marked [data-mail-app] (the "Email" option, next to a separate "Gmail" one) always
-// keeps mailto:. Email links also copy the address and show a short toast, as a fallback.
-// Elements: [data-copy-email] (copy + toast, link still opens), [data-copy-only] (copy + toast),
-// [data-share] (the device's share sheet, shown only where the browser has one).
+// usual (Ctrl/Cmd/Shift-click keeps mailto: on a computer too). Links marked [data-copy-email] also
+// copy the address and show a short toast, as a fallback.
+// [data-share] opens the device's share sheet with this page's address. It is shown only on phones
+// and tablets that have one; on a computer the system share dialog is of little use.
 (function () {
   var EMAIL = 'jayanthvishnu9@gmail.com';
 
@@ -54,15 +54,10 @@
   document.querySelectorAll('[data-copy-email]').forEach(function (el) {
     el.addEventListener('click', copyEmail);   // the mailto: link still opens as normal
   });
-  document.querySelectorAll('[data-copy-only]').forEach(function (el) {
-    var item = el.closest('[hidden]');
-    if (item) item.hidden = false;   // without JavaScript this button could not copy, so it stays hidden
-    el.addEventListener('click', copyEmail);
-  });
 
   var GMAIL = 'https://mail.google.com/mail/?view=cm&fs=1&to=' + EMAIL + '&su=' + encodeURIComponent('Hello from your portfolio');
   var computer = matchMedia('(hover: hover) and (pointer: fine)').matches;
-  document.querySelectorAll('a[href^="mailto:"]:not([data-mail-app])').forEach(function (el) {
+  document.querySelectorAll('a[href^="mailto:"]').forEach(function (el) {
     el.addEventListener('click', function (e) {
       if (!computer || e.metaKey || e.ctrlKey || e.shiftKey) return;   // phones and modified clicks keep mailto:
       e.preventDefault();
@@ -70,15 +65,17 @@
     });
   });
 
+  var canonical = document.querySelector('link[rel="canonical"]');
+  var pageUrl = canonical ? canonical.href : 'https://vishnuatgit.github.io/';
   document.querySelectorAll('[data-share]').forEach(function (el) {
-    if (!navigator.share) return;
+    if (!navigator.share || computer) return;   // stays hidden
     var item = el.closest('[hidden]');
     if (item) item.hidden = false;
     el.addEventListener('click', function () {
       navigator.share({
-        title: 'Chandana Vishnu Jayanth',
+        title: document.title,
         text: 'Backend systems, data pipelines and applied ML',
-        url: 'https://vishnuatgit.github.io/',
+        url: pageUrl,
       }).catch(function () {});   // closing the share sheet is not an error
     });
   });

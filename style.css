@@ -1216,11 +1216,14 @@ html:has(.lightbox[open]) { overflow: hidden; scrollbar-gutter: stable; }
   .p-proof a { position: relative; }
   .p-proof a::after { content: ""; position: absolute; inset: -13px -4px; }
 
-  .socials { row-gap: 20px; }
+  .socials { row-gap: 26px; }   /* the tap areas below reach 13 px each way, so rows of them don't overlap */
   .contact-foot a::after { inset: -13px -6px; }
   .cm-options a, .cm-options button, .lightbox-link { position: relative; }
   .cm-options a::after, .cm-options button::after { content: ""; position: absolute; inset: 0 -6px; }
   .lightbox-link::after { content: ""; position: absolute; inset: -13px -6px; }
+  /* Links inside sentences ("More on GitHub", "CI runs", the email under the résumé): a taller tap area, same look */
+  .more a, .proof-note a, .resume-note a { position: relative; }
+  .more a::after, .proof-note a::after, .resume-note a::after { content: ""; position: absolute; inset: -12px -4px; }
 }
 
 /* Touch screens have no hover: a tapped button would otherwise stay filled (and the theme
@@ -1406,7 +1409,11 @@ html.theme-switching * { transition: none !important; }
 .contact-mail .cm-arrow { color: var(--accent); }
 [data-theme="dark"] .contact-mail .cm-arrow { color: #e4500f; }   /* 3.4:1 on the light panel */
 
+/* The headline's mask and reel windows reach about .2em below its box (room for the italic descenders), over the
+   top of this row. The row sits above them, so "LinkedIn" opens LinkedIn instead of the headline's email link. */
 .cm-options {
+  position: relative;
+  z-index: 1;
   display: flex;
   flex-wrap: wrap;
   gap: 0 28px;
