@@ -105,7 +105,7 @@
       <div class="case-body prose reveal">
           <p class="lead">ArchLens checks a repository's <em>engineering health</em> in one request.</p>
           <p>By hand, you would open the README, look for a license, tests and CI, and scan recent commits and issues. ArchLens does those checks at once, shows what it found for each, and lists what is missing as fixes, most valuable first.</p>
-          <p>It reads repository metadata through the GitHub REST API and never clones the code, so an analysis takes six read-only API calls. Every new analysis is stored in SQLite, so reports can be revisited, compared and shared.</p>
+          <p>It reads repository metadata through the GitHub REST API and never clones the code, so an analysis takes six read-only API calls, plus one more for each dependency file it reads (six at most). Every new analysis is stored in SQLite, so reports can be revisited, compared and shared.</p>
       </div>
     </section>
     <section class="section" id="how">
@@ -212,7 +212,7 @@
           <li><p><strong>Fetch repo metadata.</strong> Repository stats, the root file listing, languages, contributors, commits from the last 30 days and the workflow folder, read with one shared <code>httpx.AsyncClient</code> and <code>asyncio.gather</code>. If one call fails, the others are cancelled.</p></li>
           <li><p><strong>Check 7 dimensions.</strong> Documentation, activity, organization, community, maintainability, security and code quality: a README, license, test folder, CI workflows, lockfile, <code>SECURITY.md</code>, linter and type-checker config, recent commits and open issues.</p></li>
           <li><p><strong>Score and grade.</strong> Points add up to 100 and map to a grade from A+ (95 and above) to F (below 35) and a health tier, with the evidence behind every point.</p></li>
-          <li><p><strong>Scan dependencies.</strong> Root manifests (<code>requirements*.txt</code>, <code>pyproject.toml</code>, <code>package.json</code> with its lockfile, <code>go.mod</code>) are read through the contents API, and pinned versions are checked against OSV.dev in one batch request: severity, advisory and the version to upgrade to. If OSV is down, the report says it couldn't check, and the score formula is unchanged.</p></li>
+          <li><p><strong>Scan dependencies.</strong> Root manifests (<code>requirements*.txt</code>, <code>pyproject.toml</code>, <code>package.json</code> with its lockfile, <code>go.mod</code>) are read through the contents API, and pinned versions are checked against OSV.dev in one batch request, then each advisory is looked up for its severity and the version to upgrade to. If OSV is down, the report says it couldn't check, and the score formula is unchanged.</p></li>
           <li><p><strong>Suggest next steps.</strong> Each failed check becomes a fix with the points it would add, ranked, and exportable as a Markdown checklist.</p></li>
           <li><p><strong>Gate pull requests.</strong> A composite GitHub Action runs the CLI in CI, writes the report to the job summary, keeps one updated PR comment and fails the job below a chosen score.</p></li>
         </ol>
