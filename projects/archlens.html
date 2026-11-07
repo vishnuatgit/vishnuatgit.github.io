@@ -76,12 +76,12 @@
       <p class="crumbs label"><a href="../#work"><span aria-hidden="true">←</span> All work</a><span>Case study 01 / 03</span></p>
       <p class="print-only print-meta">Case study by Chandana Vishnu Jayanth · vishnuatgit.github.io · jayanthvishnu9@gmail.com<br>Live demo: archlens-xhxr.onrender.com · Code: github.com/vishnuatgit/ArchLens</p>
       <h1 class="case-title">ArchLens</h1>
-      <p class="case-summary">Scores any public GitHub repository from 0 to 100 across seven engineering dimensions, as a web app, a REST API and a CLI.</p>
+      <p class="case-summary">Scores any public GitHub repository from 0 to 100 across seven engineering dimensions and checks its dependencies for known vulnerabilities, as a web app, a REST API, a CLI and a GitHub Action.</p>
 
       <dl class="case-facts">
         <div><dt class="label">Year</dt><dd>2026</dd></div>
         <div><dt class="label">Built with</dt><dd>FastAPI · SQLAlchemy · Docker</dd></div>
-        <div><dt class="label">Proof</dt><dd><span class="p-proof"><a href="https://github.com/vishnuatgit/ArchLens/actions/workflows/ci.yml" target="_blank" rel="noopener">266 tests · CI passing</a></span></dd></div>
+        <div><dt class="label">Proof</dt><dd><span class="p-proof"><a href="https://github.com/vishnuatgit/ArchLens/actions/workflows/ci.yml" target="_blank" rel="noopener">328 tests · CI passing</a></span></dd></div>
         <div><dt class="label">Source</dt><dd><a href="https://github.com/vishnuatgit/ArchLens" target="_blank" rel="noopener">github.com/vishnuatgit/ArchLens</a></dd></div>
       </dl>
 
@@ -212,14 +212,16 @@
           <li><p><strong>Fetch repo metadata.</strong> Repository stats, the root file listing, languages, contributors, commits from the last 30 days and the workflow folder, read with one shared <code>httpx.AsyncClient</code> and <code>asyncio.gather</code>. If one call fails, the others are cancelled.</p></li>
           <li><p><strong>Check 7 dimensions.</strong> Documentation, activity, organization, community, maintainability, security and code quality: a README, license, test folder, CI workflows, lockfile, <code>SECURITY.md</code>, linter and type-checker config, recent commits and open issues.</p></li>
           <li><p><strong>Score and grade.</strong> Points add up to 100 and map to a grade from A+ (95 and above) to F (below 35) and a health tier, with the evidence behind every point.</p></li>
+          <li><p><strong>Scan dependencies.</strong> Root manifests (<code>requirements*.txt</code>, <code>pyproject.toml</code>, <code>package.json</code> with its lockfile, <code>go.mod</code>) are read through the contents API, and pinned versions are checked against OSV.dev in one batch request: severity, advisory and the version to upgrade to. If OSV is down, the report says it couldn't check, and the score formula is unchanged.</p></li>
           <li><p><strong>Suggest next steps.</strong> Each failed check becomes a fix with the points it would add, ranked, and exportable as a Markdown checklist.</p></li>
+          <li><p><strong>Gate pull requests.</strong> A composite GitHub Action runs the CLI in CI, writes the report to the job summary, keeps one updated PR comment and fails the job below a chosen score.</p></li>
         </ol>
       </div>
     </section>
     <section class="section" id="decisions">
       <div class="section-head reveal">
         <h2><span class="label">(03)</span><span class="h-mask"><span>Key decisions</span></span></h2>
-        <span class="label">5 choices</span>
+        <span class="label">6 choices</span>
       </div>
       <div class="case-body">
         <ol class="decisions">
@@ -243,6 +245,10 @@
             <h3>Scoring you can check</h3>
             <p>The <code>/scoring</code> page is generated from the scorer's own constants, and tests run the real scorer against it, so the explanation cannot drift from the code.</p>
           </li>
+          <li class="reveal">
+            <h3>Measured under load, then fixed</h3>
+            <p>A Locust test against seeded reports found 30 s stalls at 50 users: async handlers made blocking database calls, so requests waiting for a pooled connection blocked the event loop. Read-only handlers became plain <code>def</code> and SQLite moved to <code>NullPool</code>. At 50 users p95 is now 510 ms with 0 failures (one laptop run; the README has the method).</p>
+          </li>
         </ol>
       </div>
     </section>
@@ -253,12 +259,12 @@
       </div>
       <div class="case-body">
         <dl class="stats reveal">
-          <div><dt>pytest tests, GitHub mocked, no network</dt><dd data-count>266</dd></div>
-          <div><dt>CI on GitHub Actions: pytest, Ruff, Black</dt><dd>Passing</dd></div>
+          <div><dt>pytest tests, GitHub mocked, no network</dt><dd data-count>328</dd></div>
+          <div><dt>CI on GitHub Actions: pytest on SQLite and PostgreSQL, Ruff, Black</dt><dd>Passing</dd></div>
           <div><dt>GitHub API calls per analysis, run concurrently</dt><dd data-count>6</dd></div>
         </dl>
-        <p class="proof-note reveal">Unit tests cover the scorer, the scoring page, the evidence (the real scorer over about 900 generated repositories), the fix plan, the progress events, the GitHub client and the rate limiter. Integration tests drive every page and API endpoint, including the progress stream, through FastAPI's <code>TestClient</code>. <a href="https://github.com/vishnuatgit/ArchLens/actions/workflows/ci.yml" target="_blank" rel="noopener">CI runs <span aria-hidden="true">↗</span></a></p>
-        <ul class="stack reveal" aria-label="Stack"><li>Python 3.11+</li><li>FastAPI</li><li>httpx</li><li>SQLAlchemy 2</li><li>Alembic</li><li>SQLite</li><li>Jinja2</li><li>Typer + Rich</li><li>pytest</li><li>Ruff</li><li>Black</li><li>Docker</li><li>GitHub Actions</li></ul>
+        <p class="proof-note reveal">Unit tests cover the scorer, the scoring page, the evidence (the real scorer over about 900 generated repositories), the fix plan, the progress events, the GitHub client and the rate limiter. Integration tests drive every page and API endpoint, including the progress stream, through FastAPI's <code>TestClient</code>. Dependency scanning is tested end to end with fake GitHub and OSV, and CI also runs the suite on PostgreSQL 16. <a href="https://github.com/vishnuatgit/ArchLens/actions/workflows/ci.yml" target="_blank" rel="noopener">CI runs <span aria-hidden="true">↗</span></a></p>
+        <ul class="stack reveal" aria-label="Stack"><li>Python 3.11+</li><li>FastAPI</li><li>httpx</li><li>SQLAlchemy 2</li><li>Alembic</li><li>SQLite</li><li>PostgreSQL</li><li>OSV.dev API</li><li>Jinja2</li><li>Typer + Rich</li><li>pytest</li><li>Locust</li><li>Ruff</li><li>Black</li><li>Docker</li><li>GitHub Actions</li></ul>
       </div>
     </section>
     <section class="section" id="screens">
@@ -288,7 +294,7 @@
       </div>
       <div class="case-body reveal">
         <ul class="limits">
-          <li><strong>Metadata only.</strong> It reads repository statistics and the root file listing. It does not read source files, run tests or measure coverage.</li>
+          <li><strong>Metadata only.</strong> It reads repository statistics, the root file listing and root dependency manifests. It does not read source files, run tests or measure coverage, and it checks direct, pinned dependencies only.</li>
           <li><strong>Simple rules.</strong> A file earns points just by existing, whatever its quality, and stars say little about code health. Treat a low score as a list of things to check.</li>
           <li><strong>Capped counts.</strong> Contributors and recent commits come from one page of GitHub results, so they stop at 100.</li>
           <li><strong>Single instance.</strong> The rate limiter lives in memory and resets on restart.</li>

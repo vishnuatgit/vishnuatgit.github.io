@@ -76,12 +76,12 @@
       <p class="crumbs label"><a href="../#work"><span aria-hidden="true">←</span> All work</a><span>Case study 02 / 03</span></p>
       <p class="print-only print-meta">Case study by Chandana Vishnu Jayanth · vishnuatgit.github.io · jayanthvishnu9@gmail.com<br>Live demo: deepbell.onrender.com · Code: github.com/vishnuatgit/DeepBell</p>
       <h1 class="case-title">DeepBell</h1>
-      <p class="case-summary">A mini SRE lab in FastAPI: it detects anomalies in its own CPU and memory, writes incident reports and restores from snapshots.</p>
+      <p class="case-summary">A mini SRE lab in FastAPI: it detects anomalies in its own CPU and memory, fires alert rules, traces each incident to a likely cause, writes incident reports and restores from snapshots.</p>
 
       <dl class="case-facts">
         <div><dt class="label">Year</dt><dd>2026</dd></div>
         <div><dt class="label">Built with</dt><dd>FastAPI · LangChain · Docker</dd></div>
-        <div><dt class="label">Proof</dt><dd><span class="p-proof"><a href="https://github.com/vishnuatgit/DeepBell/actions/workflows/ci.yml" target="_blank" rel="noopener">90 tests · CI passing</a></span></dd></div>
+        <div><dt class="label">Proof</dt><dd><span class="p-proof"><a href="https://github.com/vishnuatgit/DeepBell/actions/workflows/ci.yml" target="_blank" rel="noopener">141 tests · CI passing</a></span></dd></div>
         <div><dt class="label">Source</dt><dd><a href="https://github.com/vishnuatgit/DeepBell" target="_blank" rel="noopener">github.com/vishnuatgit/DeepBell</a></dd></div>
       </dl>
 
@@ -211,7 +211,9 @@
         <ol class="steps reveal">
           <li><p><strong>Sample.</strong> Every 2 s the watchdog reads the process's CPU % and resident memory with <code>psutil</code> and stores the sample.</p></li>
           <li><p><strong>Detect.</strong> The detector scores the sample. Two anomalous samples in a row open an incident; three normal ones close it. A query every 2 s catches a corrupted database.</p></li>
+          <li><p><strong>Alert.</strong> Rules in <code>alert_rules.json</code> are checked on every sample (pending, firing, resolved) and can notify a Slack or Discord webhook from a background queue, so the sampler never waits.</p></li>
           <li><p><strong>Report.</strong> Opening an incident starts a report in a background thread: Google Gemini through LangChain when a key is configured, a built-in template otherwise.</p></li>
+          <li><p><strong>Explain.</strong> Each incident gets one timeline (fault, alerts, anomaly, report, restore) and a likely cause with its evidence and a confidence level, labelled a heuristic.</p></li>
           <li><p><strong>Recover.</strong> Releasing the leaked memory lets the samples return to the baseline, which closes the incident; restoring a snapshot makes the database readable again.</p></li>
         </ol>
       </div>
@@ -219,7 +221,7 @@
     <section class="section" id="decisions">
       <div class="section-head reveal">
         <h2><span class="label">(03)</span><span class="h-mask"><span>Key decisions</span></span></h2>
-        <span class="label">5 choices</span>
+        <span class="label">6 choices</span>
       </div>
       <div class="case-body">
         <ol class="decisions">
@@ -243,6 +245,10 @@
             <h3>Safe to run as a public demo</h3>
             <p>Every fault has caps and a cooldown: a CPU spike lasts 1 to 5 s, a leak holds at most 120 MB and is freed after 5 minutes, and a request during a cooldown gets a <code>429</code> with <code>Retry-After</code>. Public demo mode turns off the crash fault and the API-key endpoint.</p>
           </li>
+          <li class="reveal">
+            <h3>Standard metrics, explainable causes</h3>
+            <p><code>/metrics</code> exposes the same signals in Prometheus format (incidents, detection and recovery times, faults, alerts), with a Docker Compose stack and a provisioned Grafana dashboard. The likely cause comes from simple rules, such as a matching fault within 10 s of the first anomalous sample, and never claims more certainty than its evidence.</p>
+          </li>
         </ol>
       </div>
     </section>
@@ -253,12 +259,12 @@
       </div>
       <div class="case-body">
         <dl class="stats reveal">
-          <div><dt>pytest tests, no network, Gemini stubbed</dt><dd data-count>90</dd></div>
+          <div><dt>pytest tests, no network, Gemini stubbed</dt><dd data-count>141</dd></div>
           <div><dt>CI on Python 3.11 and 3.12, with a Docker build</dt><dd>Passing</dd></div>
           <div><dt>between samples of its own CPU and memory</dt><dd data-count>2 s</dd></div>
         </dl>
-        <p class="proof-note reveal">The tests use temporary directories, disable the background threads or drive them with a fake clock, and replace the Gemini call with stubs. In six local runs of the guided demo, the leak was detected 2 to 4 s after it was injected and resolved 10 to 13 s after detection (demo measurements on a laptop, not production numbers). <a href="https://github.com/vishnuatgit/DeepBell/actions/workflows/ci.yml" target="_blank" rel="noopener">CI runs <span aria-hidden="true">↗</span></a></p>
-        <ul class="stack reveal" aria-label="Stack"><li>Python 3.11, 3.12</li><li>FastAPI</li><li>Uvicorn</li><li>SQLite</li><li>psutil</li><li>scikit-learn</li><li>NumPy</li><li>LangChain</li><li>Google Gemini API</li><li>Jinja2</li><li>Chart.js</li><li>pytest</li><li>Ruff</li><li>Docker</li><li>GitHub Actions</li></ul>
+        <p class="proof-note reveal">The tests use temporary directories, disable the background threads or drive them with a fake clock, and replace the Gemini call with stubs. In six local runs of the guided demo, the leak was detected 2 to 4 s after it was injected and resolved 10 to 13 s after detection (demo measurements on a laptop, not production numbers). Alert rules run on a fake clock against a fake webhook, and end-to-end tests follow a real memory leak from the fault to the alert, incident, likely cause, report and metrics. <a href="https://github.com/vishnuatgit/DeepBell/actions/workflows/ci.yml" target="_blank" rel="noopener">CI runs <span aria-hidden="true">↗</span></a></p>
+        <ul class="stack reveal" aria-label="Stack"><li>Python 3.11, 3.12</li><li>FastAPI</li><li>Uvicorn</li><li>SQLite</li><li>psutil</li><li>scikit-learn</li><li>NumPy</li><li>LangChain</li><li>Google Gemini API</li><li>Jinja2</li><li>Chart.js</li><li>Prometheus</li><li>Grafana</li><li>pytest</li><li>Ruff</li><li>Docker</li><li>GitHub Actions</li></ul>
       </div>
     </section>
     <section class="section" id="screens">
@@ -293,6 +299,7 @@
           <li><strong>Snapshots are not point-in-time recovery:</strong> you can restore one of the last 10, taken at most every 30 s, and a rollback loses whatever changed since.</li>
           <li><strong>No authentication.</strong> Public demo mode disables the dangerous endpoints and caps the rest, but any visitor can inject the capped faults.</li>
           <li><strong>Single worker.</strong> Open incidents, cooldowns and leaked memory live in one process, and the measured times say nothing about a production system.</li>
+          <li><strong>Alerts and causes are simple.</strong> Rules are read at startup and alert history lives in memory; the likely cause sees only injected faults, CPU, memory, alerts and the database check, at 2 s resolution.</li>
         </ul>
         <!-- Try it: the same Code and Live demo links as the top of the page, for readers who reached the end -->
         <div class="actions case-actions case-actions-end reveal">
