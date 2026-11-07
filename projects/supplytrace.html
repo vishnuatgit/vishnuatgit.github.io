@@ -76,12 +76,12 @@
       <p class="crumbs label"><a href="../#work"><span aria-hidden="true">←</span> All work</a><span>Case study 03 / 03</span></p>
       <p class="print-only print-meta">Case study by Chandana Vishnu Jayanth · vishnuatgit.github.io · jayanthvishnu9@gmail.com<br>Live demo: supplytrace-fkpq.onrender.com · Code: github.com/vishnuatgit/SupplyTrace</p>
       <h1 class="case-title">SupplyTrace</h1>
-      <p class="case-summary">A modular pipeline that ingests raw XML invoices, validates them with deterministic rules and compiles standardized feature matrices, with an experimental ML risk score.</p>
+      <p class="case-summary">A modular pipeline that ingests raw XML invoices, validates them with deterministic rules, flags duplicates and routes doubtful ones to a review queue, with an experimental ML risk score and a vendor directory.</p>
 
       <dl class="case-facts">
         <div><dt class="label">Year</dt><dd>2026</dd></div>
         <div><dt class="label">Built with</dt><dd>FastAPI · scikit-learn · Pandas</dd></div>
-        <div><dt class="label">Proof</dt><dd><span class="p-proof"><a href="https://github.com/vishnuatgit/SupplyTrace/actions/workflows/ci.yml" target="_blank" rel="noopener">164 tests · CI passing</a></span></dd></div>
+        <div><dt class="label">Proof</dt><dd><span class="p-proof"><a href="https://github.com/vishnuatgit/SupplyTrace/actions/workflows/ci.yml" target="_blank" rel="noopener">233 tests · CI passing</a></span></dd></div>
         <div><dt class="label">Source</dt><dd><a href="https://github.com/vishnuatgit/SupplyTrace" target="_blank" rel="noopener">github.com/vishnuatgit/SupplyTrace</a></dd></div>
       </dl>
 
@@ -212,14 +212,16 @@
           <li><p><strong>Parse safely.</strong> The upload is parsed in memory with <code>defusedxml</code> (no DTDs), files nested more than 100 levels deep are rejected, and uploads over 1 MB get a <code>413</code>. The XML is flattened into dot-notation keys, and a second <code>expat</code> pass records each element's line.</p></li>
           <li><p><strong>Validate with rules.</strong> Five deterministic rules decide the status: <code>VALID</code>, <code>INVALID</code> or <code>REQUIRES_REVIEW</code>. Every rule comes back as a checklist row with the line that shows it.</p></li>
           <li><p><strong>Score the risk (experimental).</strong> Eight validation signals go to a Random Forest trained on the synthetic batch; the score comes with the base rate plus one contribution per feature.</p></li>
+          <li><p><strong>Catch duplicates.</strong> Each invoice's SHA-256 fingerprint and key fields are stored. The same content is an exact duplicate; the same supplier and invoice ID, or the same supplier and amount within 7 days, is a likely one and goes to review.</p></li>
           <li><p><strong>Log it.</strong> One JSON line per file goes to a rotating audit log, which also feeds the dashboard.</p></li>
+          <li><p><strong>Review.</strong> <code>REQUIRES_REVIEW</code> files and likely duplicates land in a review queue: assign a reviewer, comment, and approve or reject with a required comment, with an append-only history. A vendor directory rolls the invoices up per supplier.</p></li>
         </ol>
       </div>
     </section>
     <section class="section" id="decisions">
       <div class="section-head reveal">
         <h2><span class="label">(03)</span><span class="h-mask"><span>Key decisions</span></span></h2>
-        <span class="label">5 choices</span>
+        <span class="label">6 choices</span>
       </div>
       <div class="case-body">
         <ol class="decisions">
@@ -243,6 +245,10 @@
             <h3>Compared with a rules-only baseline</h3>
             <p>The server trains a fresh model on 300 invoices and tests it on the other 100 next to a baseline that fails a file exactly when the rules do. At the 50% threshold the model makes the same call as the rules on every held-out file.</p>
           </li>
+          <li class="reveal">
+            <h3>An append-only review trail</h3>
+            <p>Reviews live in SQLite through SQLAlchemy Core, and any <code>DATABASE_URL</code> works. Every action adds a history row, a second decision gets a <code>409</code>, and “Send to review” re-analyses the file on the server, so a client cannot post a made-up result. A vendor’s trusted flag is shown but never changes a validation result, and a test checks that.</p>
+          </li>
         </ol>
       </div>
     </section>
@@ -253,12 +259,12 @@
       </div>
       <div class="case-body">
         <dl class="stats reveal">
-          <div><dt>pytest tests, no network</dt><dd data-count>164</dd></div>
+          <div><dt>pytest tests, no network</dt><dd data-count>233</dd></div>
           <div><dt>CI on Python 3.11 and 3.12, with Ruff</dt><dd>Passing</dd></div>
           <div><dt>synthetic invoices the risk model trains on</dt><dd data-count>400</dd></div>
         </dl>
-        <p class="proof-note reveal">The suite covers XML parsing and safety (DTDs, entity expansion, depth and size limits, parse-error positions), every validation rule and every example on the rules page, the risk explanation (it must add up to the score), the single, batch and streamed endpoints (including that they agree), the audit log and the model card's holdout metrics. <a href="https://github.com/vishnuatgit/SupplyTrace/actions/workflows/ci.yml" target="_blank" rel="noopener">CI runs <span aria-hidden="true">↗</span></a></p>
-        <ul class="stack reveal" aria-label="Stack"><li>Python 3.11+</li><li>FastAPI</li><li>Uvicorn</li><li>defusedxml</li><li>pandas</li><li>NumPy</li><li>scikit-learn</li><li>pytest</li><li>pytest-cov</li><li>Ruff</li><li>GitHub Actions</li></ul>
+        <p class="proof-note reveal">The suite covers XML parsing and safety (DTDs, entity expansion, depth and size limits, parse-error positions), every validation rule and every example on the rules page, the risk explanation (it must add up to the score), the single, batch and streamed endpoints (including that they agree), the audit log and the model card's holdout metrics. Review state changes, duplicate detection on crafted invoices and the vendor statistics are tested end to end through the API. <a href="https://github.com/vishnuatgit/SupplyTrace/actions/workflows/ci.yml" target="_blank" rel="noopener">CI runs <span aria-hidden="true">↗</span></a></p>
+        <ul class="stack reveal" aria-label="Stack"><li>Python 3.11+</li><li>FastAPI</li><li>Uvicorn</li><li>defusedxml</li><li>SQLAlchemy</li><li>SQLite</li><li>pandas</li><li>NumPy</li><li>scikit-learn</li><li>pytest</li><li>pytest-cov</li><li>Ruff</li><li>GitHub Actions</li></ul>
       </div>
     </section>
     <section class="section" id="screens">
@@ -289,10 +295,10 @@
       <div class="case-body reveal">
         <ul class="limits">
           <li><strong>Synthetic training data.</strong> The risk model is trained on synthetic invoices with simulated outcomes; real use would need outcome data, and the scores are not calibrated probabilities.</li>
-          <li><strong>Five rules only:</strong> no checks on line totals, tax, dates, currencies or duplicate invoices.</li>
+          <li><strong>Five rules only:</strong> no checks on line totals, tax, dates or currencies. Duplicate matching compares suppliers as written, so “Acme Corp” and “Acme Corporation” differ.</li>
           <li><strong>Flattening loses detail.</strong> Repeated elements, such as several invoice lines, collapse to the last one, and XML attributes are ignored.</li>
-          <li><strong>One shared audit log</strong>, reset on every restart on the free host.</li>
-          <li><strong>No saved model.</strong> It is retrained at every startup, and there are no accounts or authentication.</li>
+          <li><strong>One shared audit log and review database</strong>, reset on every restart on the free host unless <code>DATABASE_URL</code> points at a hosted Postgres.</li>
+          <li><strong>No saved model.</strong> It is retrained at every startup, and there are no accounts or authentication, so reviewer names are self-declared.</li>
         </ul>
         <!-- Try it: the same Code and Live demo links as the top of the page, for readers who reached the end -->
         <div class="actions case-actions case-actions-end reveal">
