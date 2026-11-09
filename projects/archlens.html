@@ -81,7 +81,7 @@
       <dl class="case-facts">
         <div><dt class="label">Year</dt><dd>2026</dd></div>
         <div><dt class="label">Built with</dt><dd>FastAPI · SQLAlchemy · Docker</dd></div>
-        <div><dt class="label">Proof</dt><dd><span class="p-proof"><a href="https://github.com/vishnuatgit/ArchLens/actions/workflows/ci.yml" target="_blank" rel="noopener">330 tests · CI passing</a></span></dd></div>
+        <div><dt class="label">Proof</dt><dd><span class="p-proof"><a href="https://github.com/vishnuatgit/ArchLens/actions/workflows/ci.yml" target="_blank" rel="noopener">332 tests · CI passing</a></span></dd></div>
         <div><dt class="label">Source</dt><dd><a href="https://github.com/vishnuatgit/ArchLens" target="_blank" rel="noopener">github.com/vishnuatgit/ArchLens</a></dd></div>
       </dl>
 
@@ -259,7 +259,7 @@
       </div>
       <div class="case-body">
         <dl class="stats reveal">
-          <div><dt>pytest tests, GitHub mocked, no network</dt><dd data-count>330</dd></div>
+          <div><dt>pytest tests, GitHub mocked, no network</dt><dd data-count>332</dd></div>
           <div><dt>CI on GitHub Actions: pytest on SQLite and PostgreSQL, Ruff, Black</dt><dd>Passing</dd></div>
           <div><dt>GitHub API calls per analysis, run concurrently</dt><dd data-count>6</dd></div>
         </dl>
@@ -277,7 +277,7 @@
           <li><p><strong>Plan.</strong> The problem, users and scope are written down in the README. Checking a repository by hand takes about ten minutes of clicking, so ArchLens runs the checklist in one request, for people judging a repository and for maintainers who want a fix list.</p></li>
           <li><p><strong>Design.</strong> Routers call one service layer that the web app, REST API, CLI and GitHub Action all reuse. Four tables, versioned with six Alembic migrations.</p></li>
           <li><p><strong>Build.</strong> Pinned dependencies, Ruff and Black, and short-lived branches merged through pull requests since October 2026.</p></li>
-          <li><p><strong>Test.</strong> 330 tests, run in CI on SQLite and PostgreSQL. Migrations are applied up, down and up again, and the Docker image is smoke-tested.</p></li>
+          <li><p><strong>Test.</strong> 332 tests, run in CI on SQLite and PostgreSQL. Migrations are applied up, down and up again, and the Docker image is smoke-tested.</p></li>
           <li><p><strong>Deploy.</strong> A multi-stage Docker image on Render. A merge to <code>main</code> deploys only after the GitHub checks pass, and Render watches <code>/health</code>.</p></li>
           <li><p><strong>Maintain.</strong> ArchLens scores itself every Monday in a scheduled workflow, and changes are recorded in a changelog.</p></li>
         </ol>
