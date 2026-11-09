@@ -243,7 +243,7 @@
           </li>
           <li class="reveal">
             <h3>Compared with a rules-only baseline</h3>
-            <p>The server trains a fresh model on 300 invoices and tests it on the other 100 next to a baseline that fails a file exactly when the rules do. At the 50% threshold the model makes the same call as the rules on every held-out file.</p>
+            <p>The server trains a fresh model on a 75/25 split of the 400 synthetic invoices (300 train, 100 test) and tests it next to a baseline that fails a file exactly when the rules do. At the 50% threshold the model makes the same call as the rules on every held-out file.</p>
           </li>
           <li class="reveal">
             <h3>An append-only review trail</h3>
