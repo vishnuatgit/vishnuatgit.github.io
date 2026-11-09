@@ -76,7 +76,7 @@
       <p class="crumbs label"><a href="../#work"><span aria-hidden="true">←</span> All work</a><span>Case study 03 / 03</span></p>
       <p class="print-only print-meta">Case study by Chandana Vishnu Jayanth · vishnuatgit.github.io · jayanthvishnu9@gmail.com<br>Live demo: supplytrace-fkpq.onrender.com · Code: github.com/vishnuatgit/SupplyTrace</p>
       <h1 class="case-title">SupplyTrace</h1>
-      <p class="case-summary">A modular pipeline that ingests raw XML invoices, validates them with deterministic rules, flags duplicates and routes doubtful ones to a review queue, with an experimental ML risk score and a vendor directory.</p>
+      <p class="case-summary"><strong>Catch invalid, duplicate and risky supplier invoices before they're paid.</strong> A modular pipeline that ingests raw XML invoices, validates them with deterministic rules, flags duplicates and routes doubtful ones to a review queue, with an experimental ML risk score and a vendor directory.</p>
 
       <dl class="case-facts">
         <div><dt class="label">Year</dt><dd>2026</dd></div>
@@ -267,9 +267,26 @@
         <ul class="stack reveal" aria-label="Stack"><li>Python 3.11+</li><li>FastAPI</li><li>Uvicorn</li><li>defusedxml</li><li>SQLAlchemy</li><li>SQLite</li><li>pandas</li><li>NumPy</li><li>scikit-learn</li><li>pytest</li><li>pytest-cov</li><li>Ruff</li><li>GitHub Actions</li></ul>
       </div>
     </section>
+    <section class="section" id="sdlc">
+      <div class="section-head reveal">
+        <h2><span class="label">(05)</span><span class="h-mask"><span>How it was built</span></span></h2>
+        <span class="label">Software development lifecycle</span>
+      </div>
+      <div class="case-body">
+        <ol class="steps reveal">
+          <li><p><strong>Plan.</strong> Bad invoice data fails far downstream, where it is hard to trace, so each file is checked on arrival. The scope is written in the README: safe parsing, five rules, a risk score, batches, an audit log, a review queue, duplicates and vendors.</p></li>
+          <li><p><strong>Design.</strong> Every file goes through one <code>analyze_document()</code> pipeline: parse, validate, features, score, audit log. Four tables on SQLite or PostgreSQL, and uploaded XML is never stored.</p></li>
+          <li><p><strong>Build.</strong> Pinned dependencies, Ruff, one package per pipeline stage, and pull requests since November 2026.</p></li>
+          <li><p><strong>Test.</strong> 233 tests in 17 files, run in CI with Ruff on every pull request.</p></li>
+          <li><p><strong>Deploy.</strong> Render generates the sample data and runs the pipeline at build time; the model is trained from those results when the app starts. A merge to <code>main</code> deploys only after the checks pass, and Render watches <code>/healthz</code>.</p></li>
+          <li><p><strong>Maintain.</strong> One audit line per check, an append-only review history, and a model card built from the trained model.</p></li>
+        </ol>
+        <p class="proof-note reveal">Not done yet: user acceptance testing, a staging environment and a smoke test of the deployed build. A five-task UAT script is ready to run. Latest change through every stage: an end-to-end review found that the risk score read like a probability and gave no next step; the result card now says what the score means and what to do. It was fixed on a branch, tested, and merged through a pull request after CI passed. <a href="https://github.com/vishnuatgit/SupplyTrace/blob/main/docs/sdlc.md" target="_blank" rel="noopener">Full SDLC write-up <span aria-hidden="true">↗</span></a> · <a href="https://github.com/vishnuatgit/SupplyTrace/blob/main/docs/uat.md" target="_blank" rel="noopener">UAT script <span aria-hidden="true">↗</span></a></p>
+      </div>
+    </section>
     <section class="section" id="screens">
       <div class="section-head reveal">
-        <h2><span class="label">(05)</span><span class="h-mask"><span>Screenshots</span></span></h2>
+        <h2><span class="label">(06)</span><span class="h-mask"><span>Screenshots</span></span></h2>
         <span class="label">From the repository</span>
       </div>
       <div class="case-body shots">
@@ -301,7 +318,7 @@
     </section>
     <section class="section" id="limits">
       <div class="section-head reveal">
-        <h2><span class="label">(06)</span><span class="h-mask"><span>Limitations</span></span></h2>
+        <h2><span class="label">(07)</span><span class="h-mask"><span>Limitations</span></span></h2>
         <span class="label">Honestly</span>
       </div>
       <div class="case-body reveal">

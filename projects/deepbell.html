@@ -76,12 +76,12 @@
       <p class="crumbs label"><a href="../#work"><span aria-hidden="true">←</span> All work</a><span>Case study 02 / 03</span></p>
       <p class="print-only print-meta">Case study by Chandana Vishnu Jayanth · vishnuatgit.github.io · jayanthvishnu9@gmail.com<br>Live demo: deepbell.onrender.com · Code: github.com/vishnuatgit/DeepBell</p>
       <h1 class="case-title">DeepBell</h1>
-      <p class="case-summary">A mini SRE lab in FastAPI: it detects anomalies in its own CPU and memory, fires alert rules, traces each incident to a likely cause, writes incident reports and restores from snapshots.</p>
+      <p class="case-summary"><strong>Catches what breaks in a running app, finds the likely cause and writes the incident report.</strong> A mini SRE lab in FastAPI: it detects anomalies in its own CPU and memory, fires alert rules, traces each incident to a likely cause, writes incident reports and restores from snapshots.</p>
 
       <dl class="case-facts">
         <div><dt class="label">Year</dt><dd>2026</dd></div>
         <div><dt class="label">Built with</dt><dd>FastAPI · LangChain · Docker</dd></div>
-        <div><dt class="label">Proof</dt><dd><span class="p-proof"><a href="https://github.com/vishnuatgit/DeepBell/actions/workflows/ci.yml" target="_blank" rel="noopener">142 tests · CI passing</a></span></dd></div>
+        <div><dt class="label">Proof</dt><dd><span class="p-proof"><a href="https://github.com/vishnuatgit/DeepBell/actions/workflows/ci.yml" target="_blank" rel="noopener">143 tests · CI passing</a></span></dd></div>
         <div><dt class="label">Source</dt><dd><a href="https://github.com/vishnuatgit/DeepBell" target="_blank" rel="noopener">github.com/vishnuatgit/DeepBell</a></dd></div>
       </dl>
 
@@ -259,7 +259,7 @@
       </div>
       <div class="case-body">
         <dl class="stats reveal">
-          <div><dt>pytest tests, no network, Gemini stubbed</dt><dd data-count>142</dd></div>
+          <div><dt>pytest tests, no network, Gemini stubbed</dt><dd data-count>143</dd></div>
           <div><dt>CI on Python 3.11 and 3.12, with a Docker build</dt><dd>Passing</dd></div>
           <div><dt>between samples of its own CPU and memory</dt><dd data-count>2 s</dd></div>
         </dl>
@@ -267,9 +267,26 @@
         <ul class="stack reveal" aria-label="Stack"><li>Python 3.11, 3.12</li><li>FastAPI</li><li>Uvicorn</li><li>SQLite</li><li>psutil</li><li>scikit-learn</li><li>NumPy</li><li>LangChain</li><li>Google Gemini API</li><li>Jinja2</li><li>Chart.js</li><li>Prometheus</li><li>Grafana</li><li>pytest</li><li>Ruff</li><li>Docker</li><li>GitHub Actions</li></ul>
       </div>
     </section>
+    <section class="section" id="sdlc">
+      <div class="section-head reveal">
+        <h2><span class="label">(05)</span><span class="h-mask"><span>How it was built</span></span></h2>
+        <span class="label">Software development lifecycle</span>
+      </div>
+      <div class="case-body">
+        <ol class="steps reveal">
+          <li><p><strong>Plan.</strong> Requirements come from the major-project proposal. Static-threshold monitoring only alerts, so recovery is slow and root causes need manual log reading.</p></li>
+          <li><p><strong>Design.</strong> One FastAPI process with a module per job: detection, incidents, snapshots, alert rules and correlation. Incident history has its own SQLite file, so a rollback never rewrites it.</p></li>
+          <li><p><strong>Build.</strong> Pinned dependencies, Ruff lint and format checks, and pull requests since October 2026.</p></li>
+          <li><p><strong>Test.</strong> 143 tests with a fake clock and a stubbed Gemini. End-to-end runs inject real faults, and CI smoke-tests the Docker image in public demo mode.</p></li>
+          <li><p><strong>Deploy.</strong> Docker on Render in public demo mode. A merge to <code>main</code> deploys only after the checks pass, and Render watches <code>/healthz</code>.</p></li>
+          <li><p><strong>Maintain.</strong> Prometheus metrics, a Grafana dashboard for local runs, and in-app alert rules that move through pending, firing and resolved.</p></li>
+        </ol>
+        <p class="proof-note reveal">Not done yet: user acceptance testing and a staging environment. A five-task UAT script is ready to run. Latest change through every stage: an end-to-end review found that the Gemini report was not given the incident timeline or likely cause; it now is, and each AI report is labelled and ends with that evidence. It was fixed on a branch, tested, and merged through a pull request after CI passed. <a href="https://github.com/vishnuatgit/DeepBell/blob/main/docs/sdlc.md" target="_blank" rel="noopener">Full SDLC write-up <span aria-hidden="true">↗</span></a> · <a href="https://github.com/vishnuatgit/DeepBell/blob/main/docs/uat.md" target="_blank" rel="noopener">UAT script <span aria-hidden="true">↗</span></a></p>
+      </div>
+    </section>
     <section class="section" id="screens">
       <div class="section-head reveal">
-        <h2><span class="label">(05)</span><span class="h-mask"><span>Screenshots</span></span></h2>
+        <h2><span class="label">(06)</span><span class="h-mask"><span>Screenshots</span></span></h2>
         <span class="label">From the repository</span>
       </div>
       <div class="case-body shots">
@@ -301,7 +318,7 @@
     </section>
     <section class="section" id="limits">
       <div class="section-head reveal">
-        <h2><span class="label">(06)</span><span class="h-mask"><span>Limitations</span></span></h2>
+        <h2><span class="label">(07)</span><span class="h-mask"><span>Limitations</span></span></h2>
         <span class="label">Honestly</span>
       </div>
       <div class="case-body reveal">

@@ -76,7 +76,7 @@
       <p class="crumbs label"><a href="../#work"><span aria-hidden="true">←</span> All work</a><span>Case study 01 / 03</span></p>
       <p class="print-only print-meta">Case study by Chandana Vishnu Jayanth · vishnuatgit.github.io · jayanthvishnu9@gmail.com<br>Live demo: archlens-xhxr.onrender.com · Code: github.com/vishnuatgit/ArchLens</p>
       <h1 class="case-title">ArchLens</h1>
-      <p class="case-summary">Scores any public GitHub repository from 0 to 100 across seven engineering dimensions and checks its dependencies for known vulnerabilities, as a web app, a REST API, a CLI and a GitHub Action.</p>
+      <p class="case-summary"><strong>Know how healthy any GitHub repo is, and what to fix first.</strong> Scores any public GitHub repository from 0 to 100 across seven engineering dimensions and checks its dependencies for known vulnerabilities, as a web app, a REST API, a CLI and a GitHub Action.</p>
 
       <dl class="case-facts">
         <div><dt class="label">Year</dt><dd>2026</dd></div>
@@ -267,9 +267,26 @@
         <ul class="stack reveal" aria-label="Stack"><li>Python 3.11+</li><li>FastAPI</li><li>httpx</li><li>SQLAlchemy 2</li><li>Alembic</li><li>SQLite</li><li>PostgreSQL</li><li>OSV.dev API</li><li>Jinja2</li><li>Typer + Rich</li><li>pytest</li><li>Locust</li><li>Ruff</li><li>Black</li><li>Docker</li><li>GitHub Actions</li></ul>
       </div>
     </section>
+    <section class="section" id="sdlc">
+      <div class="section-head reveal">
+        <h2><span class="label">(05)</span><span class="h-mask"><span>How it was built</span></span></h2>
+        <span class="label">Software development lifecycle</span>
+      </div>
+      <div class="case-body">
+        <ol class="steps reveal">
+          <li><p><strong>Plan.</strong> The problem and scope were written down first. Checking a repository by hand takes about ten minutes of clicking, so ArchLens runs the checklist in one request, for people judging a repository and for maintainers who want a fix list.</p></li>
+          <li><p><strong>Design.</strong> Routers call one service layer that the web app, REST API, CLI and GitHub Action all reuse. Four tables, versioned with six Alembic migrations.</p></li>
+          <li><p><strong>Build.</strong> Pinned dependencies, Ruff and Black, and short-lived branches merged through pull requests since October 2026.</p></li>
+          <li><p><strong>Test.</strong> 330 tests, run in CI on SQLite and PostgreSQL. Migrations are applied up, down and up again, and the Docker image is smoke-tested.</p></li>
+          <li><p><strong>Deploy.</strong> A multi-stage Docker image on Render. A merge to <code>main</code> deploys only after the GitHub checks pass, and Render watches <code>/health</code>.</p></li>
+          <li><p><strong>Maintain.</strong> ArchLens scores itself every Monday in a scheduled workflow, and changes are recorded in a changelog.</p></li>
+        </ol>
+        <p class="proof-note reveal">Not done yet: user acceptance testing and a staging environment. A five-task UAT script is ready to run. Latest change through every stage: an end-to-end review found that the timeout message blamed the visitor's connection when the free server was only waking up. It was fixed on a branch, tested, and merged through a pull request after CI passed. <a href="https://github.com/vishnuatgit/ArchLens/blob/main/docs/sdlc.md" target="_blank" rel="noopener">Full SDLC write-up <span aria-hidden="true">↗</span></a> · <a href="https://github.com/vishnuatgit/ArchLens/blob/main/docs/uat.md" target="_blank" rel="noopener">UAT script <span aria-hidden="true">↗</span></a></p>
+      </div>
+    </section>
     <section class="section" id="screens">
       <div class="section-head reveal">
-        <h2><span class="label">(05)</span><span class="h-mask"><span>Screenshots</span></span></h2>
+        <h2><span class="label">(06)</span><span class="h-mask"><span>Screenshots</span></span></h2>
         <span class="label">From the repository</span>
       </div>
       <div class="case-body shots">
@@ -301,7 +318,7 @@
     </section>
     <section class="section" id="limits">
       <div class="section-head reveal">
-        <h2><span class="label">(06)</span><span class="h-mask"><span>Limitations</span></span></h2>
+        <h2><span class="label">(07)</span><span class="h-mask"><span>Limitations</span></span></h2>
         <span class="label">Honestly</span>
       </div>
       <div class="case-body reveal">
