@@ -1215,6 +1215,8 @@ html:has(.lightbox[open]) { overflow: hidden; scrollbar-gutter: stable; }
   .p-ext::after { inset: -10px -6px; }
   .p-proof a { position: relative; }
   .p-proof a::after { content: ""; position: absolute; inset: -13px -4px; }
+  .contact-foot a[href="#top"] { position: relative; }
+  .contact-foot a[href="#top"]::after { content: ""; position: absolute; inset: -10px -6px; }
 
   .socials { row-gap: 26px; }   /* the tap areas below reach 13 px each way, so rows of them don't overlap */
   .contact-foot a::after { inset: -13px -6px; }
