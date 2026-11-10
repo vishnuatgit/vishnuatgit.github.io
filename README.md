@@ -46,7 +46,7 @@ Every place you might change is marked with an `EDIT` comment. Search for `EDIT`
 | Projects on the home page | `.projects`, one `<li>` per project |
 | Proof line above the buttons ("3 live demos · 710 tests · CI passing") | `.hero-proof`; 710 is the three projects' tests added up, the same number as in `#about` |
 | Test counts ("332 tests · CI passing") | `.p-proof` on the home page and the Proof section of each case study; keep them equal |
-| One measured number per project ("Load test: p95 510 ms at 50 users") | `.p-stat` on the home page; it links to the case-study section that explains it, so keep the two equal |
+| One measured number per project ("Load test: 30 s stalls fixed, p95 510 ms") | `.p-stat` on the home page; it links to the case-study section that explains it, so keep the two equal |
 | Jump links under each case study's cover | `.case-toc` in `projects/<name>.html`; one link per section `id` (left out of the PDFs) |
 | **Live-demo URLs** | `LIVE_DEMOS` at the top of `script.js`, the only place they are set (see below) |
 | Case studies | `projects/<name>.html` |
