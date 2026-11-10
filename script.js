@@ -177,6 +177,37 @@ navLinks.forEach(a => {
   const section = samePage(a) && document.getElementById(a.hash.slice(1));
   if (section) sectionObserver.observe(section);
 });
+// Case studies: the "On this page" links stay under the header on a computer (projects.css) and
+// the link of the section being read is marked.
+const toc = document.querySelector('.case-toc');
+if (toc) {
+  const tocLinks = [...toc.querySelectorAll('a')];
+  const setNavHeight = () => root.style.setProperty('--nav-h', `${nav.offsetHeight}px`);
+  setNavHeight();
+  addEventListener('resize', setNavHeight);
+  const markCurrent = id => {
+    let any = false;
+    tocLinks.forEach(a => {
+      const on = a.hash === '#' + id;
+      if (on) { a.setAttribute('aria-current', 'true'); any = true; } else a.removeAttribute('aria-current');
+    });
+    toc.classList.toggle('spy', any);
+  };
+  const tocObserver = new IntersectionObserver(entries => {
+    entries.forEach(entry => { if (entry.isIntersecting) markCurrent(entry.target.id); });
+  }, { rootMargin: '-45% 0px -50% 0px' });
+  tocLinks.forEach(a => {
+    const section = document.getElementById(a.hash.slice(1));
+    if (section) tocObserver.observe(section);
+  });
+  const caseHero = document.querySelector('.case-hero');
+  if (caseHero) tocObserver.observe(caseHero);   // it has no id, so nothing is marked while the cover is on screen
+  // "stuck" = the bar has reached the header, so its background shows
+  new IntersectionObserver(([entry]) => {
+    toc.classList.toggle('stuck', entry.intersectionRatio < 1 && entry.boundingClientRect.top <= nav.offsetHeight + 2);
+  }, { rootMargin: `-${nav.offsetHeight + 1}px 0px 0px 0px`, threshold: [0, 1] }).observe(toc);
+}
+
 // The Résumé section has no link of its own; watching it lets the glider fade out there
 // instead of leaving "Experience" lit.
 const resumeSection = document.querySelector('#resume');
