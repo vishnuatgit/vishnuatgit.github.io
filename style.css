@@ -763,6 +763,10 @@ html:not(.js) .nav-pill a:hover { background: var(--fg); color: var(--bg); }
   background: #22c55e;
 }
 .p-stat { color: var(--muted); }   /* one measured number, linked to the case study */
+/* The test count and the number each take a line, so Code and Live demo always start a line of
+   their own (wide desktop rows put all of it on one line, below) */
+.p-proof, .p-stat { flex-basis: 100%; }
+.case-facts .p-proof { flex-basis: auto; }
 .p-ext {
   display: inline-block;
   padding-block: 4px;   /* at least a 24 px tap target */
@@ -828,6 +832,7 @@ html:not(.js) .nav-pill a:hover { background: var(--fg); color: var(--bg); }
   }
   .p-body { gap: 0; }
   .p-more { padding: 14px 0 40px calc(4.5rem + 24px); }
+  .p-proof, .p-stat { flex-basis: auto; }
   .p-desc, .p-tags, .p-year { margin-top: 0; }
   .p-arrow { justify-self: end; }
   .p-link:hover .p-title,
@@ -899,6 +904,7 @@ html:not(.js) .nav-pill a:hover { background: var(--fg); color: var(--bg); }
   .p-desc { max-width: 38ch; }
   .p-year { justify-self: start; }
   .p-more { max-width: calc(4.5rem + 24px + 400px); }
+  .p-proof, .p-stat { flex-basis: 100%; }
   .preview { width: clamp(260px, calc(100vw - 620px), 420px); }
 }
 

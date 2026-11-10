@@ -353,6 +353,7 @@
   align-items: baseline;
   gap: 10px 22px;
   margin-top: clamp(24px, 3vw, 36px);
+  padding-inline: var(--pad);
 }
 .case-toc a {
   position: relative;
@@ -360,9 +361,37 @@
   padding-block: 4px;
   color: var(--fg);
   border-bottom: 1px solid var(--line);
-  transition: border-color .3s;
+  transition: border-color .3s, color .3s;
 }
-.case-toc a:hover { border-color: currentColor; }
+.case-toc a:hover,
+.case-toc a[aria-current] { border-color: currentColor; }
+/* While a section is marked (script.js), the other links step back */
+.case-toc.spy a:not([aria-current]):not(:hover) { color: var(--muted); }
+/* Computers: the links stay under the header for the whole page. --nav-h is the header's height
+   (script.js); the bar's background fades in once it is stuck, like the header's. */
+@media (min-width: 1024px) {
+  .case-toc {
+    position: sticky;
+    top: var(--nav-h, 76px);
+    z-index: 30;
+    margin-top: clamp(14px, 2vw, 26px);
+    padding-block: 10px;
+  }
+  .case-toc::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: color-mix(in srgb, var(--bg) 78%, transparent);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--line);
+    opacity: 0;
+    transition: opacity .3s;
+  }
+  .case-toc.stuck::before { opacity: 1; }
+  .section { scroll-margin-top: 44px; }   /* a jump lands the heading below the header and this bar */
+}
 @media (pointer: coarse) {
   .case-toc { row-gap: 24px; }
   .case-toc a::after { content: ""; position: absolute; inset: -10px -6px; }   /* a taller tap area, same look */
