@@ -293,7 +293,7 @@
           <li><p><strong>Deploy.</strong> Docker on Render in public demo mode. A merge to <code>main</code> deploys only after the checks pass, and Render watches <code>/healthz</code>.</p></li>
           <li><p><strong>Maintain.</strong> Prometheus metrics, a Grafana dashboard for local runs, and in-app alert rules that move through pending, firing and resolved.</p></li>
         </ol>
-        <p class="proof-note reveal">Done: an automated acceptance check ran the main user tasks on the live demo at phone and desktop sizes, and every issue an accessibility scan (axe-core) found was fixed, both on 2026-11-09. Not done yet: testing with real users and a staging environment. Latest change, taken through every stage: a dependency scan found 48 known advisories in the runtime pins. They were upgraded (FastAPI, LangChain, scikit-learn, Jinja2 and others) with all 143 tests passing, and OSV.dev now reports none. The fix was made on a branch, tested, merged through a pull request after CI passed, and deployed. <a href="https://github.com/vishnuatgit/DeepBell/blob/main/docs/sdlc.md" target="_blank" rel="noopener">Full SDLC write-up <span aria-hidden="true">↗</span></a></p>
+        <p class="proof-note reveal">Done: an automated acceptance check ran the main user tasks on the live demo at phone and desktop sizes, and every issue an accessibility scan (axe-core) found was fixed, both on 2026-11-09. Not done yet: testing with real users and a staging environment. Latest change, taken through every stage: a dependency scan found 48 known advisories in the runtime pins. They were upgraded (FastAPI, LangChain, scikit-learn, Jinja2 and others) with the whole test suite passing, and OSV.dev now reports none. The fix was made on a branch, tested, merged through a pull request after CI passed, and deployed. <a href="https://github.com/vishnuatgit/DeepBell/blob/main/docs/sdlc.md" target="_blank" rel="noopener">Full SDLC write-up <span aria-hidden="true">↗</span></a></p>
       </div>
     </section>
     <section class="section" id="screens">
@@ -361,7 +361,7 @@
 
   <!-- ===================== CONTACT ===================== -->
   <footer class="contact" id="contact">
-    <span class="label" role="heading" aria-level="2">(07) Contact</span>
+    <span class="label" role="heading" aria-level="2">(08) Contact</span>
     <p class="contact-kicker reveal">Have an internship, project or idea in mind?</p>
     <a class="contact-mail reveal" href="mailto:jayanthvishnu9@gmail.com" data-copy-email><span class="cm-mask"><span>Let's ship something.</span></span><span class="cm-arrow" aria-hidden="true">↗</span></a>
     <!-- "Email" and the headline open Gmail on a computer and the mail app on a phone, and copy the address with a toast; "Share" shows only where there is a share sheet (phones and tablets). See js/contact.js -->
