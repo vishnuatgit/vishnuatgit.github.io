@@ -346,6 +346,28 @@
 .case-facts a { border-bottom: 1px solid var(--line); transition: border-color .3s; }
 .case-facts a:hover { border-color: currentColor; }
 
+/* Jump links to the sections, under the cover */
+.case-toc {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 10px 22px;
+  margin-top: clamp(24px, 3vw, 36px);
+}
+.case-toc a {
+  position: relative;
+  display: inline-block;
+  padding-block: 4px;
+  color: var(--fg);
+  border-bottom: 1px solid var(--line);
+  transition: border-color .3s;
+}
+.case-toc a:hover { border-color: currentColor; }
+@media (pointer: coarse) {
+  .case-toc { row-gap: 24px; }
+  .case-toc a::after { content: ""; position: absolute; inset: -10px -6px; }   /* a taller tap area, same look */
+}
+
 /* ===== Print and PDF ==========================================
    Used when someone prints a case study, and by tools/make_case_study_pdfs.mjs for the
    Download PDF files: light theme on white, no navigation, buttons, footer or motion, every
@@ -364,7 +386,7 @@
     color-scheme: light;
   }
   html, body { background: #fff !important; }
-  .nav, .skip, .crumbs, .case-actions, .contact, .cm-toast, .lightbox { display: none !important; }
+  .nav, .skip, .crumbs, .case-actions, .case-toc, .contact, .cm-toast, .lightbox { display: none !important; }
   .print-only { display: block; }
   .print-meta { margin: 0 0 18px; font-size: 12px; line-height: 1.6; color: var(--muted); }
   html.js .reveal { opacity: 1 !important; transform: none !important; }

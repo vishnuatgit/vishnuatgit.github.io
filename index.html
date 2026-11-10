@@ -106,11 +106,15 @@
 
       <div class="hero-foot">
         <p class="hero-intro">Hi, I'm Vishnu Jayanth. I build backend services and ML tools in Python, and three of them are live for you to try.</p>
-        <div class="actions">
-          <a class="btn btn-solid" href="#work" data-magnetic>See my work <span class="arr arr-se" aria-hidden="true">↘</span></a>
-          <a class="btn btn-ghost" href="resume.pdf" target="_blank" rel="noopener">Résumé <span class="arr arr-ne" aria-hidden="true">↗</span></a>
-          <a class="btn btn-ghost" href="https://github.com/vishnuatgit" target="_blank" rel="noopener">GitHub <span class="arr arr-ne" aria-hidden="true">↗</span></a>
-          <a class="btn btn-ghost" href="https://www.linkedin.com/in/vishnujayanth/" target="_blank" rel="noopener">LinkedIn <span class="arr arr-ne" aria-hidden="true">↗</span></a>
+        <div class="hero-cta">
+          <!-- EDIT: the small proof line: keep 710 equal to the number in the About section (the three projects' tests added up) -->
+          <p class="hero-proof">3 live demos · 710 tests · CI passing</p>
+          <div class="actions">
+            <a class="btn btn-solid" href="#work" data-magnetic>See my work <span class="arr arr-se" aria-hidden="true">↘</span></a>
+            <a class="btn btn-ghost" href="resume.pdf" target="_blank" rel="noopener">Résumé <span class="arr arr-ne" aria-hidden="true">↗</span></a>
+            <a class="btn btn-ghost" href="https://github.com/vishnuatgit" target="_blank" rel="noopener">GitHub <span class="arr arr-ne" aria-hidden="true">↗</span></a>
+            <a class="btn btn-ghost" href="https://www.linkedin.com/in/vishnujayanth/" target="_blank" rel="noopener">LinkedIn <span class="arr arr-ne" aria-hidden="true">↗</span></a>
+          </div>
         </div>
       </div>
     </section>
@@ -137,6 +141,7 @@
            It shows on the card on phones and tablets, in the tap-to-enlarge view, and in the floating preview on desktop.
            The accent variable on each row is the project's colour. The row links to projects/<name>.html (the case study).
            .p-proof = the test count; keep it equal to the number on the case study.
+           .p-stat = one measured number from the case study; it links to the section that explains how it was measured.
            Live-demo URLs are NOT set here: put them in LIVE_DEMOS at the top of script.js. -->
       <ul class="projects">
         <li class="project reveal" style="--accent:#ff5a1f">
@@ -157,6 +162,7 @@
             </a>
             <p class="p-more">
               <span class="p-proof"><a href="https://github.com/vishnuatgit/ArchLens/actions/workflows/ci.yml" target="_blank" rel="noopener">332 tests · CI passing</a></span>
+              <span class="p-stat"><a href="projects/archlens.html#decisions">Load test: p95 510 ms at 50 users</a></span>
               <a class="p-ext" href="https://github.com/vishnuatgit/ArchLens" target="_blank" rel="noopener">Code <span aria-hidden="true">↗</span><span class="sr-only">: ArchLens on GitHub</span></a>
               <a class="p-ext" data-demo="archlens" hidden>Live demo <span aria-hidden="true">↗</span><span class="sr-only">: ArchLens</span></a>
               <span class="p-wake" data-demo-note="archlens" hidden>may take a minute to wake (free hosting)</span>
@@ -181,6 +187,7 @@
             </a>
             <p class="p-more">
               <span class="p-proof"><a href="https://github.com/vishnuatgit/DeepBell/actions/workflows/ci.yml" target="_blank" rel="noopener">144 tests · CI passing</a></span>
+              <span class="p-stat"><a href="projects/deepbell.html#proof">Benchmark: 4 s detection, 0 false incidents</a></span>
               <a class="p-ext" href="https://github.com/vishnuatgit/DeepBell" target="_blank" rel="noopener">Code <span aria-hidden="true">↗</span><span class="sr-only">: DeepBell on GitHub</span></a>
               <a class="p-ext" data-demo="deepbell" hidden>Live demo <span aria-hidden="true">↗</span><span class="sr-only">: DeepBell</span></a>
               <span class="p-wake" data-demo-note="deepbell" hidden>may take a minute to wake (free hosting)</span>
@@ -205,6 +212,7 @@
             </a>
             <p class="p-more">
               <span class="p-proof"><a href="https://github.com/vishnuatgit/SupplyTrace/actions/workflows/ci.yml" target="_blank" rel="noopener">234 tests · CI passing</a></span>
+              <span class="p-stat"><a href="projects/supplytrace.html#proof">Benchmark: 28.9 invoices a second</a></span>
               <a class="p-ext" href="https://github.com/vishnuatgit/SupplyTrace" target="_blank" rel="noopener">Code <span aria-hidden="true">↗</span><span class="sr-only">: SupplyTrace on GitHub</span></a>
               <a class="p-ext" data-demo="supplytrace" hidden>Live demo <span aria-hidden="true">↗</span><span class="sr-only">: SupplyTrace</span></a>
               <span class="p-wake" data-demo-note="supplytrace" hidden>may take a minute to wake (free hosting)</span>
@@ -275,7 +283,7 @@
       <dl class="stats reveal">
         <div><dt>Customers in the data I modelled as an AI &amp; ML intern</dt><dd data-count>36,893</dd></div>
         <div><dt>Automated tests across 3 projects</dt><dd data-count>710</dd></div>
-        <div><dt>Graduating</dt><dd>2028</dd></div>
+        <div><dt>Live demos you can open and try</dt><dd>3</dd></div>
       </dl>
 
       <!-- EDIT: skills -->
