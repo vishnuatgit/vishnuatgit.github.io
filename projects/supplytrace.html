@@ -81,7 +81,7 @@
       <dl class="case-facts">
         <div><dt class="label">Year</dt><dd>2026</dd></div>
         <div><dt class="label">Built with</dt><dd>FastAPI · scikit-learn · Pandas</dd></div>
-        <div><dt class="label">Proof</dt><dd><span class="p-proof"><a href="https://github.com/vishnuatgit/SupplyTrace/actions/workflows/ci.yml" target="_blank" rel="noopener">233 tests · CI passing</a></span></dd></div>
+        <div><dt class="label">Proof</dt><dd><span class="p-proof"><a href="https://github.com/vishnuatgit/SupplyTrace/actions/workflows/ci.yml" target="_blank" rel="noopener">234 tests · CI passing</a></span></dd></div>
         <div><dt class="label">Source</dt><dd><a href="https://github.com/vishnuatgit/SupplyTrace" target="_blank" rel="noopener">github.com/vishnuatgit/SupplyTrace</a></dd></div>
       </dl>
 
@@ -259,7 +259,7 @@
       </div>
       <div class="case-body">
         <dl class="stats reveal">
-          <div><dt>pytest tests, no network</dt><dd data-count>233</dd></div>
+          <div><dt>pytest tests, no network</dt><dd data-count>234</dd></div>
           <div><dt>CI on Python 3.11 and 3.12, with Ruff</dt><dd>Passing</dd></div>
           <div><dt>synthetic invoices the risk model trains on</dt><dd data-count>400</dd></div>
         </dl>
@@ -277,7 +277,7 @@
           <li><p><strong>Plan.</strong> Bad invoice data fails far downstream, where it is hard to trace, so each file is checked on arrival. The scope is written in the README: safe parsing, five rules, a risk score, batches, an audit log, a review queue, duplicates and vendors.</p></li>
           <li><p><strong>Design.</strong> Every file goes through one <code>analyze_document()</code> pipeline: parse, validate, features, score, audit log. Four tables on SQLite or PostgreSQL, and uploaded XML is never stored.</p></li>
           <li><p><strong>Build.</strong> Pinned dependencies, Ruff, one package per pipeline stage, and pull requests since November 2026.</p></li>
-          <li><p><strong>Test.</strong> 233 tests in 17 files, run in CI with Ruff on every pull request.</p></li>
+          <li><p><strong>Test.</strong> 234 tests in 18 files, run in CI with Ruff on every pull request.</p></li>
           <li><p><strong>Deploy.</strong> Render generates the sample data and runs the pipeline at build time; the model is trained from those results when the app starts. A merge to <code>main</code> deploys only after the checks pass, and Render watches <code>/healthz</code>.</p></li>
           <li><p><strong>Maintain.</strong> One audit line per check, an append-only review history, and a model card built from the trained model.</p></li>
         </ol>
