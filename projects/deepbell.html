@@ -81,7 +81,7 @@
       <dl class="case-facts">
         <div><dt class="label">Year</dt><dd>2026</dd></div>
         <div><dt class="label">Built with</dt><dd>FastAPI · LangChain · Docker</dd></div>
-        <div><dt class="label">Proof</dt><dd><span class="p-proof"><a href="https://github.com/vishnuatgit/DeepBell/actions/workflows/ci.yml" target="_blank" rel="noopener">143 tests · CI passing</a></span></dd></div>
+        <div><dt class="label">Proof</dt><dd><span class="p-proof"><a href="https://github.com/vishnuatgit/DeepBell/actions/workflows/ci.yml" target="_blank" rel="noopener">144 tests · CI passing</a></span></dd></div>
         <div><dt class="label">Source</dt><dd><a href="https://github.com/vishnuatgit/DeepBell" target="_blank" rel="noopener">github.com/vishnuatgit/DeepBell</a></dd></div>
       </dl>
 
@@ -259,7 +259,7 @@
       </div>
       <div class="case-body">
         <dl class="stats reveal">
-          <div><dt>pytest tests, no network, Gemini stubbed</dt><dd data-count>143</dd></div>
+          <div><dt>pytest tests, no network, Gemini stubbed</dt><dd data-count>144</dd></div>
           <div><dt>CI on Python 3.11 and 3.12, with a Docker build</dt><dd>Passing</dd></div>
           <div><dt>between samples of its own CPU and memory</dt><dd data-count>2 s</dd></div>
         </dl>
@@ -277,7 +277,7 @@
           <li><p><strong>Plan.</strong> Requirements come from the major-project proposal. Static-threshold monitoring only alerts, so recovery is slow and root causes need manual log reading.</p></li>
           <li><p><strong>Design.</strong> One FastAPI process with a module per job: detection, incidents, snapshots, alert rules and correlation. Incident history has its own SQLite file, so a rollback never rewrites it.</p></li>
           <li><p><strong>Build.</strong> Pinned dependencies, Ruff lint and format checks, and pull requests since October 2026.</p></li>
-          <li><p><strong>Test.</strong> 143 tests with a fake clock and a stubbed Gemini. End-to-end runs inject real faults, and CI smoke-tests the Docker image in public demo mode.</p></li>
+          <li><p><strong>Test.</strong> 144 tests with a fake clock and a stubbed Gemini. End-to-end runs inject real faults, and CI smoke-tests the Docker image in public demo mode.</p></li>
           <li><p><strong>Deploy.</strong> Docker on Render in public demo mode. A merge to <code>main</code> deploys only after the checks pass, and Render watches <code>/healthz</code>.</p></li>
           <li><p><strong>Maintain.</strong> Prometheus metrics, a Grafana dashboard for local runs, and in-app alert rules that move through pending, firing and resolved.</p></li>
         </ol>
